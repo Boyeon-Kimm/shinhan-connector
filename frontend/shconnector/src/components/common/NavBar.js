@@ -61,7 +61,7 @@ export default function NavBar() {
               />
             );
         },
-        tabBarLabel: '',
+        tabBarShowLabel: false,
         tabBarActiveTintColor: '#0D4DA3',
         tabBarInactiveTintColor: 'gray',
         headerShown: false,
