@@ -1,6 +1,7 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Image  } from "react-native";
-import { Provider } from "react-redux";
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View, Image } from 'react-native';
+import { Provider } from 'react-redux';
+import { NavigationContainer } from '@react-navigation/native';
 import { Fontisto } from '@expo/vector-icons';
 import MyButton from './src/components/common/Button';
 import char1 from './assets/character1.png';
@@ -9,12 +10,17 @@ import char3 from './assets/character3.png';
 import char7 from './assets/character7.png';
 import char8 from './assets/character8.png';
 
-import store from "./store";
+import MyNavBar from './src/components/common/NavBar';
+
+import store from './store';
 
 export default function App() {
   return (
     <Provider store={store}>
-      <View style={styles.container}>
+      <NavigationContainer>
+        <MyNavBar />
+      </NavigationContainer>
+      {/* <View style={styles.container}>
         <StatusBar style="auto" />
         <View style={styles.titleCon}>
           <Text style={styles.title}>홈</Text>
@@ -65,7 +71,7 @@ export default function App() {
           </View>
         </View>
         <View style={styles.nav}></View>
-      </View>
+      </View> */}
     </Provider>
   );
 }
@@ -73,18 +79,18 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F1F6FD",
-    justifyContent: "center",
+    backgroundColor: '#F1F6FD',
+    justifyContent: 'center',
   },
   titleCon: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginTop: 45,
     marginHorizontal: 35,
   },
   title: {
     fontSize: 24,
-    fontWeight: "600",
+    fontWeight: '600',
   },
   loginCon: {
     flex: 1.3,
@@ -92,36 +98,36 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     paddingHorizontal: 20,
     borderRadius: 15,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
   loginUpper: {
     flex: 2,
-    flexDirection: "row",
+    flexDirection: 'row',
     paddingLeft: 12,
   },
   loginImg: {
-    width:"80%",
-    height:"80%",
+    width: '80%',
+    height: '80%',
   },
   loginLeft: {
     flex: 1.5,
-    justifyContent: "center"
+    justifyContent: 'center',
   },
   loginRight: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   bottom: {
     flex: 2.5,
   },
   grayText: {
     fontSize: 16,
-    color: "gray",
+    color: 'gray',
   },
   boldText: {
     fontSize: 18,
-    fontWeight: "700",
+    fontWeight: '700',
     letterSpacing: 0.2,
   },
   sub: {
@@ -134,32 +140,32 @@ const styles = StyleSheet.create({
   },
   serviceEach: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderRadius: 15,
-    justifyContent: "center",
+    justifyContent: 'center',
     marginHorizontal: 10,
     marginBottom: 23,
     paddingHorizontal: 15,
   },
   serviceTitle: {
     fontSize: 18,
-    fontWeight: "600",
+    fontWeight: '600',
   },
   serviceImg: {
-    width: "60%",
-    height: "60%",
+    width: '60%',
+    height: '60%',
     marginLeft: 50,
   },
   serviceLine: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   nav: {
     flex: 0.3,
-    backgroundColor: "white"
+    backgroundColor: 'white',
   },
   serviceTitle: {
     fontSize: 16,
-    fontWeight: "600",
-  }
+    fontWeight: '600',
+  },
 });
