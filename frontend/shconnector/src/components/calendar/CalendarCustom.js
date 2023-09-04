@@ -6,7 +6,9 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { updateSelected } from '../../reducers/CalendarSlice';
 
-export default function CalendarCustom() {
+export default function CalendarCustom(props) {
+  // const [colors,mySchedule, schedule]
+
   const dispatch = useDispatch();
   // const [selected, setSelected] = useState('test');
   const selected = useSelector((state) => state.calendar.selected);
@@ -21,8 +23,8 @@ export default function CalendarCustom() {
 
   // 문자열 정렬용 함수
   const sortfunc = (a, b) => {
-    const order = [family, friend, coworker, client, extra];
-    return order.indexOf(a) - order.indexOf(b);
+    const order = ['family', 'friend', 'coworker', 'client', 'extra'];
+    return order.indexOf(a.key) - order.indexOf(b.key);
   };
 
   // 표시할 정보
@@ -115,15 +117,20 @@ export default function CalendarCustom() {
         newMarked[formatted] = { dots: [] };
       }
       newMarked[formatted].dots.push(target);
-      newMarked[formatted].dots.sort(sortfunc);
+      // newMarked[formatted].dots.sort(sortfunc);
       // 정렬순서 = [family, friend, coworker, client, extra];
 
       // console.log(newMarked[formatted]);
       // newMarked[formatted] = { dots: [friend, family] };
       // console.log(newMarked);
     }
+
+    for (const marks in newMarked) {
+      console.log(newMarked[marks].dots);
+      newMarked[marks].dots.sort(sortfunc);
+      console.log(newMarked[marks].dots);
+    }
     setMarked(newMarked);
-    console.log(marked);
   };
 
   // day 클릭 시 실행 함수
