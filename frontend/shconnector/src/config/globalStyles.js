@@ -1,4 +1,8 @@
 import { Dimensions, useWindowDimensions } from 'react-native';
+import { StatusBar } from 'react-native';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
+
+export const statusBarHeight = Platform.OS === 'ios' ? getStatusBarHeight(true) : StatusBar.currentHeight;
 
 export const colors = {
   shinhan: '#2b70cc', // 신한 대표 색상 코드
@@ -17,8 +21,8 @@ export const fonts = {};
 
 export const basicDimensions = {
   // 디자인 작업 스크린의 세로,가로
-  height: 844,
   width: 390,
+  height: 844,
 };
 
 export const getWindowDimensions = () => {

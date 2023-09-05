@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { updateSelected } from '../../reducers/CalendarSlice';
 
-export default function CalendarCustom(props) {
+export default function CalendarCustom({ myInfo, othersInfo }) {
   // const [colors,mySchedule, schedule]
 
   const dispatch = useDispatch();
@@ -27,70 +27,9 @@ export default function CalendarCustom(props) {
     return order.indexOf(a.key) - order.indexOf(b.key);
   };
 
-  // 표시할 정보
-  const info = [
-    {
-      scheduleNo: 5,
-      name: '일정이름',
-      content: '일정 상세설명',
-      date: '1693699200',
-      repeatCycle: '2',
-      favorite: 'true',
-      alarm: '0',
-      Friend: {
-        friendNo: '14',
-        name: '지인1',
-        contact: '010-1234-4567',
-        relation: '친구',
-        belong: 'ㅇㅇ산악회',
-        bankCode: '088',
-        account_number: '12342445789',
-        image: '지인1.png',
-      },
-    },
-    {
-      scheduleNo: 7,
-      name: '일정이름2',
-      content: '일정 상세설명2',
-      date: '1693699200',
-      repeatCycle: '0',
-      favorite: 'true',
-      alarm: '3',
-      Friend: {
-        friendNo: '14',
-        name: '지인2',
-        contact: '010-1234-4567',
-        relation: '가족',
-        belong: '가족',
-        bankCode: '088',
-        account_number: '12342445789',
-        image: '지인2.png',
-      },
-    },
-    {
-      scheduleNo: 9,
-      name: '일정이름3',
-      content: '일정 상세설명3',
-      date: '1693785600',
-      repeatCycle: '0',
-      favorite: 'true',
-      alarm: '3',
-      Friend: {
-        friendNo: '14',
-        name: '지인1',
-        contact: '010-1234-4567',
-        relation: '친구',
-        belong: 'ㅇㅇ산악회',
-        bankCode: '088',
-        account_number: '12342445789',
-        image: '지인1.png',
-      },
-    },
-  ];
-
   // 최초 실행 시 실행됨
   useEffect(() => {
-    makeDots(info);
+    makeDots(othersInfo);
   }, []);
 
   const makeDots = (info) => {
@@ -170,9 +109,6 @@ export default function CalendarCustom(props) {
         //   // '2023-09-21': { dots: [friend, family], selectedColor: 'orange' },
         // }}
       />
-      <Text>{selected}</Text>
-      <Text>{marked[0]}</Text>
-      <Text>test</Text>
     </View>
   );
 }
