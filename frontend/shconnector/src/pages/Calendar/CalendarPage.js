@@ -5,6 +5,7 @@ import { Feather } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 
 import MyCalendar from '../../components/calendar/CalendarCustom';
+import ScheduleDayList from '../../components/calendar/ScheduleDayList';
 import { font, statusBarHeight, widthScale, heightScale, colors } from '../../config/globalStyles';
 
 export default function CalendarPage() {
@@ -116,7 +117,9 @@ export default function CalendarPage() {
         myInfo={myInfo}
         othersInfo={othersInfo}
       />
-      {selected ? null : (
+      {selected ? (
+        <ScheduleDayList />
+      ) : (
         <View style={{ backgroundColor: 'red' }}>
           <View style={styles.infoCard}>
             <Text>이번 달 총 경조사 비용은</Text>

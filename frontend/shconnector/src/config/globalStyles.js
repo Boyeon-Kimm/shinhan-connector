@@ -16,6 +16,7 @@ export const colors = {
   subtitle: '#343434', // 서브타이틀 색상
   infoBackground: '#F9F9F9', // 안내문구 백그라운드
   subcontent: '#666666', // 서브콘텐트
+  button: '#D2E4FC', // 평행버튼 색상
 };
 export const fonts = {};
 

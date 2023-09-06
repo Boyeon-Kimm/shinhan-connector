@@ -1,19 +1,13 @@
-import { Pressable, Text, StyleSheet } from 'react-native';
-
+import React from 'react';
+import { Text, StyleSheet, Pressable } from 'react-native';
 import { font } from '../../config/globalStyles';
-export default function horizontalButton({
-  onPress,
-  title,
-  backgroundColor,
-  color,
-  borderColor,
-  selected,
-  // selected로 컬러 바꿔야 함
-}) {
+
+export default function Button(props) {
+  const { onPress, title, backgroundColor, color } = props;
+
   const dynamicStyles = {
     button: {
-      backgroundColor: selected ? backgroundColor : 'white',
-      borderColor: borderColor,
+      backgroundColor: backgroundColor,
     },
     text: {
       color: color,
@@ -34,16 +28,13 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 2,
-    paddingHorizontal: 10,
-    borderRadius: 20,
-    // elevation: 3,
-    marginHorizontal: 2,
-    marginBottom: 2,
-    borderWidth: 1,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 7,
+    elevation: 3,
   },
   text: {
-    fontSize: font(16),
+    fontSize: font(15),
     lineHeight: 21,
     // fontWeight: 'bold',
     letterSpacing: 0.25,
