@@ -73,7 +73,7 @@ export default function CalendarCustom({ myInfo, othersInfo }) {
   };
 
   // day 클릭 시 실행 함수
-  const onDayPress = (day) => {
+  const onPressDay = (day) => {
     const newMarked = marked;
     // 선택되지 않은 날짜 선택했으면
     if (day.dateString !== selected) {
@@ -101,7 +101,7 @@ export default function CalendarCustom({ myInfo, othersInfo }) {
   return (
     <View>
       <Calendar
-        onDayPress={onDayPress}
+        onDayPress={onPressDay}
         markingType="multi-dot"
         markedDates={marked}
         // markedDates={{

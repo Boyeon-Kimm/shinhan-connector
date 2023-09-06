@@ -6,10 +6,14 @@ export default function horizontalButton({
   title,
   backgroundColor,
   color,
+  borderColor,
+  selected,
+  // selected로 컬러 바꿔야 함
 }) {
   const dynamicStyles = {
     button: {
       backgroundColor: backgroundColor,
+      borderColor: borderColor,
     },
     text: {
       color: color,

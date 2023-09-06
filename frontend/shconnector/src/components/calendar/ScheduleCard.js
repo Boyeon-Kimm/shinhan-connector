@@ -14,7 +14,7 @@ export default function ScheduleCard({
   completed,
 }) {
   const handleTransfer = () => {
-    // 송금 실행 함수
+    // 송금 실행 함수 구현 필요
   };
 
   return (
