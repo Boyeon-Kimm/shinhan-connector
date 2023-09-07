@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { View, Text } from 'react-native';
 
 import { FontAwesome } from '@expo/vector-icons';
@@ -6,10 +7,17 @@ import { Feather } from '@expo/vector-icons';
 
 import ButtonShort from '../common/ButtonShort';
 import { colors, font } from '../../config/globalStyles';
+import BottomSheet from '../common/BottomSheet';
 
-export default function ScheduleCard({ time, relation, scheduleName, amount, completed }) {
+export default function ScheduleCard({ scheduleNumber, time, relation, scheduleName, amount, completed }) {
+  const [modalVisible, setModalVisible] = useState(false);
+
   const handleTransfer = () => {
     // 송금 실행 함수 구현 필요
+  };
+
+  const onPressHorizon = () => {
+    setModalVisible(true);
   };
 
   return (
@@ -27,6 +35,7 @@ export default function ScheduleCard({ time, relation, scheduleName, amount, com
           name="more-horizontal"
           size={24}
           color="black"
+          onPress={onPressHorizon}
         />
       </View>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -61,6 +70,11 @@ export default function ScheduleCard({ time, relation, scheduleName, amount, com
           {/* 송금하기 수정 필요 */}
         </View>
       </View>
+      <BottomSheet
+        visible={modalVisible}
+        setVisible={setModalVisible}
+        scheduleNumber={scheduleNumber}
+      />
     </View>
   );
 }

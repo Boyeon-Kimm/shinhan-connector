@@ -56,18 +56,12 @@ export default function CalendarCustom({ myInfo, othersInfo }) {
         newMarked[formatted] = { dots: [] };
       }
       newMarked[formatted].dots.push(target);
-      // newMarked[formatted].dots.sort(sortfunc);
-      // 정렬순서 = [family, friend, coworker, client, extra];
-
-      // console.log(newMarked[formatted]);
-      // newMarked[formatted] = { dots: [friend, family] };
-      // console.log(newMarked);
     }
 
     for (const marks in newMarked) {
-      console.log(newMarked[marks].dots);
+      // console.log(newMarked[marks].dots);
       newMarked[marks].dots.sort(sortfunc);
-      console.log(newMarked[marks].dots);
+      // console.log(newMarked[marks].dots);
     }
     setMarked(newMarked);
   };

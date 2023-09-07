@@ -38,9 +38,10 @@ export default function ScheduleDayList({ date }) {
           backgroundColor={colors.button}
           color={colors.shinhan}
           borderColor={colors.button}
-          selected={true}
+          selected={false}
         />
       </View>
+      <View></View>
       <View style={{ flexGrow: 1, backgroundColor: 'red' }}>
         <ScrollView>
           {scheduleList.map((schedule, i) => (
