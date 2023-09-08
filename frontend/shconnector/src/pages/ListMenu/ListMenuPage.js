@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
   boldText: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '600',
   }
 })
