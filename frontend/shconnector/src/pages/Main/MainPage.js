@@ -9,7 +9,7 @@ import char3 from "../../../assets/character3.png";
 import char7 from "../../../assets/character7.png";
 import char8 from "../../../assets/character8.png";
 
-export default function MainPage() {
+export default function MainPage({navigation}) {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
@@ -27,16 +27,8 @@ export default function MainPage() {
             <Text style={styles.boldText}>다양한 서비스 이용을</Text>
             <Text style={styles.boldText}>위해 로그인 해주세요.</Text>
           </View>
-          <View style={styles.loginRight}>
-            <Image
-              source={char1}
-              resizeMode="contain"
-              style={styles.loginImg}
-            />
-          </View>
+          <MyButton title="로그인" backgroundColor="#2B70CC" color="white" onPress={() => navigation.navigate("Login")}/>
         </View>
-        <MyButton title="로그인" backgroundColor="#2B70CC" color="white" />
-      </View>
       <View style={styles.bottom}>
         <View style={styles.titleCon}>
           <Text style={styles.title}>지인 관리 서비스</Text>
@@ -49,7 +41,7 @@ export default function MainPage() {
             >
               <Text style={styles.serviceTitle}>지인 등록</Text>
               <Image
-                source={char2}
+                source={char7}
                 resizeMode="contain"
                 style={styles.serviceImg}
               />
