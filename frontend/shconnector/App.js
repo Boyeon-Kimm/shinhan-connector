@@ -1,26 +1,65 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image } from 'react-native';
-import { Provider } from 'react-redux';
-import { NavigationContainer } from '@react-navigation/native';
-import { Fontisto } from '@expo/vector-icons';
-import MyButton from './src/components/common/Button';
-import char1 from './assets/character1.png';
-import char2 from './assets/character2.png';
-import char3 from './assets/character3.png';
-import char7 from './assets/character7.png';
-import char8 from './assets/character8.png';
+import { Provider } from "react-redux";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import "react-native-gesture-handler";
+import MyNavBar from "./src/components/common/NavBar";
+import FriendCreatePage from "./src/pages/Friend/FriendCreatePage";
 
-import MyNavBar from './src/components/common/NavBar';
+import store from "./store";
+<<<<<<< HEAD
+import CalendarCreate from "./src/pages/Calendar/CalendarCreate";
+=======
+import Login from "./src/pages/Login/Login";
+>>>>>>> 6383f62780233a6b74a874b09e43f9c82bc75c6b
 
-import store from './store';
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <MyNavBar />
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen
+            name="Home"
+            component={MyNavBar}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="FriendCreate"
+            component={FriendCreatePage}
+            options={{
+              title: "",
+              headerStyle: { 
+                backgroundColor: 'white',
+                shadowColor: 'white',
+              },
+            }}
+          />
+          <Stack.Screen
+<<<<<<< HEAD
+            name="calendarCreate"
+            component={CalendarCreate}
+            options={{
+              title: "",
+              headerStyle: { 
+                backgroundColor: 'white',
+                shadowColor: 'white',
+=======
+            name="Login"
+            component={Login}
+            options={{
+              title: "",
+              headerStyle: { 
+                backgroundColor: '#F1F6FD',
+                shadowColor: '#F1F6FD',
+>>>>>>> 6383f62780233a6b74a874b09e43f9c82bc75c6b
+              },
+            }}
+          />
+        </Stack.Navigator>
       </NavigationContainer>
     </Provider>
-    // d
   );
 }

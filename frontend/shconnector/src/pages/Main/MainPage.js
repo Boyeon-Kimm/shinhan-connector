@@ -9,7 +9,7 @@ import char3 from "../../../assets/character3.png";
 import char7 from "../../../assets/character7.png";
 import char8 from "../../../assets/character8.png";
 
-export default function MainPage({navigation}) {
+export default function MainPage({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
@@ -27,51 +27,92 @@ export default function MainPage({navigation}) {
             <Text style={styles.boldText}>다양한 서비스 이용을</Text>
             <Text style={styles.boldText}>위해 로그인 해주세요.</Text>
           </View>
-          <MyButton title="로그인" backgroundColor="#2B70CC" color="white" onPress={() => navigation.navigate("Login")}/>
+          <View style={styles.loginRight}>
+            <Image
+              source={char1}
+              resizeMode="contain"
+              style={styles.loginImg}
+            />
+          </View>
         </View>
+        <MyButton title="로그인" backgroundColor="#2B70CC" color="white" />
+      </View>
       <View style={styles.bottom}>
         <View style={styles.titleCon}>
           <Text style={styles.title}>지인 관리 서비스</Text>
         </View>
-        <View style={styles.serviceCon}>
-          <View style={styles.serviceLine}>
-            <TouchableOpacity
-              style={styles.serviceEach}
-              onPress={() => navigation.navigate("FriendCreate")}
-            >
-              <Text style={styles.serviceTitle}>지인 등록</Text>
+        <View style={styles.loginCon}>
+          <View style={styles.loginUpper}>
+            <View style={styles.loginLeft}>
+              <View style={styles.sub}>
+                <Text style={styles.grayText}>안녕하세요.</Text>
+                <Text style={styles.grayText}>신한 쏠(SOL) 입니다.</Text>
+              </View>
+              <Text style={styles.boldText}>다양한 서비스 이용을</Text>
+              <Text style={styles.boldText}>위해 로그인 해주세요.</Text>
+            </View>
+            <View style={styles.loginRight}>
               <Image
-                source={char7}
+                source={char1}
                 resizeMode="contain"
-                style={styles.serviceImg}
-              />
-            </TouchableOpacity>
-            <View style={styles.serviceEach}>
-              <Text style={styles.serviceTitle}>일정 등록</Text>
-              <Image
-                source={char8}
-                resizeMode="contain"
-                style={styles.serviceImg}
+                style={styles.loginImg}
               />
             </View>
           </View>
-          <View style={styles.serviceLine}>
-            <View style={styles.serviceEach}>
-              {/* <Text style={styles.serviceTitle}>나에게 맞는</Text> */}
-              <Text style={styles.serviceTitle}>적금편지 상품찾기</Text>
-              <Image
-                source={char2}
-                resizeMode="contain"
-                style={styles.serviceImg}
-              />
+          <MyButton
+            title="로그인"
+            backgroundColor="#2B70CC"
+            color="white"
+            onPress={() => navigation.navigate("Login")}
+          />
+        </View>
+        <View style={styles.bottom}>
+          <View style={styles.titleCon}>
+            <Text style={styles.title}>지인 관리 서비스</Text>
+          </View>
+          <View style={styles.serviceCon}>
+            <View style={styles.serviceLine}>
+              <TouchableOpacity
+                style={styles.serviceEach}
+                onPress={() => navigation.navigate("FriendCreate")}
+              >
+                <Text style={styles.serviceTitle}>지인 등록</Text>
+                <Image
+                  source={char7}
+                  resizeMode="contain"
+                  style={styles.serviceImg}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.serviceEach}
+                onPress={() => navigation.navigate("calendarCreate")}
+              >
+                <Text style={styles.serviceTitle}>일정 등록</Text>
+                <Image
+                  source={char8}
+                  resizeMode="contain"
+                  style={styles.serviceImg}
+                />
+              </TouchableOpacity>
             </View>
-            <View style={styles.serviceEach}>
-              <Text style={styles.serviceTitle}>선물 · 금액 추천</Text>
-              <Image
-                source={char3}
-                resizeMode="contain"
-                style={styles.serviceImg}
-              />
+            <View style={styles.serviceLine}>
+              <View style={styles.serviceEach}>
+                {/* <Text style={styles.serviceTitle}>나에게 맞는</Text> */}
+                <Text style={styles.serviceTitle}>적금편지 상품찾기</Text>
+                <Image
+                  source={char2}
+                  resizeMode="contain"
+                  style={styles.serviceImg}
+                />
+              </View>
+              <View style={styles.serviceEach}>
+                <Text style={styles.serviceTitle}>선물 · 금액 추천</Text>
+                <Image
+                  source={char3}
+                  resizeMode="contain"
+                  style={styles.serviceImg}
+                />
+              </View>
             </View>
           </View>
         </View>
