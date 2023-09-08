@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { Fontisto } from '@expo/vector-icons';
 
 import MyButton from '../../components/common/Button';
@@ -9,7 +9,7 @@ import char3 from '../../../assets/character3.png';
 import char7 from '../../../assets/character7.png';
 import char8 from '../../../assets/character8.png';
 
-export default function MainPage() {
+export default function MainPage({navigation}) {
   return (
     <View style={styles.container}>
         <StatusBar style="auto" />
@@ -31,7 +31,7 @@ export default function MainPage() {
               <Image source={char1} resizeMode="contain" style={styles.loginImg} />
             </View>
           </View>
-          <MyButton title="로그인" backgroundColor="#2B70CC" color="white" />
+          <MyButton title="로그인" backgroundColor="#2B70CC" color="white" onPress={() => navigation.navigate("Login")}/>
         </View>
         <View style={styles.bottom}>
           <View style={styles.titleCon}>
@@ -45,7 +45,7 @@ export default function MainPage() {
             >
               <Text style={styles.serviceTitle}>지인 등록</Text>
               <Image
-                source={char2}
+                source={char7}
                 resizeMode="contain"
                 style={styles.serviceImg}
               />
