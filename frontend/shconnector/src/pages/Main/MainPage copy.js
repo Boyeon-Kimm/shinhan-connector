@@ -1,21 +1,27 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
-import { Fontisto } from "@expo/vector-icons";
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { Fontisto } from '@expo/vector-icons';
 
-import MyButton from "../../components/common/Button";
-import char1 from "../../../assets/character1.png";
-import char2 from "../../../assets/character2.png";
-import char3 from "../../../assets/character3.png";
-import char7 from "../../../assets/character7.png";
-import char8 from "../../../assets/character8.png";
+import { font } from '../../config/globalStyles';
 
-export default function MainPage({navigation}) {
+import MyButton from '../../components/common/Button';
+import char1 from '../../../assets/character1.png';
+import char2 from '../../../assets/character2.png';
+import char3 from '../../../assets/character3.png';
+import char7 from '../../../assets/character7.png';
+import char8 from '../../../assets/character8.png';
+
+export default function MainPage() {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
       <View style={styles.titleCon}>
         <Text style={styles.title}>홈</Text>
-        <Fontisto name="bell" size={24} color="black" />
+        <Fontisto
+          name="bell"
+          size={font(24)}
+          color="black"
+        />
       </View>
       <View style={styles.loginCon}>
         <View style={styles.loginUpper}>
@@ -27,8 +33,20 @@ export default function MainPage({navigation}) {
             <Text style={styles.boldText}>다양한 서비스 이용을</Text>
             <Text style={styles.boldText}>위해 로그인 해주세요.</Text>
           </View>
-          <MyButton title="로그인" backgroundColor="#2B70CC" color="white" onPress={() => navigation.navigate("Login")}/>
+          <View style={styles.loginRight}>
+            <Image
+              source={char1}
+              resizeMode="contain"
+              style={styles.loginImg}
+            />
+          </View>
         </View>
+        <MyButton
+          title="로그인"
+          backgroundColor="#2B70CC"
+          color="white"
+        />
+      </View>
       <View style={styles.bottom}>
         <View style={styles.titleCon}>
           <Text style={styles.title}>지인 관리 서비스</Text>
@@ -37,11 +55,11 @@ export default function MainPage({navigation}) {
           <View style={styles.serviceLine}>
             <TouchableOpacity
               style={styles.serviceEach}
-              onPress={() => navigation.navigate("FriendCreate")}
+              onPress={() => navigation.navigate('FriendCreate')}
             >
               <Text style={styles.serviceTitle}>지인 등록</Text>
               <Image
-                source={char7}
+                source={char2}
                 resizeMode="contain"
                 style={styles.serviceImg}
               />
@@ -83,91 +101,91 @@ export default function MainPage({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F1F6FD",
-    justifyContent: "center",
+    backgroundColor: '#F1F6FD',
+    justifyContent: 'center',
   },
   titleCon: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 45,
-    marginHorizontal: 35,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: font(45),
+    marginHorizontal: font(35),
   },
   title: {
-    fontSize: 24,
-    fontWeight: "600",
+    fontSize: font(24),
+    fontWeight: '600',
   },
   loginCon: {
     flex: 1.3,
-    marginTop: 30,
-    marginHorizontal: 30,
-    paddingHorizontal: 20,
-    borderRadius: 15,
-    backgroundColor: "white",
+    marginTop: font(30),
+    marginHorizontal: font(30),
+    paddingHorizontal: font(20),
+    borderRadius: font(15),
+    backgroundColor: 'white',
   },
   loginUpper: {
     flex: 2,
-    flexDirection: "row",
-    paddingLeft: 12,
+    flexDirection: 'row',
+    paddingLeft: font(12),
   },
   loginImg: {
-    width: "80%",
-    height: "80%",
+    width: '80%',
+    height: '80%',
   },
   loginLeft: {
     flex: 1.5,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   loginRight: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   bottom: {
     flex: 2.5,
   },
   grayText: {
-    fontSize: 16,
-    color: "gray",
+    fontSize: font(16),
+    color: 'gray',
   },
   boldText: {
-    fontSize: 18,
-    fontWeight: "700",
+    fontSize: font(18),
+    fontWeight: '700',
     letterSpacing: 0.2,
   },
   sub: {
-    marginBottom: 12,
+    marginBottom: font(12),
   },
   serviceCon: {
     flex: 1,
-    marginHorizontal: 20,
-    paddingTop: 20,
+    marginHorizontal: font(20),
+    paddingTop: font(20),
   },
   serviceEach: {
     flex: 1,
-    backgroundColor: "white",
-    borderRadius: 15,
-    justifyContent: "center",
-    marginHorizontal: 10,
-    marginBottom: 23,
-    paddingHorizontal: 15,
+    backgroundColor: 'white',
+    borderRadius: font(15),
+    justifyContent: 'center',
+    marginHorizontal: font(10),
+    marginBottom: font(23),
+    paddingHorizontal: font(15),
   },
   serviceTitle: {
-    fontSize: 18,
-    fontWeight: "600",
+    fontSize: font(18),
+    fontWeight: '600',
   },
   serviceImg: {
-    width: "60%",
-    height: "60%",
-    marginLeft: 50,
+    width: '60%',
+    height: '60%',
+    marginLeft: font(50),
   },
   serviceLine: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   serviceTitle: {
-    fontSize: 16,
-    fontWeight: "600",
-    paddingLeft: 5,
-    paddingVertical: 10,
+    fontSize: font(16),
+    fontWeight: '600',
+    paddingLeft: font(5),
+    paddingVertical: font(10),
   },
 });
