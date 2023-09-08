@@ -6,11 +6,8 @@ import MyNavBar from "./src/components/common/NavBar";
 import FriendCreatePage from "./src/pages/Friend/FriendCreatePage";
 
 import store from "./store";
-<<<<<<< HEAD
 import CalendarCreate from "./src/pages/Calendar/CalendarCreate";
-=======
 import Login from "./src/pages/Login/Login";
->>>>>>> 6383f62780233a6b74a874b09e43f9c82bc75c6b
 
 const Stack = createStackNavigator();
 
@@ -38,7 +35,6 @@ export default function App() {
             }}
           />
           <Stack.Screen
-<<<<<<< HEAD
             name="calendarCreate"
             component={CalendarCreate}
             options={{
@@ -46,7 +42,10 @@ export default function App() {
               headerStyle: { 
                 backgroundColor: 'white',
                 shadowColor: 'white',
-=======
+              },
+            }}
+          />
+          <Stack.Screen
             name="Login"
             component={Login}
             options={{
@@ -54,7 +53,6 @@ export default function App() {
               headerStyle: { 
                 backgroundColor: '#F1F6FD',
                 shadowColor: '#F1F6FD',
->>>>>>> 6383f62780233a6b74a874b09e43f9c82bc75c6b
               },
             }}
           />

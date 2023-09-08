@@ -66,7 +66,7 @@ export default function ScheduleDayList({ date }) {
         dropDownContainerStyle={styles.dropDownContainerStyle}
         placeholder="-- 경조사 종류 선택 --"
       />
-      <View style={{ flexGrow: 1, backgroundColor: 'red' }}>
+      <View style={{ flexGrow: 1 }}>
         <ScrollView>
           {scheduleList.map((schedule, i) => (
             <ScheduleCard
