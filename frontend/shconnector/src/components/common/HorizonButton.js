@@ -32,6 +32,7 @@ export default function horizontalButton({
 
 const styles = StyleSheet.create({
   button: {
+    alignSelf: 'flex-start',
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 6,
