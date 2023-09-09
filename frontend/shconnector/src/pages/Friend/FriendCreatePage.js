@@ -13,6 +13,7 @@ export default function MainPage() {
     { label: "거래처", value: "4" },
     { label: "기타", value: "5" },
   ]);
+
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
@@ -53,7 +54,7 @@ export default function MainPage() {
         />
       </View>
       <View>
-        <Text>선택 사항</Text>
+        <Text style={styles.optionText}>선택 사항</Text>
         <TextInput
           style={styles.input}
           placeholder="소속(선택)"
@@ -66,7 +67,11 @@ export default function MainPage() {
         />
       </View>
       <View>
-        <Text>명함 사진</Text>
+        <Text style={styles.optionText}>명함 사진</Text>
+        <View style={styles.picture}></View>
+      </View>
+      <View style={styles.submitButton}>
+        <Text style={styles.submitText}>등록</Text>
       </View>
     </View>
   );
@@ -109,5 +114,30 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "700",
     letterSpacing: 0.2,
+  },
+  optionText: {
+    fontSize: 13,
+    fontweight: "500",
+    marginBottom: 5,
+    color: "grey",
+  },
+  picture: {
+    width: 300,
+    height: 50,
+    backgroundColor: "#DCDCDC",
+    borderRadius: 5,
+  },
+  submitButton: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 5,
+    marginTop: 15,
+    backgroundColor: "#2B70CC",
+    width: 300,
+    height: 50,
+  },
+  submitText: {
+    color: "white",
   },
 });

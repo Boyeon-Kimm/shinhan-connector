@@ -9,7 +9,7 @@ import char3 from "../../../assets/character3.png";
 import char7 from "../../../assets/character7.png";
 import char8 from "../../../assets/character8.png";
 
-export default function MainPage() {
+export default function MainPage({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
@@ -35,55 +35,62 @@ export default function MainPage() {
             />
           </View>
         </View>
-        <MyButton title="로그인" backgroundColor="#2B70CC" color="white" />
+        <MyButton
+            title="로그인"
+            backgroundColor="#2B70CC"
+            color="white"
+            onPress={() => navigation.navigate("Login")}
+          />
       </View>
-      <View style={styles.bottom}>
-        <View style={styles.titleCon}>
-          <Text style={styles.title}>지인 관리 서비스</Text>
-        </View>
-        <View style={styles.serviceCon}>
-          <View style={styles.serviceLine}>
-            <TouchableOpacity
-              style={styles.serviceEach}
-              onPress={() => navigation.navigate("FriendCreate")}
-            >
-              <Text style={styles.serviceTitle}>지인 등록</Text>
-              <Image
-                source={char2}
-                resizeMode="contain"
-                style={styles.serviceImg}
-              />
-            </TouchableOpacity>
-            <View style={styles.serviceEach}>
-              <Text style={styles.serviceTitle}>일정 등록</Text>
-              <Image
-                source={char8}
-                resizeMode="contain"
-                style={styles.serviceImg}
-              />
+        <View style={styles.bottom}>
+          <View style={styles.titleCon}>
+            <Text style={styles.title}>지인 관리 서비스</Text>
+          </View>
+          <View style={styles.serviceCon}>
+            <View style={styles.serviceLine}>
+              <TouchableOpacity
+                style={styles.serviceEach}
+                onPress={() => navigation.navigate("FriendCreate")}
+              >
+                <Text style={styles.serviceTitle}>지인 등록</Text>
+                <Image
+                  source={char7}
+                  resizeMode="contain"
+                  style={styles.serviceImg}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.serviceEach}
+                onPress={() => navigation.navigate("calendarCreate")}
+              >
+                <Text style={styles.serviceTitle}>일정 등록</Text>
+                <Image
+                  source={char8}
+                  resizeMode="contain"
+                  style={styles.serviceImg}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.serviceLine}>
+              <View style={styles.serviceEach}>
+                <Text style={styles.serviceTitle}>적금편지 상품찾기</Text>
+                <Image
+                  source={char2}
+                  resizeMode="contain"
+                  style={styles.serviceImg}
+                />
+              </View>
+              <View style={styles.serviceEach}>
+                <Text style={styles.serviceTitle}>선물 · 금액 추천</Text>
+                <Image
+                  source={char3}
+                  resizeMode="contain"
+                  style={styles.serviceImg}
+                />
+              </View>
             </View>
           </View>
-          <View style={styles.serviceLine}>
-            <View style={styles.serviceEach}>
-              {/* <Text style={styles.serviceTitle}>나에게 맞는</Text> */}
-              <Text style={styles.serviceTitle}>적금편지 상품찾기</Text>
-              <Image
-                source={char2}
-                resizeMode="contain"
-                style={styles.serviceImg}
-              />
-            </View>
-            <View style={styles.serviceEach}>
-              <Text style={styles.serviceTitle}>선물 · 금액 추천</Text>
-              <Image
-                source={char3}
-                resizeMode="contain"
-                style={styles.serviceImg}
-              />
-            </View>
-          </View>
         </View>
-      </View>
     </View>
   );
 }

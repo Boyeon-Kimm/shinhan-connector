@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -93,7 +93,7 @@ export default function CalendarCustom({ myInfo, othersInfo }) {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <Calendar
         onDayPress={onPressDay}
         markingType="multi-dot"
@@ -106,3 +106,9 @@ export default function CalendarCustom({ myInfo, othersInfo }) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    marginVertical: 15,
+  },
+});
