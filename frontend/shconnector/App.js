@@ -10,6 +10,7 @@ import CalendarCreate from "./src/pages/Calendar/CalendarCreate";
 import Login from "./src/pages/Login/Login";
 import Signup from "./src/pages/Login/Signup";
 import Transfer from "./src/pages/Transfer/Transfer";
+import WriteLetter from "./src/pages/Letter/WriteLetter";
 
 const Stack = createStackNavigator();
 
@@ -72,6 +73,17 @@ export default function App() {
           <Stack.Screen
             name="Transfer"
             component={Transfer}
+            options={{
+              title: "",
+              headerStyle: { 
+                backgroundColor: 'white',
+                shadowColor: 'white',
+              },
+            }}
+          />
+          <Stack.Screen
+            name="WriteLetter"
+            component={WriteLetter}
             options={{
               title: "",
               headerStyle: { 
