@@ -15,27 +15,26 @@ export default function BottomSheet({ visible, setVisible, sheetData }) {
   const closeModal = () => {
     setVisible(false);
   };
+  const thisSheetData = sheetData;
+  // const handleAddExpense = () => {
+  //   console.log("경조사비 추가");
+  // };
+  // const handleAddGift = () => {
+  //   console.log("선물 추가");
+  // };
+  // const handleUpdateSchedule = () => {
+  //   console.log("일정 수정");
+  // };
+  // const handleDeleteSchedule = () => {
+  //   console.log("일정 삭제");
+  // };
 
-  const handleAddExpense = () => {
-    console.log("경조사비 추가");
-  };
-  const handleAddGift = () => {
-    console.log("선물 추가");
-  };
-  const handleUpdateSchedule = () => {
-    console.log("일정 수정");
-  };
-  const handleDeleteSchedule = () => {
-    console.log("일정 삭제");
-  };
-
-  // const thisSheetData = sheetData;
-  const thisSheetData = [
-    { title: "경조사비 추가", func: handleAddExpense },
-    { title: "선물 추가", func: handleAddGift },
-    { title: "일정 수정", func: handleUpdateSchedule },
-    { title: "일정 삭제", func: handleDeleteSchedule },
-  ];
+  // const thisSheetData = [
+  //   { title: "경조사비 추가", func: handleAddExpense },
+  //   { title: "선물 추가", func: handleAddGift },
+  //   { title: "일정 수정", func: handleUpdateSchedule },
+  //   { title: "일정 삭제", func: handleDeleteSchedule },
+  // ];
 
   const { windowWidth, windowHeight } = getWindowDimensions();
 
