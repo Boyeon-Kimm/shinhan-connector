@@ -31,6 +31,9 @@ export const getWindowDimensions = () => {
   return { windowWidth: width, windowHeight: height };
 };
 
+export const screenWidth = Dimensions.get('screen').width;
+export const screenHeight = Dimensions.get('screen').height;
+
 export const widthScale = // 가로 변환 작업
   (Dimensions.get('screen').width * (1 / basicDimensions.width)).toFixed(2);
 
