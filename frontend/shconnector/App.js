@@ -9,6 +9,7 @@ import store from "./store";
 import CalendarCreate from "./src/pages/Calendar/CalendarCreate";
 import Login from "./src/pages/Login/Login";
 import Signup from "./src/pages/Login/Signup";
+import Transfer from "./src/pages/Transfer/Transfer";
 
 const Stack = createStackNavigator();
 
@@ -52,8 +53,8 @@ export default function App() {
             options={{
               title: "",
               headerStyle: { 
-                backgroundColor: '#F1F6FD',
-                shadowColor: '#F1F6FD',
+                backgroundColor: 'white',
+                shadowColor: 'white',
               },
             }}
           />
@@ -63,8 +64,19 @@ export default function App() {
             options={{
               title: "",
               headerStyle: { 
-                backgroundColor: '#F1F6FD',
-                shadowColor: '#F1F6FD',
+                backgroundColor: 'white',
+                shadowColor: 'white',
+              },
+            }}
+          />
+          <Stack.Screen
+            name="Transfer"
+            component={Transfer}
+            options={{
+              title: "",
+              headerStyle: { 
+                backgroundColor: 'white',
+                shadowColor: 'white',
               },
             }}
           />

@@ -39,7 +39,7 @@ export default function MainPage({ navigation }) {
             title="로그인"
             backgroundColor="#2B70CC"
             color="white"
-            onPress={() => navigation.navigate("Login")}
+            onPress={() => navigation.navigate("Transfer")}
           />
       </View>
         <View style={styles.bottom}>
