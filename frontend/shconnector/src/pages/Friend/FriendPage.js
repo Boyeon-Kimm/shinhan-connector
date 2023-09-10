@@ -4,6 +4,7 @@ import HeaderBar from '../../components/common/HeaderBar';
 import HorizonButton from '../../components/common/HorizonButton';
 import FriendListCard from '../../components/FriendListCard';
 import { colors, font, widthScale } from '../../config/globalStyles';
+import FriendDetailPage from './FriendDetailPage';
 
 const category = ['전체보기', '가족', '친구', '직장', '거래처', '기타'];
 
@@ -19,39 +20,40 @@ export default function FriendPage() {
   };
 
   return (
-    <View style={styles.container}>
-      <HeaderBar
-        showBackArrow={true}
-        title='지인 목록'
-        showBell={true}
-        onPressRight={null}
-      />
-      <ScrollView style={styles.horizonCon} horizontal={true}>
-        {category.map((item) => (
-          <HorizonButton
-            key={item}
-            onPress={() => {
-              onPressTest(item);
-            }}
-            title={item}
-            backgroundColor={colors.button}
-            color={colors.shinhan}
-            borderColor={colors.button}
-            selected={currentCategory === item ? true : false}
-          />
-        ))}
-      </ScrollView>
-      <View>
-        <TextInput
-          style={styles.input}
-          onChangeText={handleTextChange}
-          placeholder='검색어를 입력해주세요'
-          keyboardType='default'
-        />
+    <FriendDetailPage></FriendDetailPage>
+    // <View style={styles.container}>
+    //   <HeaderBar
+    //     showBackArrow={true}
+    //     title='지인 목록'
+    //     showBell={true}
+    //     onPressRight={null}
+    //   />
+    //   <ScrollView style={styles.horizonCon} horizontal={true}>
+    //     {category.map((item) => (
+    //       <HorizonButton
+    //         key={item}
+    //         onPress={() => {
+    //           onPressTest(item);
+    //         }}
+    //         title={item}
+    //         backgroundColor={colors.button}
+    //         color={colors.shinhan}
+    //         borderColor={colors.button}
+    //         selected={currentCategory === item ? true : false}
+    //       />
+    //     ))}
+    //   </ScrollView>
+    //   <View>
+    //     <TextInput
+    //       style={styles.input}
+    //       onChangeText={handleTextChange}
+    //       placeholder='검색어를 입력해주세요'
+    //       keyboardType='default'
+    //     />
         
-      </View>
-      <FriendListCard />
-    </View>
+    //   </View>
+    //   <FriendListCard />
+    // </View>
   );
 }
 
