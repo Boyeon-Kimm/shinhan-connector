@@ -20,7 +20,7 @@ export default function FriendPage() {
   };
 
   return (
-    <FriendDetailPage></FriendDetailPage>
+    <FriendDetailPage friendNo={1}></FriendDetailPage>
     // <View style={styles.container}>
     //   <HeaderBar
     //     showBackArrow={true}

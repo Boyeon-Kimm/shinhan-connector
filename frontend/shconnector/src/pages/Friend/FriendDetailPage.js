@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import HeaderBar from '../../components/common/HeaderBar';
 import HorizonButton from '../../components/common/HorizonButton';
+import BottomSheet from '../../components/common/BottomSheet';
 
 import { colors, font, screenWidth } from '../../config/globalStyles';
 
@@ -17,8 +18,20 @@ import FriendGiftCard from '../../components/friend/FriendGiftCard';
 
 const category = ['전체보기', '받은 내역', '보낸 내역'];
 
-export default function FriendDetailPage() {
+export default function FriendDetailPage({ friendNo }) {
+  const [modalVisible, setModalVisible] = useState(false);
   const [currentCategory, setCurrentCategory] = useState(category[0]);
+  const handleModify = () => {
+    console.log(friendNo + '수정');
+  };
+  const handleDelete = () => {
+    console.log(friendNo + '삭제');
+  };
+
+  const FriendDetailModalData = [
+    { title: '수정', func: handleModify },
+    { title: '삭제', func: handleDelete },
+  ];
 
   const data = [
     { id: 1, name: '아이템1' },
@@ -42,12 +55,17 @@ export default function FriendDetailPage() {
     setCurrentCategory(newCategory);
   };
 
+  const onPressThreeDots = () => {
+    setModalVisible(true);
+    console.log('three');
+  };
+
   return (
     <View style={styles.container}>
       <HeaderBar
         showBackArrow={true}
         showThreeDots={true}
-        onPressRight={null}
+        onPressRight={onPressThreeDots}
       />
       <Image source={testImg} style={styles.img}></Image>
       <Text>[직장]</Text>
@@ -81,10 +99,14 @@ export default function FriendDetailPage() {
       </ScrollView>
       <FlatList
         data={data}
-        renderItem={FriendGiftCard}
+        renderItem={(item) => <FriendGiftCard onPressHorizon={null} />}
         keyExtractor={(item) => item.id}
-      ></FlatList>
-      {/* <FriendGiftCard /> */}
+      />
+      <BottomSheet
+        visible={modalVisible}
+        setVisible={setModalVisible}
+        sheetData={FriendDetailModalData}
+      />
     </View>
   );
 }
@@ -98,9 +120,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
   },
-  horizonCon: {
-
-  },
+  horizonCon: {},
   img: {
     width: imgSize,
     height: imgSize,
