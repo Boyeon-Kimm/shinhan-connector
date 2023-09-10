@@ -33,7 +33,7 @@ export default function MainPage() {
         <TextInput
           style={styles.input}
           placeholder="전화번호"
-          keyboardType="numeric"
+          keyboardType="phone-pad"
         />
         <DropDownPicker
           style={styles.input}
@@ -63,7 +63,7 @@ export default function MainPage() {
         <TextInput
           style={styles.input}
           placeholder="계좌번호(선택)"
-          keyboardType="numeric"
+          keyboardType="number-pad"
         />
       </View>
       <View>
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
   },
   optionText: {
     fontSize: 13,
-    fontweight: "500",
+    fontWeight: "500",
     marginBottom: 5,
     color: "grey",
   },
