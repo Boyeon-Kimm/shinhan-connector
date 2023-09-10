@@ -43,17 +43,12 @@ export default function HeaderBar({
           </TouchableWithoutFeedback>
         ) : null}
         {showBell ? (
-          <TouchableWithoutFeedback>
-            <Fontisto
-              name='bell'
-              size={thisIconSize}
-              color='black'
-              onPress={onPressRight}
-            />
+          <TouchableWithoutFeedback onPress={onPressRight}>
+            <Fontisto name='bell' size={thisIconSize} color='black' />
           </TouchableWithoutFeedback>
         ) : null}
         {showThreeDots ? (
-          <TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={onPressRight}>
             <Entypo
               name='dots-three-vertical'
               size={thisIconSize}
