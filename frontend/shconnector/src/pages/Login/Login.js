@@ -28,6 +28,7 @@ export default function Login({ navigation }) {
         <View style={styles.btnCon}>
           <Button title="로그인" backgroundColor="#2B70CC" color="white" />
         </View>
+        <View></View>
       </View>
       <View style={styles.lower}>
         <TouchableOpacity onPress={() => navigation.navigate("Signup")}>

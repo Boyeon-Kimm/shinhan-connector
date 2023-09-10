@@ -49,7 +49,7 @@ export default function SignUp(){
     { label: "한국은행", value: "001"},
     { label: "HSBC", value: "054"},
     { label: "SC제일은행", value: "023"},
-  ])
+  ]);
 
   return(
     <View style={styles.container}>
