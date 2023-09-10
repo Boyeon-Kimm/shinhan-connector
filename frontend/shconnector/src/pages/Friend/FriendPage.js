@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Text, View, StyleSheet, ScrollView, TextInput } from 'react-native';
 import HeaderBar from '../../components/common/HeaderBar';
 import HorizonButton from '../../components/common/HorizonButton';
+import FriendListCard from '../../components/FriendListCard';
 import { colors, font, widthScale } from '../../config/globalStyles';
 
 const category = ['전체보기', '가족', '친구', '직장', '거래처', '기타'];
@@ -15,8 +16,8 @@ export default function FriendPage() {
 
   const onPressTest = (newCategory) => {
     setCurrentCategory(newCategory);
-    // console.log('test');
   };
+
   return (
     <View style={styles.container}>
       <HeaderBar
@@ -28,7 +29,10 @@ export default function FriendPage() {
       <ScrollView style={styles.horizonCon} horizontal={true}>
         {category.map((item) => (
           <HorizonButton
-            onPress={()=>{onPressTest(item)}}
+            key={item}
+            onPress={() => {
+              onPressTest(item);
+            }}
             title={item}
             backgroundColor={colors.button}
             color={colors.shinhan}
@@ -44,7 +48,9 @@ export default function FriendPage() {
           placeholder='검색어를 입력해주세요'
           keyboardType='default'
         />
+        
       </View>
+      <FriendListCard />
     </View>
   );
 }
