@@ -2,7 +2,7 @@ import { Text, View, StyleSheet, Image, TextInput, TouchableOpacity } from "reac
 import char9 from '../../../assets/character9.png';
 import Button from "../../components/common/Button";
 
-export default function Login() {
+export default function Login({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.upper}>
@@ -28,9 +28,12 @@ export default function Login() {
         <View style={styles.btnCon}>
           <Button title="로그인" backgroundColor="#2B70CC" color="white" />
         </View>
-        <View></View>
       </View>
-      <View style={styles.lower}></View>
+      <View style={styles.lower}>
+        <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
+          <Text>회원가입</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -38,7 +41,7 @@ export default function Login() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F1F6FD',
+    backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
   },

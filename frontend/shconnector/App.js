@@ -8,6 +8,7 @@ import FriendCreatePage from "./src/pages/Friend/FriendCreatePage";
 import store from "./store";
 import CalendarCreate from "./src/pages/Calendar/CalendarCreate";
 import Login from "./src/pages/Login/Login";
+import Signup from "./src/pages/Login/Signup";
 
 const Stack = createStackNavigator();
 
@@ -48,6 +49,17 @@ export default function App() {
           <Stack.Screen
             name="Login"
             component={Login}
+            options={{
+              title: "",
+              headerStyle: { 
+                backgroundColor: '#F1F6FD',
+                shadowColor: '#F1F6FD',
+              },
+            }}
+          />
+          <Stack.Screen
+            name="Signup"
+            component={Signup}
             options={{
               title: "",
               headerStyle: { 
