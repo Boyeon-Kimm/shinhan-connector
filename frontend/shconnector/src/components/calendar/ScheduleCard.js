@@ -12,6 +12,26 @@ import BottomSheet from '../common/BottomSheet';
 export default function ScheduleCard({ scheduleNumber, time, relation, scheduleName, amount, completed }) {
   const [modalVisible, setModalVisible] = useState(false);
 
+  const handleAddExpense = () => {
+    console.log("경조사비 추가");
+  };
+  const handleAddGift = () => {
+    console.log("선물 추가");
+  };
+  const handleUpdateSchedule = () => {
+    console.log("일정 수정");
+  };
+  const handleDeleteSchedule = () => {
+    console.log("일정 삭제");
+  };
+
+  const scheduleCardModalData = [
+    { title: "경조사비 추가", func: handleAddExpense },
+    { title: "선물 추가", func: handleAddGift },
+    { title: "일정 수정", func: handleUpdateSchedule },
+    { title: "일정 삭제", func: handleDeleteSchedule },
+  ];
+
   const handleTransfer = () => {
     // 송금 실행 함수 구현 필요
   };
@@ -73,7 +93,8 @@ export default function ScheduleCard({ scheduleNumber, time, relation, scheduleN
       <BottomSheet
         visible={modalVisible}
         setVisible={setModalVisible}
-        scheduleNumber={scheduleNumber}
+        // scheduleNumber={scheduleNumber}
+        sheetData={scheduleCardModalData}
       />
     </View>
   );
