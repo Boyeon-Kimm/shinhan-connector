@@ -13,6 +13,8 @@ import Transfer from "./src/pages/Transfer/Transfer";
 import WriteLetter from "./src/pages/Letter/WriteLetter";
 import Savings from "./src/pages/Recommend/Savings";
 import AccountList from "./src/pages/Account/AccountList";
+import FriendPage from "./src/pages/Friend/FriendPage";
+import CalendarPage from "./src/pages/Calendar/CalendarPage";
 
 const Stack = createStackNavigator();
 
@@ -40,7 +42,7 @@ export default function App() {
             }}
           />
           <Stack.Screen
-            name="calendarCreate"
+            name="CalendarCreate"
             component={CalendarCreate}
             options={{
               title: "",
@@ -108,6 +110,28 @@ export default function App() {
           <Stack.Screen
             name="AccountList"
             component={AccountList}
+            options={{
+              title: "",
+              headerStyle: { 
+                backgroundColor: 'white',
+                shadowColor: 'white',
+              },
+            }}
+          />
+          <Stack.Screen
+            name="FriendPage"
+            component={FriendPage}
+            options={{
+              title: "",
+              headerStyle: { 
+                backgroundColor: 'white',
+                shadowColor: 'white',
+              },
+            }}
+          />
+          <Stack.Screen
+            name="CalendarPage"
+            component={CalendarPage}
             options={{
               title: "",
               headerStyle: { 

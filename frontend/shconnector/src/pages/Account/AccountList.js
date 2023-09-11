@@ -1,6 +1,7 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import Symbol from '../../../assets/symbol.png';
+import AccountEach from "../../components/List/AccountEach";
 
 export default function AccountList() {
   return (
@@ -27,21 +28,11 @@ export default function AccountList() {
         </View>
         <Text style={styles.balance}>12,345,678원</Text>
       </View>
-      <View style={styles.list}>
-        <View style={styles.card}>
-          <View style={styles.upper}>
-            <Image source={Symbol} style={styles.img} />
-            <View>
-              <Text style={styles.boldTitle}>신한 주거래 우대통장(저축예금)</Text>
-              <Text style={styles.grayText}>신한 110-987-654321</Text>
-            </View>
-          </View>
-          <View style={styles.middle}>
-            <Text style={styles.boldBalanceText}>12,345,678원</Text>
-          </View>
-          <Text style={styles.lower}>이체</Text>
-        </View>
-      </View>
+      <ScrollView style={styles.list}>
+        <AccountEach />
+        <AccountEach />
+        <AccountEach />
+      </ScrollView>
     </View>
   );
 }
@@ -55,7 +46,6 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: "600",
     fontSize: 20,
-    // paddingHorizontal: 30,
     paddingBottom: 20,
   },
   clickedBtn: {
@@ -105,47 +95,5 @@ const styles = StyleSheet.create({
   balance: {
     fontSize: 16,
   },
-  card: {
-    paddingTop: 20,
-    gap: 10,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: "#f0f0f0",
-    marginBottom: 10,
-  },
-  upper: {
-    paddingHorizontal: 30,
-    paddingVertical: 5,
-    flexDirection: 'row',
-    gap: 5,
-  },
-  middle: {
-    paddingHorizontal: 30,
-    paddingBottom: 10,
-    flexDirection: "row",
-    justifyContent: "flex-end",
-  },
-  lower: {
-    textAlign: "center",
-    fontWeight: "600",
-    backgroundColor: "#f0f0f0",
-    paddingVertical: 10,
-  },
-  boldBalanceText: {
-    fontWeight: "700",
-    fontSize: 21,
-  },
-  boldTitle: {
-    fontSize: 16,
-    fontWeight: "700",
-  },
-  grayText: {
-    fontWeight: "500",
-    fontSize: 15,
-    color: "gray",
-  },
-  img: {
-    width: 25,
-    height: 25,
-  }
+
 });
