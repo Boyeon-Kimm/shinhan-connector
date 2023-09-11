@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: "600",
     fontSize: 20,
-    // paddingHorizontal: 30,
     paddingBottom: 20,
   },
   clickedBtn: {
