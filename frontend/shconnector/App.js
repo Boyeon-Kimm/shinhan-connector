@@ -11,6 +11,8 @@ import Login from "./src/pages/Login/Login";
 import Signup from "./src/pages/Login/Signup";
 import Transfer from "./src/pages/Transfer/Transfer";
 import WriteLetter from "./src/pages/Letter/WriteLetter";
+import Savings from "./src/pages/Recommend/Savings";
+import AccountList from "./src/pages/Account/AccountList";
 
 const Stack = createStackNavigator();
 
@@ -84,6 +86,28 @@ export default function App() {
           <Stack.Screen
             name="WriteLetter"
             component={WriteLetter}
+            options={{
+              title: "",
+              headerStyle: { 
+                backgroundColor: 'white',
+                shadowColor: 'white',
+              },
+            }}
+          />
+          <Stack.Screen
+            name="Savings"
+            component={Savings}
+            options={{
+              title: "",
+              headerStyle: { 
+                backgroundColor: 'white',
+                shadowColor: 'white',
+              },
+            }}
+          />
+          <Stack.Screen
+            name="AccountList"
+            component={AccountList}
             options={{
               title: "",
               headerStyle: { 
