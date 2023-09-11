@@ -12,6 +12,7 @@ import Signup from "./src/pages/Login/Signup";
 import Transfer from "./src/pages/Transfer/Transfer";
 import WriteLetter from "./src/pages/Letter/WriteLetter";
 import Savings from "./src/pages/Recommend/Savings";
+import Gift from "./src/pages/Recommend/Gift";
 import AccountList from "./src/pages/Account/AccountList";
 import FriendPage from "./src/pages/Friend/FriendPage";
 import CalendarPage from "./src/pages/Calendar/CalendarPage";
@@ -132,6 +133,17 @@ export default function App() {
           <Stack.Screen
             name="CalendarPage"
             component={CalendarPage}
+            options={{
+              title: "",
+              headerStyle: { 
+                backgroundColor: 'white',
+                shadowColor: 'white',
+              },
+            }}
+          />
+          <Stack.Screen
+            name="Gift"
+            component={Gift}
             options={{
               title: "",
               headerStyle: { 
