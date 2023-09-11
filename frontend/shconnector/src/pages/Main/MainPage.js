@@ -39,7 +39,7 @@ export default function MainPage({ navigation }) {
             title="로그인"
             backgroundColor="#2B70CC"
             color="white"
-            onPress={() => navigation.navigate("AccountList")}
+            onPress={() => navigation.navigate("Login")}
           />
       </View>
         <View style={styles.bottom}>
@@ -61,7 +61,7 @@ export default function MainPage({ navigation }) {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.serviceEach}
-                onPress={() => navigation.navigate("calendarCreate")}
+                onPress={() => navigation.navigate("CalendarCreate")}
               >
                 <Text style={styles.serviceTitle}>일정 등록</Text>
                 <Image
@@ -72,22 +72,22 @@ export default function MainPage({ navigation }) {
               </TouchableOpacity>
             </View>
             <View style={styles.serviceLine}>
-              <View style={styles.serviceEach}>
+              <TouchableOpacity style={styles.serviceEach} onPress={() => navigation.navigate("Savings")}>
                 <Text style={styles.serviceTitle}>적금편지 상품찾기</Text>
                 <Image
                   source={char2}
                   resizeMode="contain"
                   style={styles.serviceImg}
                 />
-              </View>
-              <View style={styles.serviceEach}>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.serviceEach} onPress={() => navigation.navigate("Gift")}>
                 <Text style={styles.serviceTitle}>선물 · 금액 추천</Text>
                 <Image
                   source={char3}
                   resizeMode="contain"
                   style={styles.serviceImg}
                 />
-              </View>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
