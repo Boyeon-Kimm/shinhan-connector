@@ -14,7 +14,9 @@ export default function AccountEach() {
       <View style={styles.middle}>
         <Text style={styles.boldBalanceText}>12,345,678원</Text>
       </View>
-      <Text style={styles.lower}>이체</Text>
+      <TouchableOpacity>
+        <Text style={styles.lower}>이체</Text>
+      </TouchableOpacity>
     </View>
   );
 }
