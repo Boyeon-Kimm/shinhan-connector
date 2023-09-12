@@ -18,9 +18,11 @@ import {
 } from "../../config/globalStyles";
 
 import HeaderBar from "../../components/common/HeaderBar";
+import { useEffect } from 'react';
 
 export default function CalendarPage() {
   const selected = useSelector((state) => state.calendar.selected);
+  const currMonth = useSelector((state) => state.calendar.currMonth);
 
   const headerSize = 24;
 
@@ -33,16 +35,7 @@ export default function CalendarPage() {
       repeatCycle: "2",
       favorite: "true",
       alarm: "0",
-      Friend: {
-        friendNo: "14",
-        name: "지인1",
-        contact: "010-1234-4567",
-        relation: "친구",
-        belong: "ㅇㅇ산악회",
-        bankCode: "088",
-        account_number: "12342445789",
-        image: "지인1.png",
-      },
+      Friend: null,
     },
   ];
 
@@ -105,6 +98,11 @@ export default function CalendarPage() {
       },
     },
   ];
+
+  useEffect(()=>{
+    //현재 월의 데이터 받아오는 api 실행
+    console.log(currMonth);
+  },[])
 
   return (
 

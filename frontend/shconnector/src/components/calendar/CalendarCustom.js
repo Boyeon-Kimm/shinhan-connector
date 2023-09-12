@@ -8,9 +8,12 @@ import {
   initAll,
   updateSelected,
   updateMarked,
+  updateCurrMonth,
+  updateCurrYear,
 } from '../../reducers/CalendarSlice';
 
 import { colors } from '../../config/globalStyles';
+import { dayFormat } from '../../util/globalFunc';
 
 export default function CalendarCustom({ othersInfo }) {
   // const [colors,mySchedule, schedule]
@@ -18,6 +21,8 @@ export default function CalendarCustom({ othersInfo }) {
   const dispatch = useDispatch();
   // const [selected, setSelected] = useState('test');
   const selected = useSelector((state) => state.calendar.selected);
+  const currYear = useSelector((state) => state.calendar.currYear);
+  const currMonth = useSelector((state) => state.calendar.currMonth);
   // const [marked, setMarked] = useState({});
   const marked = useSelector((state) => state.calendar.marked);
   // 도트 설정
@@ -26,12 +31,6 @@ export default function CalendarCustom({ othersInfo }) {
   const coworker = { key: 'coworker', color: colors.coworker };
   const client = { key: 'client', color: colors.client };
   const extra = { key: 'extra', color: colors.extra };
-
-  // // 문자열 정렬용 함수
-  // const sortfunc = (a, b) => {
-  //   const order = ['family', 'friend', 'coworker', 'client', 'extra'];
-  //   return order.indexOf(a.key) - order.indexOf(b.key);
-  // };
 
   // 최초 실행 시 실행됨
   useEffect(() => {
@@ -44,10 +43,7 @@ export default function CalendarCustom({ othersInfo }) {
     for (const schedule of info) {
       // 날짜 포맷팅
       const thisDate = new Date(schedule.date * 1000);
-      const day = ('0' + thisDate.getDate()).slice(-2); // 일
-      const month = ('0' + (thisDate.getMonth() + 1)).slice(-2); // 월 (0부터 시작하므로 +1 해야 함)
-      const year = thisDate.getFullYear(); // 연도
-      const formatted = `${year}-${month}-${day}`;
+      const formatted = dayFormat(thisDate);
 
       const category = schedule.Friend.relation;
 
@@ -104,12 +100,53 @@ export default function CalendarCustom({ othersInfo }) {
     dispatch(updateMarked(newMarked));
   };
 
+  // const onPressArrowLeft = () => {
+  //   console.log('left');
+  //   console.log(currMonth + ' ' + currYear + 'before');
+
+  //   if (currMonth === 0) {
+  //     dispatch(updateCurrMonth(11));
+  //     dispatch(updateCurrYear(currYear - 1));
+  //   } else dispatch(updateCurrMonth(currMonth - 1));
+  //   console.log(currMonth + ' ' + currYear);
+  // };
+
+  // const onPressArrowRight = () => {
+  //   console.log('right');
+
+  //   console.log(currMonth + ' ' + currYear + 'before');
+
+  //   if (currMonth === 11) {
+  //     dispatch(updateCurrMonth(0));
+  //     dispatch(updateCurrYear(currYear + 1));
+  //   } else dispatch(updateCurrMonth(currMonth + 1));
+  //   console.log(currMonth + ' ' + currYear);
+  // };
+
   return (
     <View style={styles.container}>
+      <Text>{currMonth} {currYear}</Text>
       <Calendar
+        initialDate={dayFormat(new Date())}
         onDayPress={onPressDay}
         markingType='multi-dot'
         markedDates={marked}
+        onMonthChange={(date) => {
+
+          dispatch(updateCurrMonth(date.month));
+          dispatch(updateCurrYear(date.year));
+          console.log('month changed', date.year, date.month);
+          console.log('current      ', currMonth, currYear);
+
+        }}
+        // onPressArrowLeft={(substractMonth) => {
+        //   substractMonth();
+        //   onPressArrowLeft();
+        // }}
+        // onPressArrowRight={(addMonth) => {
+        //   addMonth();
+        //   onPressArrowRight();
+        // }}
         // markedDates={{
         //   [selected]: { dots: [friend, family], selected: true, disableTouchEvent: true, selectedColor: 'orange' },
         //   // '2023-09-21': { dots: [friend, family], selectedColor: 'orange' },
