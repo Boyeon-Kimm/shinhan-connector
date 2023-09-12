@@ -61,8 +61,8 @@ export default function BottomSheet({ visible, setVisible, sheetData }) {
                 }}
               >
                 <View style={styles.bottomSheetContent}>
-                  <Text style={{ flexGrow: 1 }}>{item.title}</Text>
-                  <AntDesign name="right" size={font(20)} color="black" />
+                  <Text style={{ flexGrow: 1, fontSize: font(15) }}>{item.title}</Text>
+                  <AntDesign name="right" size={font(16)} color="black" />
                 </View>
               </TouchableOpacity>
             );
@@ -90,9 +90,10 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderTopLeftRadius: font(32),
     borderTopRightRadius: font(32),
-    backgroundColor: "orange",
-    paddingHorizontal: font(16),
-    paddingTop: font(16),
+    // backgroundColor: "orange",
+    paddingHorizontal: font(24),
+    // paddingTop: font(16),
+    paddingVertical: font(30),
   },
   bottomSheetCard: {
     // flex: 1,
@@ -100,15 +101,18 @@ const styles = StyleSheet.create({
     // justifyContent: 'space-between',
     alignItems: "center",
     fontSize: font(16),
-    backgroundColor: "red",
+    // backgroundColor: "red",
     paddingVertical: font(16),
+    borderBottomColor: 'lightgray',
+    borderBottomWidth: 1,
   },
   bottomSheetContent: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     fontSize: font(16),
-    backgroundColor: "red",
-    paddingVertical: font(16),
+    // backgroundColor: "red",
+    // paddingVertical: font(10),
+    paddingHorizontal: font(20),
   },
 });
