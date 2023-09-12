@@ -21,17 +21,17 @@ export default function CalendarCustom({ othersInfo }) {
   // const [marked, setMarked] = useState({});
   const marked = useSelector((state) => state.calendar.marked);
   // 도트 설정
-  const family = { key: 'family', color: 'red' };
-  const friend = { key: 'friend', color: 'orange' };
-  const coworker = { key: 'coworker', color: 'yellow' };
-  const client = { key: 'client', color: 'green' };
-  const extra = { key: 'extra', color: 'blue' };
+  const family = { key: 'family', color: colors.family };
+  const friend = { key: 'friend', color: colors.friend };
+  const coworker = { key: 'coworker', color: colors.coworker };
+  const client = { key: 'client', color: colors.client };
+  const extra = { key: 'extra', color: colors.extra };
 
-  // 문자열 정렬용 함수
-  const sortfunc = (a, b) => {
-    const order = ['family', 'friend', 'coworker', 'client', 'extra'];
-    return order.indexOf(a.key) - order.indexOf(b.key);
-  };
+  // // 문자열 정렬용 함수
+  // const sortfunc = (a, b) => {
+  //   const order = ['family', 'friend', 'coworker', 'client', 'extra'];
+  //   return order.indexOf(a.key) - order.indexOf(b.key);
+  // };
 
   // 최초 실행 시 실행됨
   useEffect(() => {
@@ -68,38 +68,8 @@ export default function CalendarCustom({ othersInfo }) {
       }
       newMarked[formatted].dots.push(target);
     }
-
-    // for (const marks in newMarked) {
-    //   newMarked[marks].dots.sort(sortfunc);
-    // }
     dispatch(updateMarked(newMarked));
   };
-
-  // // day 클릭 시 실행 함수
-  // const onPressDay = (day) => {
-  //   const newMarked = marked;
-  //   // 선택되지 않은 날짜 선택했으면
-  //   if (day.dateString !== selected) {
-  //     // 선택된 게 있으면 지우기
-  //     if (selected) {
-  //       if (newMarked[selected]) newMarked[selected].selected = false;
-  //     }
-
-  //     dispatch(updateSelected(day.dateString));
-
-  //     if (!newMarked[day.dateString]) newMarked[day.dateString] = {};
-  //     newMarked[day.dateString].selected = true;
-  //     newMarked[day.dateString].selectedColor = colors.shinhan;
-  //   }
-  //   // 이미 선택한 날짜 재선택했으면
-  //   else {
-  //     const newMarked = marked;
-  //     // 칠해진 부분 있으면 지우기
-  //     if (newMarked[selected]) newMarked[selected].selected = false;
-  //     dispatch(updateSelected(null));
-  //   }
-  //   setMarked(newMarked);
-  // };
 
   // day 클릭 시 실행 함수
   const onPressDay = (day) => {
