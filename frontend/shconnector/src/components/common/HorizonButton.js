@@ -1,6 +1,6 @@
-import { Pressable, Text, StyleSheet } from 'react-native';
+import { Pressable, Text, StyleSheet } from "react-native";
 
-import { font } from '../../config/globalStyles';
+import { font } from "../../config/globalStyles";
 export default function horizontalButton({
   onPress,
   title,
@@ -12,7 +12,7 @@ export default function horizontalButton({
 }) {
   const dynamicStyles = {
     button: {
-      backgroundColor: selected ? backgroundColor : 'white',
+      backgroundColor: selected ? backgroundColor : "white",
       borderColor: borderColor,
     },
     text: {
@@ -21,10 +21,7 @@ export default function horizontalButton({
   };
 
   return (
-    <Pressable
-      style={[styles.button, dynamicStyles.button]}
-      onPress={onPress}
-    >
+    <Pressable style={[styles.button, dynamicStyles.button]} onPress={onPress}>
       <Text style={[styles.text, dynamicStyles.text]}>{title}</Text>
     </Pressable>
   );
@@ -32,22 +29,22 @@ export default function horizontalButton({
 
 const styles = StyleSheet.create({
   button: {
-    alignSelf: 'flex-start',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingVertical: 6,
     paddingHorizontal: 15,
     borderRadius: 20,
-    // elevation: 3,
     marginHorizontal: 2,
     marginBottom: 2,
     borderWidth: 1,
+    width: 100,
+    height: 40,
   },
   text: {
-    fontSize: font(16),
+    fontSize: font(12),
     lineHeight: 21,
     // fontWeight: 'bold',
     letterSpacing: 0.25,
-    color: 'white',
+    color: "white",
   },
 });
