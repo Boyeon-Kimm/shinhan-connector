@@ -9,3 +9,10 @@ export const dayFormat = (thisDate) => {
   const formatted = dayjs(thisDate).format('YYYY-MM-DD');
   return formatted;
 };
+
+export const makeTimestamp = (year, month) => {
+  const newMonth = ('0' + month).slice(-2);
+  const newDate = new Date(`${year}-${newMonth}-01`);
+  const newTimestamp = newDate.getTime();
+  return newTimestamp;
+};
