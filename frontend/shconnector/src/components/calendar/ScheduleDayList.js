@@ -5,15 +5,33 @@ import HorizonButton from '../common/HorizonButton';
 import { colors, font } from '../../config/globalStyles';
 import DropDownPicker from 'react-native-dropdown-picker';
 
+const category = ['전체 선택', '보낸 선물', '받은 선물'];
+
 export default function ScheduleDayList({ date }) {
+  const [currentCategory, setCurrentCategory] = useState(category[0]);
+
   const scheduleList = [
-    { scheduleNo: 5, time: '13:00', relation: '친구', title: '김신한 결혼식 축의금', amount: 100000, isCompleted: true },
-    { scheduleNo: 7, time: '18:00', relation: '가족', title: '결혼기념일 선물', amount: 1000000, isCompleted: false },
+    {
+      scheduleNo: 5,
+      time: '13:00',
+      relation: '친구',
+      title: '김신한 결혼식 축의금',
+      amount: 100000,
+      isCompleted: true,
+    },
+    {
+      scheduleNo: 7,
+      time: '18:00',
+      relation: '가족',
+      title: '결혼기념일 선물',
+      amount: 1000000,
+      isCompleted: false,
+    },
   ];
 
-  const onPressAll = () => {};
-  const onPressSend = () => {};
-  const onPressReceive = () => {};
+  const onPressHorizon = (newCategory) => {
+    setCurrentCategory(newCategory);
+  };
 
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -27,31 +45,22 @@ export default function ScheduleDayList({ date }) {
 
   return (
     <View style={styles.wholeContainer}>
-      <View style={styles.horizonContainer}>
-        <HorizonButton
-          onPress={onPressAll}
-          title="전체 선택"
-          backgroundColor={colors.button}
-          color={colors.shinhan}
-          borderColor={colors.button}
-          selected={true}
-        />
-        <HorizonButton
-          onPress={onPressSend}
-          title="보낸 선물"
-          backgroundColor={colors.button}
-          color={colors.shinhan}
-          borderColor={colors.button}
-          selected={false}
-        />
-        <HorizonButton
-          onPress={onPressReceive}
-          title="받은 선물"
-          backgroundColor={colors.button}
-          color={colors.shinhan}
-          borderColor={colors.button}
-          selected={false}
-        />
+      <View style={styles.horizonCon}>
+        <ScrollView horizontal={true}>
+          {category.map((item) => (
+            <HorizonButton
+              key={item}
+              onPress={() => {
+                onPressHorizon(item);
+              }}
+              title={item}
+              backgroundColor={colors.button}
+              color={colors.shinhan}
+              borderColor={colors.button}
+              selected={currentCategory === item ? true : false}
+            />
+          ))}
+        </ScrollView>
       </View>
       <DropDownPicker
         open={open}
@@ -64,7 +73,7 @@ export default function ScheduleDayList({ date }) {
         containerStyle={styles.containerStyle}
         textStyle={styles.textStyle}
         dropDownContainerStyle={styles.dropDownContainerStyle}
-        placeholder="-- 경조사 종류 선택 --"
+        placeholder='-- 경조사 종류 선택 --'
       />
       <View style={{ flexGrow: 1 }}>
         <ScrollView>
@@ -85,11 +94,23 @@ export default function ScheduleDayList({ date }) {
 }
 
 const styles = StyleSheet.create({
-  wholeContainer: { flex: 1, paddingHorizontal: 15 },
-  horizonContainer: { flexDirection: 'row', justifyContent: 'center', alignContent: 'center', marginBottom: font(7) },
-
-  style: { borderColor: colors.inputBorder, paddingVertical: font(10), minHeight: 0 },
-  containerStyle: { borderColor: colors.inputBorder },
+  wholeContainer: {
+    flex: 1,
+    paddingHorizontal: 15,
+    // alignItems: 'center',
+    backgroundColor: 'white',
+  },
+  horizonCon: { height: '20%', alignItems: 'center' },
+  style: {
+    borderColor: colors.inputBorder,
+    paddingVertical: font(10),
+    minHeight: 0,
+  },
+  containerStyle: {
+    backgroundColor: 'white',
+    borderColor: colors.inputBorder,
+    zIndex: 5000,
+  },
   dropDownContainerStyle: { borderColor: colors.inputBorder },
   textStyle: { color: colors.title, fontSize: font(16) },
   labelStyle: {},

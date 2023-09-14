@@ -2,7 +2,8 @@ import { Dimensions, useWindowDimensions } from 'react-native';
 import { StatusBar } from 'react-native';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 
-export const statusBarHeight = Platform.OS === 'ios' ? getStatusBarHeight(true) : StatusBar.currentHeight;
+export const statusBarHeight =
+  Platform.OS === 'ios' ? getStatusBarHeight(true) : StatusBar.currentHeight;
 
 export const colors = {
   shinhan: '#2b70cc', // 신한 대표 색상 코드
@@ -17,6 +18,12 @@ export const colors = {
   infoBackground: '#F9F9F9', // 안내문구 백그라운드
   subcontent: '#666666', // 서브콘텐트
   button: '#D2E4FC', // 평행버튼 색상
+
+  family: 'red',
+  friend: 'orange',
+  coworker: 'yellow',
+  client: 'green',
+  extra: 'blue',
 };
 export const fonts = {};
 
@@ -41,5 +48,9 @@ export const heightScale = // 높이 변환 작업
   (Dimensions.get('screen').height * (1 / basicDimensions.height)).toFixed(2);
 
 export const font = (pixel) => {
-  return (Dimensions.get('screen').height * (1 / basicDimensions.height)).toFixed(2) * pixel;
+  return (
+    (Dimensions.get('screen').height * (1 / basicDimensions.height)).toFixed(
+      2
+    ) * pixel
+  );
 };

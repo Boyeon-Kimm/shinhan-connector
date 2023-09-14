@@ -16,6 +16,7 @@
     "@react-navigation/stack": "^6.3.17",
     "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.5.0",
+    "dayjs": "^1.11.9",
     "expo": "~49.0.8",
     "expo-react-native-shadow": "^1.0.3",
     "expo-status-bar": "~1.6.0",
