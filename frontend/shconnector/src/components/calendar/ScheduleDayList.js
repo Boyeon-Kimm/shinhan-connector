@@ -106,7 +106,11 @@ const styles = StyleSheet.create({
     paddingVertical: font(10),
     minHeight: 0,
   },
-  containerStyle: { backgroundColor: 'white', borderColor: colors.inputBorder },
+  containerStyle: {
+    backgroundColor: 'white',
+    borderColor: colors.inputBorder,
+    zIndex: 5000,
+  },
   dropDownContainerStyle: { borderColor: colors.inputBorder },
   textStyle: { color: colors.title, fontSize: font(16) },
   labelStyle: {},

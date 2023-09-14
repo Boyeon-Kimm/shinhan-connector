@@ -5,7 +5,7 @@ const initialState = {
   marked: {},
   currYear: new Date().getFullYear(),
   currMonth: new Date().getMonth() + 1,
-  // currDate: new Date().getDate(),
+  schedules: [],
 };
 
 const CalendarSlice = createSlice({
@@ -27,9 +27,9 @@ const CalendarSlice = createSlice({
     updateCurrMonth: (state, action) => {
       state.currMonth = action.payload;
     },
-    // updateCurrDate: (state, action) => {
-    //   state.currDate = action.payload;
-    // },
+    updateSchedules: (state, action) => {
+      state.schedules = action.payload;
+    },
   },
 });
 
@@ -40,5 +40,5 @@ export const {
   updateMarked,
   updateCurrYear,
   updateCurrMonth,
-  // updateCurrDate,
+  updateSchedules,
 } = CalendarSlice.actions;
