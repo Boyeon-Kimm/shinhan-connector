@@ -1,27 +1,30 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import Symbol from "../../../assets/symbol.png";
-// import { AntDesign } from "@expo/vector-icons";
-// import { FormOutLined } from 'antd';
-// import { FormOutlined } from '@ant-design/icons';
+import { useNavigation } from "@react-navigation/native";
 
-export default function AccountEach({title, bank, accountNo, deposit}) {
+export default function AccountEach({ title, bank, accountNo, deposit }) {
+  const navigation = useNavigation();
+
   return (
-    <View style={styles.card}>
-      <View style={styles.upper}>
-        <Image source={Symbol} style={styles.img} />
-        <View>
-          <Text style={styles.boldTitle}>{title}</Text>
-          <Text style={styles.grayText}>{bank}{" "}{accountNo}</Text>
+    <TouchableOpacity onPress={() => navigation.navigate("AccountDetail")}>
+      <View style={styles.card}>
+        <View style={styles.upper}>
+          <Image source={Symbol} style={styles.img} />
+          <View>
+            <Text style={styles.boldTitle}>{title}</Text>
+            <Text style={styles.grayText}>
+              {bank} {accountNo}
+            </Text>
+          </View>
         </View>
-        {/* <FormOutlined /> */}
+        <View style={styles.middle}>
+          <Text style={styles.boldBalanceText}>{deposit}</Text>
+        </View>
+        <TouchableOpacity onPress={() => navigation.navigate("Transfer")}>
+          <Text style={styles.lower}>이체</Text>
+        </TouchableOpacity>
       </View>
-      <View style={styles.middle}>
-        <Text style={styles.boldBalanceText}>{deposit}</Text>
-      </View>
-      <TouchableOpacity>
-        <Text style={styles.lower}>이체</Text>
-      </TouchableOpacity>
-    </View>
+    </TouchableOpacity>
   );
 }
 const styles = StyleSheet.create({

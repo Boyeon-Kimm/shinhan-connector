@@ -9,7 +9,7 @@ import {
 import { StatusBar } from "expo-status-bar";
 import symbol from "../../../assets/symbol.png";
 import MyButton from "../../components/common/Button";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
 
 export default function CheckAccount() {
   const navigation = useNavigation();
@@ -25,9 +25,13 @@ export default function CheckAccount() {
           <Text style={styles.boldtext}>계좌로 송금하시겠습니까?</Text>
         </View>
         <View style={styles.graybox}>
-          <Text>받는 분 통장 표시: 김싸피</Text>
+          <Text>받는 분 통장 표시: </Text>
+          <TextInput style={styles.input} value="김싸피" keyboardType="text" />
         </View>
-        <Text style={styles.grayboldtext}>이체계좌 변경</Text>
+        {/* 이체 계좌 변경 해... 말아..? */}
+        <TouchableOpacity onPress={() => navigation.navigate("Transfer")}>
+          <Text style={styles.grayboldtext}>이체계좌 변경</Text>
+        </TouchableOpacity>
       </View>
       <TouchableOpacity style={styles.buttondiv}>
         <MyButton
@@ -46,7 +50,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     alignItems: "center",
-    paddingHorizontal: 15,
+    paddingHorizontal: 30,
   },
   aboutdiv: {
     flex: 2,
@@ -66,7 +70,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#ECECEC",
     paddingVertical: 10,
     paddingHorizontal: 15,
-    borderRadius: 20,
+    borderRadius: 30,
+    flexDirection: "row",
+    alignItems: "center",
   },
   bluetext: {
     color: "#2b70cc",
@@ -83,6 +89,6 @@ const styles = StyleSheet.create({
   },
   buttondiv: {
     marginVertical: 20,
-    width: '100%',
-  }
+    width: "100%",
+  },
 });

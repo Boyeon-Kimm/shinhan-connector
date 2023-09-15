@@ -4,14 +4,16 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
+import { StatusBar } from "expo-status-bar";
 
 export default function AccountDetail(){
   return(
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
+      <StatusBar style="auto" />
 
-
-    </View>
+    </ScrollView>
   )
 }
 
