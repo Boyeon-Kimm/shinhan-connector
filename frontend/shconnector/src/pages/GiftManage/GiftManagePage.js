@@ -1,8 +1,15 @@
-import { Text, View, StyleSheet, ScrollView, TextInput } from "react-native";
+import { Text, View, StyleSheet, ScrollView, TextInput, TouchableOpacity } from "react-native";
 import MyChart from "../../components/giftManage/pieChart";
 import HeaderBar from "../../components/common/HeaderBar";
 import { Shadow } from "react-native-shadow-2";
 import { AntDesign } from "@expo/vector-icons";
+import {
+  font,
+  statusBarHeight,
+  widthScale,
+  heightScale,
+  colors,
+} from "../../config/globalStyles";
 
 export default function GiftManagePage() {
   return (
@@ -16,17 +23,22 @@ export default function GiftManagePage() {
       <View style={styles.selectContainer}>
         <View style={styles.select}>
           <Text style={styles.selectText}>전체 선물 내역</Text>
-          <AntDesign name="right" size={22} color="black" />
+          <AntDesign name="right" size={18} color="black" />
         </View>
         <View style={styles.select}>
           <Text style={styles.selectText}>선물 보낸 내역</Text>
-          <AntDesign name="right" size={22} color="black" />
+          <AntDesign name="right" size={18} color="black" />
         </View>
         <View style={styles.select}>
           <Text style={styles.selectText}>선물 받은 내역</Text>
-          <AntDesign name="right" size={22} color="black" />
+          <AntDesign name="right" size={18} color="black" />
         </View>
       </View>
+      <AntDesign
+        name="pluscircle"
+        size={widthScale * 40}
+        style={styles.plusButton}
+      />
     </View>
   );
 }
@@ -36,9 +48,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     alignItems: "center",
+    backgroundColor: 'white',
   },
   chart: {
-    flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
     marginTop: 30,
@@ -66,4 +78,5 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "600",
   },
+  plusButton: { position: 'absolute', bottom: widthScale * 10, right: widthScale * 20, color: colors.shinhan },
 });

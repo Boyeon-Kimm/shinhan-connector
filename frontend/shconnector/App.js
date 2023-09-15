@@ -10,6 +10,9 @@ import CalendarCreate from "./src/pages/Calendar/CalendarCreate";
 import Login from "./src/pages/Login/Login";
 import Signup from "./src/pages/Login/Signup";
 import Transfer from "./src/pages/Transfer/Transfer";
+import CheckAccount from "./src/pages/Transfer/CheckAccount";
+import CheckExpense from "./src/pages/Transfer/CheckExpense";
+import CheckTransfer from "./src/pages/Transfer/CheckTransfer";
 import WriteLetter from "./src/pages/Letter/WriteLetter";
 import Savings from "./src/pages/Recommend/Savings";
 import Gift from "./src/pages/Recommend/Gift";
@@ -142,8 +145,30 @@ export default function App() {
             }}
           />
           <Stack.Screen
-            name="Gift"
-            component={Gift}
+            name="CheckAccount"
+            component={CheckAccount}
+            options={{
+              title: "",
+              headerStyle: { 
+                backgroundColor: 'white',
+                shadowColor: 'white',
+              },
+            }}
+          />
+          <Stack.Screen
+            name="CheckExpense"
+            component={CheckExpense}
+            options={{
+              title: "",
+              headerStyle: { 
+                backgroundColor: 'white',
+                shadowColor: 'white',
+              },
+            }}
+          />
+          <Stack.Screen
+            name="CheckTransfer"
+            component={CheckTransfer}
             options={{
               title: "",
               headerStyle: { 

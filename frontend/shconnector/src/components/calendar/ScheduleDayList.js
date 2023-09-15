@@ -5,7 +5,7 @@ import HorizonButton from '../common/HorizonButton';
 import { colors, font } from '../../config/globalStyles';
 import DropDownPicker from 'react-native-dropdown-picker';
 
-const category = ['전체 선택', '보낸 선물', '받은 선물'];
+const category = ['전체 선택', '보낸 내역', '받은 내역'];
 
 export default function ScheduleDayList({ date }) {
   const [currentCategory, setCurrentCategory] = useState(category[0]);

@@ -1,11 +1,17 @@
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import { StatusBar } from "expo-status-bar";
-import Symbol from '../../../assets/symbol.png';
+import Symbol from "../../../assets/symbol.png";
 import AccountEach from "../../components/List/AccountEach";
 
 export default function AccountList() {
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <StatusBar style="auto" />
       <View>
         <Text style={styles.title}>계좌 조회</Text>
@@ -28,12 +34,25 @@ export default function AccountList() {
         </View>
         <Text style={styles.balance}>12,345,678원</Text>
       </View>
-      <ScrollView style={styles.list}>
+      <View>
+        <AccountEach title="신한 주거래 우대통장(저축예금)" bank="신한" accountNo="110-987-654321" deposit="12,345,678원" />
+      </View>
+      <View style={styles.accountDiv}>
+        <View style={styles.subtitleDiv}>
+          <Text style={{ fontSize: 16, fontWeight: "600" }}>예적금</Text>
+          <Text style={styles.boldBlueText}>2</Text>
+        </View>
+        <Text style={styles.balance}>7,350,000원</Text>
+      </View>
+      <View>
+        <AccountEach title="마이홈플랜 주택청약 종합저축" bank="신한" accountNo="223-987-654321" deposit="7,000,000원" />
+        <AccountEach title="쏠편한 작삼3일 적금" bank="신한" accountNo="223-123-654875" deposit="350,000원" />
         <AccountEach />
         <AccountEach />
         <AccountEach />
-      </ScrollView>
-    </View>
+        <AccountEach />
+      </View>
+    </ScrollView>
   );
 }
 
@@ -95,5 +114,7 @@ const styles = StyleSheet.create({
   balance: {
     fontSize: 16,
   },
-
+  list: {
+    // minHeight: 190,
+  }
 });
