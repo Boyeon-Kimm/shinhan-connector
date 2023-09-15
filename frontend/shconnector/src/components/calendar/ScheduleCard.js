@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import { FontAwesome } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -32,8 +33,10 @@ export default function ScheduleCard({ scheduleNumber, time, relation, scheduleN
     { title: "일정 삭제", func: handleDeleteSchedule },
   ];
 
+  const navigation = useNavigation();
+
   const handleTransfer = () => {
-    // 송금 실행 함수 구현 필요
+    navigation.navigate('CheckAccount');
   };
 
   const onPressHorizon = () => {
