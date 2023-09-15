@@ -1,12 +1,12 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import TestSlice from './TestSlice';
 import CalendarSlice from './CalendarSlice';
-import TokenSlice from './TokenSlice';
+import LoginSlice from './LoginSlice';
 
 const rootReducer = combineReducers({
   test: TestSlice.reducer,
   calendar: CalendarSlice.reducer,
-  token: TokenSlice.reducer,
+  login: LoginSlice.reducer,
 });
 
 export default rootReducer;
