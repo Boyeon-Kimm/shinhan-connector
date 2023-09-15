@@ -45,10 +45,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     paddingHorizontal: 30,
+    paddingBottom: 20,
   },
   boldtext: {
     fontWeight: "600",
-    fontSize: 22,
+    fontSize: 24,
   },
   input: {
     fontSize: 24,
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
   upper: {
     flex: 1,
     justifyContent: 'center',
-    paddingHorizontal: 30,
+    paddingHorizontal: 15,
   },
   lower: {
     flex: 1,

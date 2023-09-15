@@ -19,6 +19,7 @@ import Gift from "./src/pages/Recommend/Gift";
 import AccountList from "./src/pages/Account/AccountList";
 import FriendPage from "./src/pages/Friend/FriendPage";
 import CalendarPage from "./src/pages/Calendar/CalendarPage";
+import AccountDetail from "./src/pages/Account/AccountDetail";
 
 const Stack = createStackNavigator();
 
@@ -39,9 +40,9 @@ export default function App() {
             component={FriendCreatePage}
             options={{
               title: "",
-              headerStyle: { 
-                backgroundColor: 'white',
-                shadowColor: 'white',
+              headerStyle: {
+                backgroundColor: "white",
+                shadowColor: "white",
               },
             }}
           />
@@ -50,9 +51,9 @@ export default function App() {
             component={CalendarCreate}
             options={{
               title: "",
-              headerStyle: { 
-                backgroundColor: 'white',
-                shadowColor: 'white',
+              headerStyle: {
+                backgroundColor: "white",
+                shadowColor: "white",
               },
             }}
           />
@@ -61,9 +62,9 @@ export default function App() {
             component={Login}
             options={{
               title: "",
-              headerStyle: { 
-                backgroundColor: 'white',
-                shadowColor: 'white',
+              headerStyle: {
+                backgroundColor: "white",
+                shadowColor: "white",
               },
             }}
           />
@@ -72,9 +73,9 @@ export default function App() {
             component={Signup}
             options={{
               title: "",
-              headerStyle: { 
-                backgroundColor: 'white',
-                shadowColor: 'white',
+              headerStyle: {
+                backgroundColor: "white",
+                shadowColor: "white",
               },
             }}
           />
@@ -83,9 +84,9 @@ export default function App() {
             component={Transfer}
             options={{
               title: "",
-              headerStyle: { 
-                backgroundColor: 'white',
-                shadowColor: 'white',
+              headerStyle: {
+                backgroundColor: "white",
+                shadowColor: "white",
               },
             }}
           />
@@ -94,9 +95,9 @@ export default function App() {
             component={WriteLetter}
             options={{
               title: "",
-              headerStyle: { 
-                backgroundColor: 'white',
-                shadowColor: 'white',
+              headerStyle: {
+                backgroundColor: "white",
+                shadowColor: "white",
               },
             }}
           />
@@ -105,9 +106,9 @@ export default function App() {
             component={Savings}
             options={{
               title: "",
-              headerStyle: { 
-                backgroundColor: 'white',
-                shadowColor: 'white',
+              headerStyle: {
+                backgroundColor: "white",
+                shadowColor: "white",
               },
             }}
           />
@@ -116,9 +117,9 @@ export default function App() {
             component={AccountList}
             options={{
               title: "",
-              headerStyle: { 
-                backgroundColor: 'white',
-                shadowColor: 'white',
+              headerStyle: {
+                backgroundColor: "white",
+                shadowColor: "white",
               },
             }}
           />
@@ -127,9 +128,9 @@ export default function App() {
             component={FriendPage}
             options={{
               title: "",
-              headerStyle: { 
-                backgroundColor: 'white',
-                shadowColor: 'white',
+              headerStyle: {
+                backgroundColor: "white",
+                shadowColor: "white",
               },
             }}
           />
@@ -138,9 +139,9 @@ export default function App() {
             component={CalendarPage}
             options={{
               title: "",
-              headerStyle: { 
-                backgroundColor: 'white',
-                shadowColor: 'white',
+              headerStyle: {
+                backgroundColor: "white",
+                shadowColor: "white",
               },
             }}
           />
@@ -149,9 +150,9 @@ export default function App() {
             component={CheckAccount}
             options={{
               title: "",
-              headerStyle: { 
-                backgroundColor: 'white',
-                shadowColor: 'white',
+              headerStyle: {
+                backgroundColor: "white",
+                shadowColor: "white",
               },
             }}
           />
@@ -160,9 +161,9 @@ export default function App() {
             component={CheckExpense}
             options={{
               title: "",
-              headerStyle: { 
-                backgroundColor: 'white',
-                shadowColor: 'white',
+              headerStyle: {
+                backgroundColor: "white",
+                shadowColor: "white",
               },
             }}
           />
@@ -171,9 +172,20 @@ export default function App() {
             component={CheckTransfer}
             options={{
               title: "",
-              headerStyle: { 
-                backgroundColor: 'white',
-                shadowColor: 'white',
+              headerStyle: {
+                backgroundColor: "white",
+                shadowColor: "white",
+              },
+            }}
+          />
+          <Stack.Screen
+            name="AccountDetail"
+            component={AccountDetail}
+            options={{
+              title: "",
+              headerStyle: {
+                backgroundColor: "white",
+                shadowColor: "white",
               },
             }}
           />

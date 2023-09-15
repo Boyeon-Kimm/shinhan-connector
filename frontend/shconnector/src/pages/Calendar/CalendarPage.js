@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     gap: 5,
   },
 
-  plusButton: { position: 'absolute', bottom: widthScale * -35, right: widthScale * 20, color: colors.shinhan },
+  plusButton: { position: 'absolute', bottom: widthScale * 10, right: widthScale * 20, color: colors.shinhan },
   titleCon: {
     flexDirection: "row",
     justifyContent: "space-between",

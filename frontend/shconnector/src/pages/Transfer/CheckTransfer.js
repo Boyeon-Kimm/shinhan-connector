@@ -40,7 +40,7 @@ export default function CheckTransfer() {
           title="확인"
           backgroundColor="#2B70CC"
           color="white"
-          onPress={() => navigation.navigate("CheckTransfer")}
+          onPress={() => navigation.navigate("AccountDetail")}
         />
       </TouchableOpacity>
       </View>
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   },
   boldtext: {
     fontWeight: "600",
-    fontSize: 22,
+    fontSize: 24,
   },
   middle: {
     flex: 1,
@@ -93,6 +93,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   buttondiv: {
-    marginTop: 30,
+    marginTop: 50,
   }
 });
