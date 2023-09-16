@@ -6,17 +6,40 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
-} from "react-native";
-import { StatusBar } from "expo-status-bar";
-import Symbol from "../../../assets/symbol.png";
-import MyButton from "../../components/common/Button";
-import SearchInput from "../../components/input/SearchInput";
-import DepositEach from "../../components/List/DepositEach";
+} from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import Symbol from '../../../assets/symbol.png';
+import MyButton from '../../components/common/Button';
+import SearchInput from '../../components/input/SearchInput';
+import DepositEach from '../../components/List/DepositEach';
 
 export default function AccountDetail({ title, bank, accountNo }) {
+  const accountNumber = useSelector((state) => state.login.accountNo);
+  const [remainMoney, setRemainMoney] = useState(null);
+
+  const getAccountData = async () => {
+    const url = `/api/account/${accountNumber}`;
+    const response = await API.get(url).catch((error) => {
+      console.log('Axios 에러', error.response);
+      if (error.response.status === 400) {
+        console.log('잘못된 계좌 정보');
+      }
+      if (error.response.status === 403) {
+        console.log('타인의 계좌');
+      }
+    });
+    console.log(response);
+
+    if (response && response.status === 200) {
+      setRemainMoney(response.data.remainMoney);
+    } else {
+      console.log('계좌 조회에 실패하였습니다');
+    }
+  };
+
   return (
     <ScrollView style={styles.container}>
-      <StatusBar style="auto" />
+      <StatusBar style='auto' />
       <View>
         <Text style={styles.title}>거래내역 조회</Text>
       </View>
@@ -28,12 +51,12 @@ export default function AccountDetail({ title, bank, accountNo }) {
           </View>
           <Text style={styles.grayText}>신한 110-987-654321</Text>
         </View>
-        <Text style={styles.boldtext}>3,474,909원</Text>
+        <Text style={styles.boldtext}>{remainMoney}원</Text>
         <MyButton
-          title="이체"
-          backgroundColor="#2B70CC"
-          color="white"
-          onPress={() => navigation.navigate("Login")}
+          title='이체'
+          backgroundColor='#2B70CC'
+          color='white'
+          onPress={() => navigation.navigate('Login')}
         />
       </View>
       <View style={styles.searchdiv}>
@@ -43,35 +66,35 @@ export default function AccountDetail({ title, bank, accountNo }) {
         <Text style={styles.date}>2023.09.16</Text>
         <View style={styles.detaildiv}>
           <DepositEach
-            time="02:58:45"
-            description="이자"
-            name="06.17~09.15"
-            kind="입금"
-            amount="193"
+            time='02:58:45'
+            description='이자'
+            name='06.17~09.15'
+            kind='입금'
+            amount='193'
           />
         </View>
         <Text style={styles.date}>2023.09.15</Text>
         <View style={styles.detaildiv}>
           <DepositEach
-            time="15:03:22"
-            description="타행IB"
-            name="삼성SSAFY"
-            kind="입금"
-            amount="1,000,000"
+            time='15:03:22'
+            description='타행IB'
+            name='삼성SSAFY'
+            kind='입금'
+            amount='1,000,000'
           />
           <DepositEach
-            time="11:19:51"
-            description="축의금"
-            name="김신한"
-            kind="출금"
-            amount="150,000"
+            time='11:19:51'
+            description='축의금'
+            name='김신한'
+            kind='출금'
+            amount='150,000'
           />
           <DepositEach
-            time="11:19:51"
-            description="생일"
-            name="이싸피"
-            kind="출금"
-            amount="53,000"
+            time='11:19:51'
+            description='생일'
+            name='이싸피'
+            kind='출금'
+            amount='53,000'
           />
         </View>
       </View>
@@ -82,22 +105,22 @@ export default function AccountDetail({ title, bank, accountNo }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
   title: {
-    fontWeight: "600",
+    fontWeight: '600',
     fontSize: 20,
     paddingBottom: 20,
     paddingHorizontal: 30,
   },
   boldTitle: {
     fontSize: 16,
-    fontWeight: "700",
+    fontWeight: '700',
   },
   grayText: {
-    fontWeight: "500",
+    fontWeight: '500',
     fontSize: 15,
-    color: "gray",
+    color: 'gray',
   },
   img: {
     width: 22,
@@ -107,35 +130,35 @@ const styles = StyleSheet.create({
     gap: 5,
   },
   aboutdiv: {
-    backgroundColor: "#c3def9",
+    backgroundColor: '#c3def9',
     padding: 30,
   },
   boldtext: {
-    fontWeight: "600",
+    fontWeight: '600',
     fontSize: 24,
     marginVertical: 20,
   },
   titlediv: {
-    flexDirection: "row",
+    flexDirection: 'row',
     gap: 5,
   },
   buttondiv: {
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   searchdiv: {
     paddingVertical: 10,
     paddingHorizontal: 30,
   },
   detaildiv: {
-    borderTopColor: "gray",
+    borderTopColor: 'gray',
     borderTopWidth: 1,
     marginHorizontal: 30,
     marginBottom: 20,
   },
   date: {
     fontSize: 16,
-    color: "gray",
-    fontWeight: "600",
+    color: 'gray',
+    fontWeight: '600',
     paddingVertical: 10,
     paddingHorizontal: 30,
   },
