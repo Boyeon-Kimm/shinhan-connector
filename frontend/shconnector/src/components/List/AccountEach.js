@@ -1,23 +1,30 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import Symbol from "../../../assets/symbol.png";
+import { useNavigation } from "@react-navigation/native";
 
-export default function AccountEach() {
+export default function AccountEach({ title, bank, accountNo, deposit }) {
+  const navigation = useNavigation();
+
   return (
-    <View style={styles.card}>
-      <View style={styles.upper}>
-        <Image source={Symbol} style={styles.img} />
-        <View>
-          <Text style={styles.boldTitle}>신한 주거래 우대통장(저축예금)</Text>
-          <Text style={styles.grayText}>신한 110-987-654321</Text>
+    <TouchableOpacity onPress={() => navigation.navigate("AccountDetail")}>
+      <View style={styles.card}>
+        <View style={styles.upper}>
+          <Image source={Symbol} style={styles.img} />
+          <View>
+            <Text style={styles.boldTitle}>{title}</Text>
+            <Text style={styles.grayText}>
+              {bank} {accountNo}
+            </Text>
+          </View>
         </View>
+        <View style={styles.middle}>
+          <Text style={styles.boldBalanceText}>{deposit}</Text>
+        </View>
+        <TouchableOpacity onPress={() => navigation.navigate("Transfer")}>
+          <Text style={styles.lower}>이체</Text>
+        </TouchableOpacity>
       </View>
-      <View style={styles.middle}>
-        <Text style={styles.boldBalanceText}>12,345,678원</Text>
-      </View>
-      <TouchableOpacity>
-        <Text style={styles.lower}>이체</Text>
-      </TouchableOpacity>
-    </View>
+    </TouchableOpacity>
   );
 }
 const styles = StyleSheet.create({

@@ -28,8 +28,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 7,
     elevation: 3,
-    marginHorizontal: 12,
-    marginBottom: 20,
+    // marginHorizontal: 12,
+    // marginBottom: 20,
   },
   text: {
     fontSize: 16,

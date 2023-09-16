@@ -159,6 +159,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginHorizontal: 30,
     paddingHorizontal: 20,
+    paddingBottom: 20,
     borderRadius: 15,
     backgroundColor: 'white',
   },
