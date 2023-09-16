@@ -5,6 +5,7 @@ import { useState } from 'react';
 import Button from '../../components/common/Button';
 import { colors } from '../../config/globalStyles';
 import API from '../../util/api';
+import HeaderBar from '../../components/common/HeaderBar';
 
 export default function SignUp({ navigation }) {
   const [id, setId] = useState(null);
@@ -65,6 +66,10 @@ export default function SignUp({ navigation }) {
     { label: 'HSBC', value: '054' },
     { label: 'SC제일은행', value: '023' },
   ]);
+
+  const handlePressArrow = () => {
+    navigation.goBack();
+  };
 
   const handleChangePhone = (text) => {
     // console.log(text.length);
@@ -189,6 +194,15 @@ export default function SignUp({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar style='auto' />
+      <HeaderBar
+        showBackArrow={true}
+        onPressArrow={handlePressArrow}
+        title={null}
+        showLogout={false}
+        showBell={false}
+        showThreeDots={false}
+        onPressRight={null}
+      />
       <View style={styles.titleCon}>
         <Text style={styles.title}>회원가입</Text>
         <Text style={styles.grayText}>신한 커넥터에 오신 것을 환영합니다!</Text>
