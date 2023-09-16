@@ -22,6 +22,11 @@ import FriendPage from "./src/pages/Friend/FriendPage";
 import FriendUpdatePage from "./src/pages/Friend/FriendUpdatePage";
 import CalendarPage from "./src/pages/Calendar/CalendarPage";
 import AccountDetail from "./src/pages/Account/AccountDetail";
+import GiftAll from "./src/pages/GiftManage/GiftAll";
+import GiftGive from "./src/pages/GiftManage/GiftGive";
+import GiftReceived from "./src/pages/GiftManage/GiftReceived";
+import LetterDetail from "./src/pages/Letter/LetterDetail";
+import Mature from "./src/pages/Letter/Mature";
 
 const Stack = createStackNavigator();
 
@@ -193,6 +198,61 @@ export default function App() {
           <Stack.Screen
             name="FriendUpdatePage"
             component={FriendUpdatePage}
+            options={{
+              title: "",
+              headerStyle: {
+                backgroundColor: "white",
+                shadowColor: "white",
+              },
+            }}
+          />
+          <Stack.Screen
+            name="GiftAll"
+            component={GiftAll}
+            options={{
+              title: "",
+              headerStyle: {
+                backgroundColor: "white",
+                shadowColor: "white",
+              },
+            }}
+          />
+          <Stack.Screen
+            name="GiftGive"
+            component={GiftGive}
+            options={{
+              title: "",
+              headerStyle: {
+                backgroundColor: "white",
+                shadowColor: "white",
+              },
+            }}
+          />
+          <Stack.Screen
+            name="GiftReceived"
+            component={GiftReceived}
+            options={{
+              title: "",
+              headerStyle: {
+                backgroundColor: "white",
+                shadowColor: "white",
+              },
+            }}
+          />
+          <Stack.Screen
+            name="LetterDetail"
+            component={LetterDetail}
+            options={{
+              title: "",
+              headerStyle: {
+                backgroundColor: "white",
+                shadowColor: "white",
+              },
+            }}
+          />
+          <Stack.Screen
+            name="Mature"
+            component={Mature}
             options={{
               title: "",
               headerStyle: {
