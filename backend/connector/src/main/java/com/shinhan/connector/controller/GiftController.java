@@ -1,10 +1,12 @@
 package com.shinhan.connector.controller;
 
 import com.shinhan.connector.config.jwt.UserDetailsImpl;
-import com.shinhan.connector.dto.request.GiftAddRequest;
-import com.shinhan.connector.dto.response.GiftAddResponse;
-import com.shinhan.connector.dto.response.GiftSendResponse;
 import com.shinhan.connector.dto.ResponseMessage;
+import com.shinhan.connector.dto.request.GiftAddRequest;
+import com.shinhan.connector.dto.request.GiftUpdateRequest;
+import com.shinhan.connector.dto.request.SearchCondition;
+import com.shinhan.connector.dto.response.GiftAddResponse;
+import com.shinhan.connector.dto.response.GiftResponse;
 import com.shinhan.connector.service.GiftService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,7 +23,7 @@ public class GiftController {
     private final GiftService giftService;
 
     @PostMapping
-    public ResponseEntity<GiftAddResponse> createGift(@RequestBody GiftAddRequest giftAddRequest,
+    public ResponseEntity<? extends GiftAddResponse> createGift(@RequestBody GiftAddRequest giftAddRequest,
                                                       @RequestParam String option,
                                                       @AuthenticationPrincipal UserDetailsImpl user) {
         return ResponseEntity
@@ -30,20 +32,34 @@ public class GiftController {
     }
 
     @DeleteMapping("/{giftNo}")
-    public ResponseEntity<ResponseMessage> deleteGift(@PathVariable Integer giftNo, @RequestParam String option) {
-        return ResponseEntity.ok(giftService.deleteGift(giftNo, option));
+    public ResponseEntity<ResponseMessage> deleteGift(@PathVariable Integer giftNo,
+                                                      @RequestParam String option,
+                                                      @AuthenticationPrincipal UserDetailsImpl user) {
+        return ResponseEntity.ok(giftService.deleteGift(giftNo, option, user));
     }
 
     @GetMapping("/{giftNo}")
-    public ResponseEntity<GiftSendResponse> getGift(@PathVariable Integer giftNo, @RequestParam String option) {
-        return ResponseEntity.ok(giftService.getGift(giftNo, option));
+    public ResponseEntity<? extends GiftResponse> getGift(@PathVariable Integer giftNo,
+                                                          @RequestParam String option,
+                                                          @AuthenticationPrincipal UserDetailsImpl user) {
+        return ResponseEntity.ok(giftService.getGift(giftNo, option, user));
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<GiftSendResponse>> getAllGift(@RequestParam String option,
-                                                             @RequestParam(required = false) Integer friendNo,
-                                                             @AuthenticationPrincipal UserDetailsImpl user) {
-        return ResponseEntity.ok(giftService.getAllGift(option, friendNo, user));
+    public ResponseEntity<?> getAllGift(SearchCondition searchCondition,
+                                                                   @AuthenticationPrincipal UserDetailsImpl user) {
+        if (searchCondition.getAmount()) {
+            return ResponseEntity.ok(giftService.getTotalPrice(searchCondition, user));
+        } else {
+            return ResponseEntity.ok(giftService.getAllGift(searchCondition, user));
+        }
     }
 
+    @PutMapping("/{giftNo}")
+    public ResponseEntity<? extends GiftResponse> modifyGift(@PathVariable Integer giftNo,
+                                                             @RequestParam String option,
+                                                             @RequestBody GiftUpdateRequest updateRequest,
+                                                             @AuthenticationPrincipal UserDetailsImpl user) {
+        return ResponseEntity.ok(giftService.updateGift(giftNo, option, updateRequest, user));
+    }
 }

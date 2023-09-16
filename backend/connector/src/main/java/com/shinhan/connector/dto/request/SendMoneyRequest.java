@@ -6,6 +6,8 @@ import lombok.Data;
 @Data
 @Builder
 public class SendMoneyRequest {
+    private Integer tributeNo;
+    private Integer savingsLetterNo;
     private String bankCode;
     private String accountNumber;
     private String depositorName;

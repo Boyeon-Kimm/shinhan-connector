@@ -1,16 +1,14 @@
 package com.shinhan.connector.service;
 
+import com.shinhan.connector.config.TimeUtils;
 import com.shinhan.connector.config.jwt.UserDetailsImpl;
 import com.shinhan.connector.dto.response.AccountHistoryResponse;
 import com.shinhan.connector.dto.response.AccountResponse;
 import com.shinhan.connector.dto.ResponseMessage;
 import com.shinhan.connector.dto.request.SendMoneyRequest;
-import com.shinhan.connector.entity.Account;
-import com.shinhan.connector.entity.AccountHistory;
-import com.shinhan.connector.entity.Member;
-import com.shinhan.connector.repository.AccountHistoryRepository;
-import com.shinhan.connector.repository.AccountRepository;
-import com.shinhan.connector.repository.MemberRepository;
+import com.shinhan.connector.entity.*;
+import com.shinhan.connector.enums.AccountType;
+import com.shinhan.connector.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -18,10 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,7 +25,9 @@ import java.util.stream.Collectors;
 public class AccountService {
     private final AccountRepository accountRepository;
     private final AccountHistoryRepository accountHistoryRepository;
+    private final SavingsLetterRepository savingsLetterRepository;
     private final MemberRepository memberRepository;
+    private final TributeSendRepository tributeSendRepository;
     @Transactional
     public List<AccountHistoryResponse> getHistory(String accountNumber, String option, UserDetailsImpl user) {
         log.info("[계좌내역 조회] 계좌내역조회 요청. {}, {}, {}", accountNumber, option, user);
@@ -156,6 +153,28 @@ public class AccountService {
 
         accountRepository.save(giveAccount);
         accountRepository.save(receiveAccount);
+
+        // 경조사비 입금 처리
+        if (sendMoneyRequest.getTributeNo() != null) {
+            TributeSend tributeSend = tributeSendRepository.findById(sendMoneyRequest.getTributeNo())
+                    .orElseThrow(() ->
+                        new ResponseStatusException(HttpStatus.BAD_REQUEST, "잘못된 경조사비 번호입니다.")
+                    );
+            if (tributeSend.getSent()) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 송금이 완료된 내역입니다.");
+            }
+            tributeSend.send(sendMoneyRequest.getAmount());
+            tributeSendRepository.save(tributeSend);
+        }
+
+        // 적금편지 입금 처리
+        if (sendMoneyRequest.getSavingsLetterNo() != null) {
+            SavingsLetter savingsLetter = savingsLetterRepository.findById(sendMoneyRequest.getSavingsLetterNo())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "적금편지를 찾을 수 없습니다."));
+
+            savingsLetter.send();
+            savingsLetterRepository.save(savingsLetter);
+        }
 
         accountHistoryRepository.save(giveHistory);
         accountHistoryRepository.save(receiveHistory);

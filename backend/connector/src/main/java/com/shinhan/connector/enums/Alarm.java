@@ -9,7 +9,7 @@ public enum Alarm {
         this.value = value;
     }
 
-    public static Alarm getAlarm(int value) {
+    public static Alarm getAlarm(Integer value) {
         switch (value) {
             case 1:
                 return ONE;
