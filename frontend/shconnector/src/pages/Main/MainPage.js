@@ -6,18 +6,6 @@ import { Fontisto } from '@expo/vector-icons';
 
 import HeaderBar from '../../components/common/HeaderBar';
 
-import {
-  updateAccountNo,
-  updateMemberNo,
-  updateId,
-  updateName,
-  updateAge,
-  updateGender,
-  updateContact,
-  updateAccessToken,
-  updateRefreshToken,
-} from '../../reducers/LoginSlice';
-
 import MyButton from '../../components/common/Button';
 import char1 from '../../../assets/character1.png';
 import char2 from '../../../assets/character2.png';
@@ -29,16 +17,8 @@ export default function MainPage({ navigation }) {
   const dispatch = useDispatch();
   const name = useSelector((state) => state.login.name);
 
-  const handlePressLogout = () => {
-    dispatch(updateAccountNo(null));
-    dispatch(updateMemberNo(null));
-    dispatch(updateId(null));
-    dispatch(updateName(null));
-    dispatch(updateAge(null));
-    dispatch(updateGender(null));
-    dispatch(updateContact(null));
-    dispatch(updateAccessToken(null));
-    dispatch(updateRefreshToken(null));
+  const handlePressSend = () => {
+    // 송금하기 눌렀을 때 구현할 예정
   };
 
   return (
@@ -48,7 +28,7 @@ export default function MainPage({ navigation }) {
         showBackArrow={false}
         onPressArrow={null}
         title={'홈'}
-        showLogout={false}
+        showLogout={name ? true : null}
         showBell={true}
         showThreeDots={false}
         onPressRight={null}
@@ -82,12 +62,10 @@ export default function MainPage({ navigation }) {
           </View>
         )}
         <MyButton
-          title={!name ? '로그인' : '로그아웃'}
+          title={!name ? '로그인' : '송금하기'}
           backgroundColor='#2B70CC'
           color='white'
-          onPress={
-            !name ? () => navigation.navigate('Login') : handlePressLogout
-          }
+          onPress={!name ? () => navigation.navigate('Login') : handlePressSend}
         />
       </View>
       <View style={styles.bottom}>
