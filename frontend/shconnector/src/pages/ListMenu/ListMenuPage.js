@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
   boldText: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '600',
   },
 });
