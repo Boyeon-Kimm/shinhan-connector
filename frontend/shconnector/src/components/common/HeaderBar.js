@@ -3,44 +3,17 @@ import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { Fontisto, AntDesign, Entypo } from '@expo/vector-icons';
 import { font, statusBarHeight } from '../../config/globalStyles';
 
-import {
-  updateAccountNo,
-  updateMemberNo,
-  updateId,
-  updateName,
-  updateAge,
-  updateGender,
-  updateContact,
-  updateAccessToken,
-  updateRefreshToken,
-} from '../../reducers/LoginSlice';
-import { useDispatch } from 'react-redux';
-
 export default function HeaderBar({
   showBackArrow,
   onPressArrow,
   title,
   showLogout,
+  onPressLogout,
   showBell,
   showThreeDots,
   onPressRight,
 }) {
   const thisIconSize = font(22);
-  const dispatch = useDispatch();
-
-  const onPressLogout = () => {
-    dispatch(updateAccountNo(null));
-    dispatch(updateMemberNo(null));
-    dispatch(updateId(null));
-    dispatch(updateName(null));
-    dispatch(updateAge(null));
-    dispatch(updateGender(null));
-    dispatch(updateContact(null));
-    dispatch(updateAccessToken(null));
-    dispatch(updateRefreshToken(null));
-  };
-
-  const onPressBackArrow = onPressArrow;
 
   return (
     <View style={styles.titleCon}>
@@ -51,7 +24,7 @@ export default function HeaderBar({
               name='left'
               size={thisIconSize}
               color='black'
-              onPress={onPressBackArrow}
+              onPress={onPressArrow}
             />
           </TouchableWithoutFeedback>
         ) : null}

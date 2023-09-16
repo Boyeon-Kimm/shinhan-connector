@@ -17,6 +17,18 @@ export default function MainPage({ navigation }) {
   const dispatch = useDispatch();
   const name = useSelector((state) => state.login.name);
 
+  const onPressLogout = () => {
+    dispatch(updateAccountNo(null));
+    dispatch(updateMemberNo(null));
+    dispatch(updateId(null));
+    dispatch(updateName(null));
+    dispatch(updateAge(null));
+    dispatch(updateGender(null));
+    dispatch(updateContact(null));
+    dispatch(updateAccessToken(null));
+    dispatch(updateRefreshToken(null));
+  };
+
   const handlePressSend = () => {
     // 송금하기 눌렀을 때 구현할 예정
   };
@@ -29,6 +41,7 @@ export default function MainPage({ navigation }) {
         onPressArrow={null}
         title={'홈'}
         showLogout={name ? true : false}
+        onPressLogout={onPressLogout}
         showBell={true}
         showThreeDots={false}
         onPressRight={null}

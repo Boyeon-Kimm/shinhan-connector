@@ -40,44 +40,42 @@ export default function App() {
             name='FriendCreate'
             component={FriendCreatePage}
             options={{
-              title: '',
-              headerStyle: {
-                backgroundColor: 'white',
-                shadowColor: 'white',
-              },
+              headerShown: false,
             }}
           />
           <Stack.Screen
             name='CalendarCreate'
             component={CalendarCreate}
             options={{
-              title: '',
-              headerStyle: {
-                backgroundColor: 'white',
-                shadowColor: 'white',
-              },
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name='Savings'
+            component={Savings}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name='Gift'
+            component={Gift}
+            options={{
+              headerShown: false,
             }}
           />
           <Stack.Screen
             name='Login'
             component={Login}
             options={{
-              title: '',
-              headerStyle: {
-                backgroundColor: 'white',
-                shadowColor: 'white',
-              },
+              headerShown: false,
             }}
           />
           <Stack.Screen
             name='Signup'
             component={Signup}
             options={{
-              title: '',
-              headerStyle: {
-                backgroundColor: 'white',
-                shadowColor: 'white',
-              },
+              headerShown: false,
             }}
           />
           <Stack.Screen
@@ -102,17 +100,7 @@ export default function App() {
               },
             }}
           />
-          <Stack.Screen
-            name='Savings'
-            component={Savings}
-            options={{
-              title: '',
-              headerStyle: {
-                backgroundColor: 'white',
-                shadowColor: 'white',
-              },
-            }}
-          />
+
           <Stack.Screen
             name='AccountList'
             component={AccountList}
@@ -193,17 +181,6 @@ export default function App() {
           <Stack.Screen
             name='LikeSavings'
             component={LikeSavings}
-            options={{
-              title: '',
-              headerStyle: {
-                backgroundColor: 'white',
-                shadowColor: 'white',
-              },
-            }}
-          />
-          <Stack.Screen
-            name='Gift'
-            component={Gift}
             options={{
               title: '',
               headerStyle: {

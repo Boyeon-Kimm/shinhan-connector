@@ -8,10 +8,10 @@ import FriendDetailPage from './FriendDetailPage';
 
 const category = ['전체보기', '가족', '친구', '직장', '거래처', '기타'];
 
-export default function FriendPage({navigation}) {
+export default function FriendPage({ navigation }) {
   const [searchCondition, setSearchCondition] = useState(null);
   const [currentCategory, setCurrentCategory] = useState(category[0]);
-  
+
   const handlePressArrow = () => {
     navigation.goBack();
   };
