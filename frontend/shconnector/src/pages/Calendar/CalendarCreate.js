@@ -428,14 +428,14 @@ export default function CalendarCreate({ navigation }) {
               )}
             </View>
           </View>
-          <View style={styles.btnCon}>
-            <Button
-              title='완료'
-              backgroundColor={colors.shinhan}
-              color='white'
-              onPress={handlePressRegist}
-            />
-          </View>
+        </View>
+        <View style={styles.btnCon}>
+          <Button
+            title='완료'
+            backgroundColor={colors.shinhan}
+            color='white'
+            onPress={handlePressRegist}
+          />
         </View>
       </View>
     </TouchableWithoutFeedback>
