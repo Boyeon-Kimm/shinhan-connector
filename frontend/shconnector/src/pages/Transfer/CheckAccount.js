@@ -17,9 +17,7 @@ export default function CheckAccount({ route }) {
   const myName = useSelector((state) => state.login.name);
   const navigation = useNavigation();
   const { friend } = route.params;
-  let bank = null;
-  if (friend.bank === '039') bank = '경남은행';
-
+  
   const bankMapping = {
     '039': '경남은행',
     '034': '광주은행',
@@ -78,9 +76,9 @@ export default function CheckAccount({ route }) {
       <View style={styles.aboutdiv}>
         <Image source={symbol} style={styles.img} />
 
-        <View style={styles.infodiv}>
+        <View>
           {friend ? (
-            <View>
+            <View style={styles.infodiv}>
               <Text style={styles.boldtext}>{friend.name}님의</Text>
               <Text style={styles.bluetext}>
                 {bankMapping[friend.bankCode]} {newAccount}
@@ -93,7 +91,7 @@ export default function CheckAccount({ route }) {
         </View>
         <View style={styles.graybox}>
           <Text>받는 분 통장 표시: </Text>
-          <TextInput style={styles.input} value={myName} keyboardType='text' />
+          <TextInput style={styles.input} value={myName} keyboardType='default' />
         </View>
         {/* 이체 계좌 변경 해... 말아..? */}
         <TouchableOpacity

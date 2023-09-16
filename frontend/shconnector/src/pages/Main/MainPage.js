@@ -1,4 +1,3 @@
-
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -28,11 +27,14 @@ import char7 from '../../../assets/character7.png';
 import char8 from '../../../assets/character8.png';
 import { useEffect, useState } from 'react';
 
+import { dayFormat } from '../../util/globalFunc';
+
 export default function MainPage({ navigation }) {
   const dispatch = useDispatch();
   const name = useSelector((state) => state.login.name);
   const [recentSchedule, setRecentSchedule] = useState(null);
-
+  const [newDate, setNewDate] = useState(null);
+  const [Dday, setDday] = useState(null);
 
   const onPressLogout = () => {
     dispatch(updateAccountNo(null));
@@ -73,6 +75,11 @@ export default function MainPage({ navigation }) {
     if (response && response.status === 200 && response.data[0]) {
       setRecentSchedule(response.data[0]);
       console.log(response.data[0]);
+      setNewDate(dayFormat(response.data[0].date * 1000));
+      // const thisDate = 
+      const scheduleDay = new Date(response.data[0].date * 1000).getDate(); // 일
+      const currDay = new Date().getDate();
+      setDday(scheduleDay - currDay);
     }
   };
 
@@ -104,19 +111,15 @@ export default function MainPage({ navigation }) {
         {name ? (
           <View style={styles.schedule}>
             <View style={styles.ddaydiv}>
-              <Text style={styles.dday}>
-                D-10
-              </Text>
+              <Text style={styles.dday}>D-{Dday}</Text>
             </View>
-            <Text style={styles.date}>
-              2023-09-17 13:00
-            </Text>
+            <Text style={styles.date}>{newDate}</Text>
             <View style={styles.aboutdiv}>
               {recentSchedule ? (
                 <View style={styles.schedulename}>
                   {recentSchedule.friend ? (
                     <Text style={styles.scboldText}>
-                      [{recentSchedule.friend.relation}]{' '}
+                      [{recentSchedule.friend.relation}]
                       {recentSchedule.friend.name} 님의
                     </Text>
                   ) : (
@@ -138,19 +141,11 @@ export default function MainPage({ navigation }) {
           <View style={styles.loginUpper}>
             <View style={styles.loginLeft}>
               <View style={styles.sub}>
-                <Text style={styles.grayText}>
-                  안녕하세요.
-                </Text>
-                <Text style={styles.grayText}>
-                  신한 쏠(SOL) 입니다.
-                </Text>
+                <Text style={styles.grayText}>안녕하세요.</Text>
+                <Text style={styles.grayText}>신한 쏠(SOL) 입니다.</Text>
               </View>
-              <Text style={styles.boldText}>
-                다양한 서비스 이용을
-              </Text>
-              <Text style={styles.boldText}>
-                위해 로그인 해주세요.
-              </Text>
+              <Text style={styles.boldText}>다양한 서비스 이용을</Text>
+              <Text style={styles.boldText}>위해 로그인 해주세요.</Text>
             </View>
             <View style={styles.loginRight}>
               <Image
@@ -187,9 +182,7 @@ export default function MainPage({ navigation }) {
       </View>
       <View style={styles.bottom}>
         <View style={styles.titleCon}>
-          <Text style={styles.title}>
-            지인 관리 서비스
-          </Text>
+          <Text style={styles.title}>지인 관리 서비스</Text>
         </View>
         <View style={styles.serviceCon}>
           <View style={styles.serviceLine}>
@@ -197,9 +190,7 @@ export default function MainPage({ navigation }) {
               style={styles.serviceEach}
               onPress={() => navigation.navigate('FriendCreate')}
             >
-              <Text style={styles.serviceTitle}>
-                지인 등록
-              </Text>
+              <Text style={styles.serviceTitle}>지인 등록</Text>
               <Image
                 source={char7}
                 resizeMode='contain'
@@ -210,9 +201,7 @@ export default function MainPage({ navigation }) {
               style={styles.serviceEach}
               onPress={() => navigation.navigate('CalendarCreate')}
             >
-              <Text style={styles.serviceTitle}>
-                일정 등록
-              </Text>
+              <Text style={styles.serviceTitle}>일정 등록</Text>
               <Image
                 source={char8}
                 resizeMode='contain'
@@ -225,9 +214,7 @@ export default function MainPage({ navigation }) {
               style={styles.serviceEach}
               onPress={() => navigation.navigate('Savings')}
             >
-              <Text style={styles.serviceTitle}>
-                적금편지 상품찾기
-              </Text>
+              <Text style={styles.serviceTitle}>적금편지 상품찾기</Text>
               <Image
                 source={char2}
                 resizeMode='contain'
@@ -238,9 +225,7 @@ export default function MainPage({ navigation }) {
               style={styles.serviceEach}
               onPress={() => navigation.navigate('Gift')}
             >
-              <Text style={styles.serviceTitle}>
-                선물 · 금액 추천
-              </Text>
+              <Text style={styles.serviceTitle}>선물 · 금액 추천</Text>
               <Image
                 source={char3}
                 resizeMode='contain'
