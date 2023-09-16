@@ -4,13 +4,14 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import { Fontisto } from "@expo/vector-icons";
 
 export default function ListMenuPage({ navigation }) {
   return (
     <View style={styles.container}>
-      <View style={styles.upper}>
+      <View>
         <View style={styles.titleDiv}>
           <Text style={styles.title}>김싸피님</Text>
           <View style={styles.titleRight}>
@@ -26,7 +27,7 @@ export default function ListMenuPage({ navigation }) {
           />
         </View>
       </View>
-      <View style={styles.lower}>
+      <ScrollView>
         <View style={styles.menu}>
           <Text>지인 관리</Text>
           <TouchableOpacity onPress={() => navigation.navigate("FriendPage")}>
@@ -55,22 +56,21 @@ export default function ListMenuPage({ navigation }) {
         </View>
         <View style={styles.menu}>
           <Text>계좌 관리</Text>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("AccountList")}
-          >
+          <TouchableOpacity onPress={() => navigation.navigate("AccountList")}>
             <Text style={styles.boldText}>전체 계좌 조회</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.menu}>
           <Text>상품 / 서비스</Text>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Savings")}
-          >
-          <Text style={styles.boldText}>나에게 맞는 적금편지 상품 찾기</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("Savings")}>
+            <Text style={styles.boldText}>나에게 맞는 적금편지 상품 찾기</Text>
           </TouchableOpacity>
           <Text style={styles.boldText}>나에게 맞는 선물 · 금액 찾기</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("LikeSavings")}>
+            <Text style={styles.boldText}>찜한 적금 내역</Text>
+          </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
     </View>
   );
 }
@@ -81,12 +81,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingHorizontal: 30,
     backgroundColor: "white",
-  },
-  upper: {
-    flex: 1,
-  },
-  lower: {
-    flex: 4,
   },
   titleDiv: {
     flexDirection: "row",
