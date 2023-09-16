@@ -1,8 +1,20 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { StatusBar } from 'expo-status-bar';
 import { Fontisto } from '@expo/vector-icons';
+
+import {
+  updateAccountNo,
+  updateMemberNo,
+  updateId,
+  updateName,
+  updateAge,
+  updateGender,
+  updateContact,
+  updateAccessToken,
+  updateRefreshToken,
+} from '../../reducers/LoginSlice';
 
 import MyButton from '../../components/common/Button';
 import char1 from '../../../assets/character1.png';
@@ -12,7 +24,20 @@ import char7 from '../../../assets/character7.png';
 import char8 from '../../../assets/character8.png';
 
 export default function MainPage({ navigation }) {
+  const dispatch = useDispatch();
   const name = useSelector((state) => state.login.name);
+
+  const handlePressLogout = () => {
+    dispatch(updateAccountNo(null));
+    dispatch(updateMemberNo(null));
+    dispatch(updateId(null));
+    dispatch(updateName(null));
+    dispatch(updateAge(null));
+    dispatch(updateGender(null));
+    dispatch(updateContact(null));
+    dispatch(updateAccessToken(null));
+    dispatch(updateRefreshToken(null));
+  };
 
   return (
     <View style={styles.container}>
@@ -22,6 +47,8 @@ export default function MainPage({ navigation }) {
         <Fontisto name='bell' size={24} color='black' />
       </View>
       <View style={styles.loginCon}>
+        <Text>이름{name}</Text>
+        {/* 테스트용 */}
         {name ? (
           <Text>로그인하면 바뀔 것 넣어주세용</Text>
         ) : (
@@ -43,12 +70,13 @@ export default function MainPage({ navigation }) {
             </View>
           </View>
         )}
-
         <MyButton
-          title='로그인'
+          title={!name ? '로그인' : '로그아웃'}
           backgroundColor='#2B70CC'
           color='white'
-          onPress={() => navigation.navigate('Login')}
+          onPress={
+            !name ? () => navigation.navigate('Login') : handlePressLogout
+          }
         />
       </View>
       <View style={styles.bottom}>
