@@ -7,6 +7,7 @@ import { colors, font, widthScale } from '../../config/globalStyles';
 import FriendDetailPage from './FriendDetailPage';
 import API from '../../util/api';
 import store from '../../../store';
+import FriendEach from '../../components/friend/FriendEach';
 
 const category = ['전체보기', '가족', '친구', '직장', '거래처', '기타'];
 
@@ -88,15 +89,14 @@ export default function FriendPage({ navigation }) {
           />
         ))}
       </ScrollView>
-      <View>
-        <TextInput
-          style={styles.input}
-          onChangeText={handleTextChange}
-          placeholder='검색어를 입력해주세요'
-          keyboardType='default'
-        />
-      </View>
-      <FriendListCard />
+      <ScrollView style={styles.list}>
+        <FriendEach relationship="직장" name="김보연" group="신한은행" />
+        <FriendEach relationship="직장" name="김보연" group="신한은행" />
+        <FriendEach relationship="직장" name="김보연" group="신한은행" />
+        <FriendEach relationship="직장" name="김보연" group="신한은행" />
+        <FriendEach relationship="직장" name="김보연" group="신한은행" />
+        <FriendEach relationship="직장" name="김보연" group="신한은행" />
+      </ScrollView>
     </View>
   );
 }
@@ -106,12 +106,15 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     backgroundColor: 'white',
-    alignItems: 'center',
+    
   },
   horizonCon: {
     // width: '100%',
     // flexDirection: 'row',
     // flexWrap: 'nowrap',
+    paddingVertical: 10,
+    width: 350,
+    heigth: 300,
   },
   input: {
     fontSize: font(15),
@@ -125,4 +128,7 @@ const styles = StyleSheet.create({
     borderColor: colors.inputBorder,
     backgroundColor: colors.inputBackground,
   },
+  list: {
+    paddingHorizontal: 30,
+  }
 });

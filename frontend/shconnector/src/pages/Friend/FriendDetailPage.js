@@ -10,7 +10,6 @@ import { Shadow } from "react-native-shadow-2";
 import { colors, font, screenWidth } from "../../config/globalStyles";
 
 import testImg from "../../../assets/character8.png";
-import FriendGiftCard from "../../components/friend/FriendGiftCard";
 
 const category = ["전체보기", "받은 내역", "보낸 내역"];
 
