@@ -4,7 +4,7 @@ import {
   Text,
   View,
   TextInput,
-  Button,
+  ScrollView,
   Keyboard,
   TouchableWithoutFeedback,
 } from 'react-native';
@@ -14,6 +14,7 @@ import HeaderBar from '../../components/common/HeaderBar';
 import { Feather } from '@expo/vector-icons';
 import { colors } from '../../config/globalStyles';
 import API from '../../util/api';
+import MyButton from '../../components/common/Button';
 
 export default function FriendCreatePage({
   navigation,
@@ -21,18 +22,15 @@ export default function FriendCreatePage({
   const [name, setName] = useState(null);
   const [contact, setContact] = useState(null);
 
-  const [relationOpen, setRelationOpen] =
-    useState(false);
-  const [relationValue, setRelationValue] =
-    useState(null);
-  const [relationItems, setRelationItems] =
-    useState([
-      { label: '친구', value: '친구' },
-      { label: '직장', value: '직장' },
-      { label: '가족', value: '가족' },
-      { label: '거래처', value: '거래처' },
-      { label: '기타', value: '기타' },
-    ]);
+  const [relationOpen, setRelationOpen] = useState(false);
+  const [relationValue, setRelationValue] = useState(null);
+  const [relationItems, setRelationItems] = useState([
+    { label: '친구', value: '친구' },
+    { label: '직장', value: '직장' },
+    { label: '가족', value: '가족' },
+    { label: '거래처', value: '거래처' },
+    { label: '기타', value: '기타' },
+  ]);
 
   const [belong, setBelong] = useState();
 
@@ -183,127 +181,45 @@ export default function FriendCreatePage({
   };
 
   return (
-    <TouchableWithoutFeedback
-      onPress={() => Keyboard.dismiss()}
-    >
-      <View style={styles.container}>
-        <Text>{name}</Text>
-        <StatusBar style='auto' />
-        <HeaderBar
-          showBackArrow={true}
-          onPressArrow={handlePressArrow}
-          title={null}
-          showLogout={false}
-          showBell={true}
-          showThreeDots={false}
-          onPressRight={null}
-        />
-        <View style={styles.titleCon}>
-          <Text style={styles.title}>
-            지인 정보 등록
-          </Text>
-          <Text style={styles.grayText}>
-            지인의 계좌번호 입력 시
-          </Text>
-          <Text style={styles.grayText}>
-            편리한 송금 서비스 이용이 가능합니다!
-          </Text>
-        </View>
-        <View>
-          <TextInput
-            value={name}
-            onChangeText={setName}
-            style={styles.input}
-            placeholder='이름'
-            keyboardType='default'
-          />
-          <TextInput
-            value={contact}
-            onChangeText={handleChangeContact}
-            style={styles.input}
-            placeholder='휴대폰 번호'
-            keyboardType='phone-pad'
-          />
-          <DropDownPicker
-            style={styles.input}
-            containerStyle={{ zIndex: 6000 }}
-            dropDownContainerStyle={{
-              width: 300,
-              borderColor: '#DCDCDC',
-            }}
-            open={relationOpen}
-            value={relationValue}
-            items={relationItems}
-            setOpen={setRelationOpen}
-            setValue={setRelationValue}
-            setItems={setRelationItems}
-            placeholder='— 관계를 선택하세요 (필수) —'
-            modalProps={{
-              animationType: 'fade',
-            }}
-          />
-        </View>
-        <View>
-          <Text style={styles.optionText}>
-            선택 사항
-          </Text>
-          <TextInput
-            value={belong}
-            onChangeText={setBelong}
-            style={styles.input}
-            placeholder='소속(선택)'
-            keyboardType='default'
-          />
-          <DropDownPicker
-            style={styles.input}
-            // containerStyle={{ zIndex: 5000 }}
-            dropDownContainerStyle={{
-              width: 300,
-              borderColor: '#DCDCDC',
-            }}
-            open={codeOpen}
-            value={codeValue}
-            items={bankCode}
-            setOpen={setCodeOpen}
-            setValue={setCodeValue}
-            setItems={setBankCode}
-            placeholder='— 은행을 선택하세요 (선택) —'
-            modalProps={{
-              animationType: 'fade',
-            }}
-          />
-          <TextInput
-            value={accountNumber}
-            onChangeText={handleChangeAccount}
-            style={styles.input}
-            placeholder='계좌번호(선택)'
-            keyboardType='number-pad'
+    <ScrollView style={{backgroundColor: 'white'}}>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.container}>
+          <Text>{name}</Text>
+          <StatusBar style='auto' />
+          <HeaderBar
+            showBackArrow={true}
+            onPressArrow={handlePressArrow}
+            title={null}
+            showLogout={false}
+            showBell={true}
+            showThreeDots={false}
+            onPressRight={null}
           />
           <View style={styles.titleCon}>
-            <Text style={styles.title}>
-              지인 정보 등록
-            </Text>
+            <Text style={styles.title}>지인 정보 등록</Text>
+            <Text style={styles.grayText}>지인의 계좌번호 입력 시</Text>
             <Text style={styles.grayText}>
-              지인의 계좌번호 입력 시
-            </Text>
-            <Text style={styles.grayText}>
-              편리한 송금 서비스 이용이
-              가능합니다!
+              편리한 송금 서비스 이용이 가능합니다!
             </Text>
           </View>
           <View>
             <TextInput
+              value={name}
+              onChangeText={setName}
               style={styles.input}
               placeholder='이름'
-              keyboardType='text'
+              keyboardType='default'
             />
             <TextInput
+              value={contact}
+              onChangeText={handleChangeContact}
               style={styles.input}
-              placeholder='전화번호'
+              placeholder='휴대폰 번호'
               keyboardType='phone-pad'
             />
             <DropDownPicker
               style={styles.input}
+              containerStyle={{ zIndex: 6000 }}
               dropDownContainerStyle={{
                 width: 300,
                 borderColor: '#DCDCDC',
@@ -314,65 +230,62 @@ export default function FriendCreatePage({
               setOpen={setRelationOpen}
               setValue={setRelationValue}
               setItems={setRelationItems}
-              placeholder='— 관계를 선택하세요 —'
+              placeholder='— 관계를 선택하세요 (필수) —'
               modalProps={{
                 animationType: 'fade',
               }}
             />
           </View>
           <View>
-            <Text style={styles.optionText}>
-              선택 사항
-            </Text>
+            <Text style={styles.optionText}>선택 사항</Text>
             <TextInput
+              value={belong}
+              onChangeText={setBelong}
               style={styles.input}
               placeholder='소속(선택)'
-              keyboardType='text'
+              keyboardType='default'
+            />
+            <DropDownPicker
+              style={styles.input}
+              // containerStyle={{ zIndex: 5000 }}
+              dropDownContainerStyle={{
+                width: 300,
+                borderColor: '#DCDCDC',
+              }}
+              open={codeOpen}
+              value={codeValue}
+              items={bankCode}
+              setOpen={setCodeOpen}
+              setValue={setCodeValue}
+              setItems={setBankCode}
+              placeholder='— 은행을 선택하세요 (선택) —'
+              modalProps={{
+                animationType: 'fade',
+              }}
             />
             <TextInput
+              value={accountNumber}
+              onChangeText={handleChangeAccount}
               style={styles.input}
               placeholder='계좌번호(선택)'
               keyboardType='number-pad'
             />
+            <View>
+              <Text style={styles.optionText}>명함 사진</Text>
+              <View style={styles.picture}></View>
+            </View>
           </View>
-          <View>
-            <Text style={styles.optionText}>
-              명함 사진
-            </Text>
-            <View style={styles.picture}></View>
-          </View>
-          <View style={styles.submitButton}>
-            <Text style={styles.submitText}>
-              등록
-            </Text>
-          </View>
-        </View>
-        <View>
-          <Text style={styles.optionText}>
-            명함 사진
-          </Text>
-          <View style={styles.picture}>
-            <Feather
-              name='upload'
-              size={24}
-              color='black'
+          <View style={styles.btnCon}>
+            <MyButton
+              title='등록'
+              backgroundColor={colors.shinhan}
+              color='white'
+              onPress={handlePressRegist}
             />
           </View>
         </View>
-        <Text>{message}</Text>
-        {/* <View style={styles.submitButton}>
-        <Text style={styles.submitText}>등록</Text>
-      </View> */}
-        <View style={styles.btnCon}>
-          <Button
-            title={'등록'}
-            backgroundColor={colors.shinhan}
-            color='white'
-            onPress={handlePressRegist}
-          />
-        </View>
-      </View>
-    </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback>
+    </ScrollView>
   );
 }
 
@@ -398,7 +311,8 @@ const styles = StyleSheet.create({
   btnCon: {
     justifyContent: 'center',
     textAlign: 'center',
-    width: 325,
+    width: 300,
+    marginTop: 10,
   },
   input: {
     fontSize: 15,

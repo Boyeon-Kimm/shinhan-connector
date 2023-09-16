@@ -22,6 +22,13 @@ export default function Gift({ navigation }) {
     { label: '남성', value: '2' },
   ]);
 
+  const [giftOpen, setGiftOpen] = useState(false);
+  const [giftValue, setGiftValue] = useState(null);
+  const [giftItems, setGiftItems] = useState([
+    { label: '선물', value: '1' },
+    { label: '경조사비', value: '2' },
+  ]);
+
   const [kindOpen, setKindOpen] = useState(false);
   const [kindValue, setKindValue] =
     useState(null);
@@ -82,11 +89,26 @@ export default function Gift({ navigation }) {
         </View>
       </View>
       <View style={styles.inputDiv}>
-        <TextInput
-          style={styles.input}
-          placeholder='연봉'
-          keyboardType='number-pad'
-        />
+        <View>
+          <DropDownPicker
+            style={styles.input}
+            dropDownContainerStyle={{
+              width: 95,
+              zIndex: 1000
+              // borderColor: "#F4F5F7",
+            }}
+            open={giftOpen}
+            value={giftValue}
+            items={giftItems}
+            setOpen={setGiftOpen}
+            setValue={setGiftValue}
+            setItems={setGiftItems}
+            placeholder='종류'
+            modalProps={{
+              animationType: 'fade',
+            }}
+          />
+        </View>
         <TextInput
           style={styles.input}
           placeholder='연령'
@@ -249,5 +271,8 @@ const styles = StyleSheet.create({
     color: '#2B70CC',
     marginVertical: 5,
   },
-  btnCon: {},
+  btnCon: {
+    alignItems: 'center',
+    width: '100%',
+  },
 });

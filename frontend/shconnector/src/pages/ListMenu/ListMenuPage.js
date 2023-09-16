@@ -2,16 +2,12 @@ import {
   Text,
   View,
   StyleSheet,
-  TextInput,
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
 import { Fontisto } from '@expo/vector-icons';
 import HeaderBar from '../../components/common/HeaderBar';
-import {
-  useDispatch,
-  useSelector,
-} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   updateAccountNo,
   updateMemberNo,
@@ -50,11 +46,7 @@ export default function ListMenuPage({
       <HeaderBar
         showBackArrow={false}
         onPressArrow={null}
-        title={
-          name
-            ? name + '님'
-            : '로그인이 필요합니다'
-        }
+        title={name ? name + '님' : '로그인이 필요합니다'}
         showLogout={name ? true : false}
         onPressLogout={onPressLogout}
         showBell={false}
@@ -81,42 +73,20 @@ export default function ListMenuPage({
       <ScrollView>
         <View style={styles.menu}>
           <Text>지인 관리</Text>
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate('FriendPage')
-            }
-          >
-            <Text style={styles.boldText}>
-              지인 목록
-            </Text>
+          <TouchableOpacity onPress={() => navigation.navigate('FriendPage')}>
+            <Text style={styles.boldText}>지인 목록</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate('FriendCreate')
-            }
-          >
-            <Text style={styles.boldText}>
-              지인 등록
-            </Text>
+          <TouchableOpacity onPress={() => navigation.navigate('FriendCreate')}>
+            <Text style={styles.boldText}>지인 등록</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.menu}>
           <Text>일정 관리</Text>
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate('CalendarPage')
-            }
-          >
-            <Text style={styles.boldText}>
-              일정 보기
-            </Text>
+          <TouchableOpacity onPress={() => navigation.navigate('CalendarPage')}>
+            <Text style={styles.boldText}>일정 보기</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() =>
-              navigation.navigate(
-                'CalendarCreate'
-              )
-            }
+            onPress={() => navigation.navigate('CalendarCreate')}
           >
             <Text style={styles.boldText}>
               일정 추가
@@ -125,75 +95,36 @@ export default function ListMenuPage({
         </View>
         <View style={styles.menu}>
           <Text>선물 · 경조사비 관리</Text>
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate('GiftAll')
-            }
-          >
-            <Text style={styles.boldText}>
-              전체 내역
-            </Text>
+          <TouchableOpacity onPress={() => navigation.navigate('GiftAll')}>
+            <Text style={styles.boldText}>전체 내역</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate('GiftGive')
-            }
-          >
-            <Text style={styles.boldText}>
-              보낸 내역
-            </Text>
+          <TouchableOpacity onPress={() => navigation.navigate('GiftGive')}>
+            <Text style={styles.boldText}>보낸 내역</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate('GiftReceived')
-            }
-          >
-            <Text style={styles.boldText}>
-              받은 내역
-            </Text>
+          <TouchableOpacity onPress={() => navigation.navigate('GiftReceived')}>
+            <Text style={styles.boldText}>받은 내역</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.menu}>
           <Text>계좌 관리</Text>
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate('AccountList')
-            }
-          >
-            <Text style={styles.boldText}>
-              전체 계좌 조회
-            </Text>
+          <TouchableOpacity onPress={() => navigation.navigate('AccountList')}>
+            <Text style={styles.boldText}>전체 계좌 조회</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.menu}>
           <Text>상품 / 서비스</Text>
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate('Savings')
-            }
-          >
-            <Text style={styles.boldText}>
-              나에게 맞는 적금편지 상품 찾기
-            </Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Savings')}>
+            <Text style={styles.boldText}>나에게 맞는 적금편지 상품 찾기</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate('Gift')
-            }
-          >
-            <Text style={styles.boldText}>
-              나에게 맞는 선물 · 금액 찾기
-            </Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Gift')}>
+            <Text style={styles.boldText}>나에게 맞는 선물 · 금액 찾기</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate('LikeSavings')
-            }
-          >
-            <Text style={styles.boldText}>
-              찜한 적금상품 내역
-            </Text>
+          <TouchableOpacity onPress={() => navigation.navigate('LikeSavings')}>
+            <Text style={styles.boldText}>찜한 적금상품 내역</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Mature')}>
+            <Text style={styles.boldText}>만기 적금 축하~~test!</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

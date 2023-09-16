@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   TextInput,
+  Keyboard,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
@@ -119,91 +120,93 @@ export default function BottomSheetGift({ visible, setVisible }) {
       transparent
       statusBarTranslucent
     >
-      <TouchableWithoutFeedback onPress={closeModal}>
+      <TouchableWithoutFeedback onPress={() => closeModal}>
         <View style={styles.background} />
       </TouchableWithoutFeedback>
-      <View style={styles.bottomSheetContainer}>
-        <Text style={styles.title}>선물 내용 수정</Text>
-        <TextInput
-          style={styles.input}
-          keyboardType="text"
-          defaultValue={previousData.title}
-        />
-        <TextInput
-          style={styles.bigInput}
-          keyboardType="text"
-          defaultValue={previousData.content}
-        />
-        <TouchableOpacity onPress={showDatePicker}>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.bottomSheetContainer}>
+          <Text style={styles.title}>선물 내용 수정</Text>
           <TextInput
-            pointerEvents="none"
             style={styles.input}
-            placeholder={placeholder}
-            placeholderTextColor="#BABABA"
-            underlineColorAndroid="transparent"
-            editable={false}
-            value={text}
+            keyboardType="text"
+            defaultValue={previousData.title}
           />
-          <DateTimePickerModal
-            headerTextIOS={placeholder}
-            isVisible={isDatePickerVisible}
-            mode="datetime"
-            onConfirm={handleConfirm}
-            onCancel={hideDatePicker}
-          />
-        </TouchableOpacity>
-        <View style={styles.middleInputView}>
           <TextInput
-            style={styles.middleInput}
-            keyboardType="number-pad"
-            defaultValue={formedPrice}
-            // value={formedPrice}
-            onFocus={reset}
-            onChange={(e) => tempSave(e.nativeEvent.text)}
-            onEndEditing={(e) => formPriceAfterChange(e.nativeEvent.text)}
+            style={styles.bigInput}
+            keyboardType="text"
+            defaultValue={previousData.content}
           />
-          <DropDownPicker
-            style={styles.middleDropDown}
-            dropDownContainerStyle={{
-              width: "48%",
-              borderColor: "#DCDCDC",
-            }}
-            open={open}
-            defaultValue={value}
-            value={value}
-            items={items}
-            setOpen={setOpen}
-            setValue={setValue}
-            setItems={setItems}
-            modalProps={{
-              animationType: "fade",
-            }}
-          />
+          <TouchableOpacity onPress={showDatePicker}>
+            <TextInput
+              pointerEvents="none"
+              style={styles.input}
+              placeholder={placeholder}
+              placeholderTextColor="#BABABA"
+              underlineColorAndroid="transparent"
+              editable={false}
+              value={text}
+            />
+            <DateTimePickerModal
+              headerTextIOS={placeholder}
+              isVisible={isDatePickerVisible}
+              mode="datetime"
+              onConfirm={handleConfirm}
+              onCancel={hideDatePicker}
+            />
+          </TouchableOpacity>
+          <View style={styles.middleInputView}>
+            <TextInput
+              style={styles.middleInput}
+              keyboardType="number-pad"
+              defaultValue={formedPrice}
+              // value={formedPrice}
+              onFocus={reset}
+              onChange={(e) => tempSave(e.nativeEvent.text)}
+              onEndEditing={(e) => formPriceAfterChange(e.nativeEvent.text)}
+            />
+            <DropDownPicker
+              style={styles.middleDropDown}
+              dropDownContainerStyle={{
+                width: "48%",
+                borderColor: "#DCDCDC",
+              }}
+              open={open}
+              defaultValue={value}
+              value={value}
+              items={items}
+              setOpen={setOpen}
+              setValue={setValue}
+              setItems={setItems}
+              modalProps={{
+                animationType: "fade",
+              }}
+            />
+          </View>
+          <View style={{ marginTop: 15 }}>
+            <DropDownPicker
+              style={styles.dropDown}
+              dropDownContainerStyle={{
+                width: 300,
+                borderColor: "#DCDCDC",
+              }}
+              open={giftOpen}
+              defaultValue={giftValue}
+              value={giftValue}
+              items={giftItems}
+              setOpen={setGiftOpen}
+              setValue={setGiftValue}
+              setItems={setGiftItems}
+              modalProps={{
+                animationType: "fade",
+              }}
+              zIndex={99}
+            />
+          </View>
+          <TouchableOpacity style={styles.submitButton}>
+            <Text style={styles.submitText}>완료</Text>
+          </TouchableOpacity>
         </View>
-        <View style={{ marginTop: 15 }}>
-          <DropDownPicker
-            style={styles.dropDown}
-            dropDownContainerStyle={{
-              width: 300,
-              borderColor: "#DCDCDC",
-            }}
-            open={giftOpen}
-            defaultValue={giftValue}
-            value={giftValue}
-            items={giftItems}
-            setOpen={setGiftOpen}
-            setValue={setGiftValue}
-            setItems={setGiftItems}
-            modalProps={{
-              animationType: "fade",
-            }}
-            zIndex={99}
-          />
-        </View>
-        <TouchableOpacity style={styles.submitButton}>
-          <Text style={styles.submitText}>완료</Text>
-        </TouchableOpacity>
-      </View>
+      </TouchableWithoutFeedback>
     </Modal>
   );
 }

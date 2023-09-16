@@ -242,96 +242,25 @@ export default function CalendarCreate({ navigation }) {
         <View style={styles.titleCon}>
           <Text style={styles.title}>새로운 일정 추가</Text>
         </View>
-        <View style={styles.alarmContainer}>
-          <View style={styles.alarmContainerHeader}>
-            <Text>{isFriendSchedule ? '지인의 일정' : '나의 일정'}</Text>
-            <Switch
-              trackColor={{ false: '#767577', true: '#81b0ff' }}
-              thumbColor={isEnabled ? '#ffffff' : '#f4f3f4'}
-              ios_backgroundColor='#3e3e3e'
-              onValueChange={toggleFriendSwitch}
-              value={isFriendSchedule}
-            />
-            {isFriendSchedule ? (
-              <DropDownPicker
-                style={styles.dropDown}
-                dropDownContainerStyle={{
-                  width: 300,
-                  borderColor: '#DCDCDC',
-                }}
-                open={friendOpen}
-                value={friendValue}
-                items={friendList}
-                setOpen={setFriendOpen}
-                setValue={setFriendValue}
-                // setItems={setRepeatItems}
-                placeholder='— 지인을 선택해주세요 —'
-                modalProps={{
-                  animationType: 'fade',
-                }}
-              />
-            ) : null}
-          </View>
-          {isAlarmVisible && (
-            <TouchableOpacity onPress={showTimePicker}>
-              <TextInput
-                pointerEvents='none'
-                style={styles.input}
-                placeholder={timePlaceholder}
-                placeholderTextColor='#BABABA'
-                underlineColorAndroid='transparent'
-                editable={false}
-                value={timeText}
-              />
-              <DateTimePickerModal
-                headerTextIOS={timePlaceholder}
-                isVisible={isTimePickerVisible}
-                mode='time'
-                onConfirm={handleTimeConfirm}
-                onCancel={hideTimePicker}
-              />
-            </TouchableOpacity>
-          )}
-        </View>
-        <DropDownPicker
-          style={styles.dropDown}
-          dropDownContainerStyle={{
-            width: 300,
-            borderColor: '#DCDCDC',
-          }}
-          open={categoryOpen}
-          value={categoryValue}
-          items={categoryItems}
-          setOpen={setCategoryOpen}
-          setValue={setCategoryValue}
-          setItems={setCategoryItems}
-          placeholder='— 일정 카테고리를 선택해주세요 —'
-          modalProps={{
-            animationType: 'fade',
-          }}
-        />
         <TextInput
-          value={name}
-          onChangeText={setName}
           style={styles.input}
           placeholder='제목'
           keyboardType='text'
         />
         <TextInput
-          value={content}
-          onChangeText={setContent}
           style={styles.longInput}
           placeholder='상세 설명'
-          keyboardType='default'
+          keyboardType='text'
         />
         <TouchableOpacity onPress={showDatePicker}>
           <TextInput
+            pointerEvents='none'
             style={styles.input}
             placeholder={placeholder}
             placeholderTextColor='#BABABA'
             underlineColorAndroid='transparent'
             editable={false}
-            value={dateText}
+            // value={text}
           />
           <DateTimePickerModal
             headerTextIOS={placeholder}
@@ -359,83 +288,91 @@ export default function CalendarCreate({ navigation }) {
               animationType: 'fade',
             }}
           />
-          <TouchableOpacity onPress={showDatePicker}>
-            <TextInput
-              pointerEvents='none'
-              style={styles.input}
-              placeholder={placeholder}
-              placeholderTextColor='#BABABA'
-              underlineColorAndroid='transparent'
-              editable={false}
-              value={text}
-            />
-            <DateTimePickerModal
-              headerTextIOS={placeholder}
-              isVisible={isDatePickerVisible}
-              mode='datetime'
-              onConfirm={handleConfirm}
-              onCancel={hideDatePicker}
-            />
-          </TouchableOpacity>
-          <View>
-            <DropDownPicker
-              style={styles.dropDown}
-              dropDownContainerStyle={{
-                width: 300,
-                borderColor: '#DCDCDC',
-              }}
-              open={open}
-              value={value}
-              items={items}
-              setOpen={setOpen}
-              setValue={setValue}
-              setItems={setItems}
-              placeholder='— 반복 주기를 선택해주세요 —'
-              modalProps={{
-                animationType: 'fade',
-              }}
-            />
-            <View style={styles.alarmContainer}>
-              <View style={styles.alarmContainerHeader}>
-                <Text>알림 설정</Text>
-                <Switch
-                  trackColor={{ false: '#767577', true: '#81b0ff' }}
-                  thumbColor={isEnabled ? '#ffffff' : '#f4f3f4'}
-                  ios_backgroundColor='#3e3e3e'
-                  onValueChange={toggleSwitch}
-                  value={isEnabled}
-                />
-              </View>
-              {isAlarmVisible && (
-                <TouchableOpacity onPress={showTimePicker}>
-                  <TextInput
-                    pointerEvents='none'
-                    style={styles.input}
-                    placeholder={timePlaceholder}
-                    placeholderTextColor='#BABABA'
-                    underlineColorAndroid='transparent'
-                    editable={false}
-                    value={timeText}
-                  />
-                  <DateTimePickerModal
-                    headerTextIOS={timePlaceholder}
-                    isVisible={isTimePickerVisible}
-                    mode='time'
-                    onConfirm={handleTimeConfirm}
-                    onCancel={hideTimePicker}
-                  />
-                </TouchableOpacity>
-              )}
+          <View style={styles.alarmContainer}>
+            <View style={styles.alarmContainerHeader}>
+              <Text>알림 설정</Text>
+              <Switch
+                trackColor={{ false: '#767577', true: '#81b0ff' }}
+                thumbColor={isEnabled ? '#ffffff' : '#f4f3f4'}
+                ios_backgroundColor='#3e3e3e'
+                onValueChange={toggleSwitch}
+                value={isEnabled}
+              />
             </View>
+            {isAlarmVisible && (
+              <TouchableOpacity onPress={showTimePicker}>
+                <TextInput
+                  pointerEvents='none'
+                  style={styles.input}
+                  placeholder={timePlaceholder}
+                  placeholderTextColor='#BABABA'
+                  underlineColorAndroid='transparent'
+                  editable={false}
+                  value={timeText}
+                />
+                <DateTimePickerModal
+                  headerTextIOS={timePlaceholder}
+                  isVisible={isTimePickerVisible}
+                  mode='time'
+                  onConfirm={handleTimeConfirm}
+                  onCancel={hideTimePicker}
+                />
+              </TouchableOpacity>
+            )}
           </View>
-          <View style={styles.btnCon}>
-            <Button
-              title='완료'
-              backgroundColor={colors.shinhan}
-              color='white'
-              onPress={handlePressRegist}
-            />
+          <View style={styles.alarmContainer}>
+            <View style={styles.alarmContainerHeader}>
+              <Text>{isFriendSchedule ? '지인의 일정' : '나의 일정'}</Text>
+              <Switch
+                trackColor={{ false: '#767577', true: '#81b0ff' }}
+                thumbColor={isFriendSchedule ? '#ffffff' : '#f4f3f4'}
+                ios_backgroundColor='#3e3e3e'
+                onValueChange={toggleFriendSwitch}
+                value={isFriendSchedule}
+              />
+            </View>
+            {isFriendSchedule && (
+              <TouchableOpacity onPress={showTimePicker}>
+                <DropDownPicker
+                  style={styles.dropDown}
+                  dropDownContainerStyle={{
+                    width: 300,
+                    borderColor: '#DCDCDC',
+                  }}
+                  open={friendOpen}
+                  value={friendValue}
+                  items={friendList}
+                  setOpen={setFriendOpen}
+                  setValue={setFriendValue}
+                  // setItems={setRepeatItems}
+                  placeholder='— 지인을 선택해주세요 —'
+                  modalProps={{
+                    animationType: 'fade',
+                  }}
+                />
+                <DropDownPicker
+                  style={styles.dropDown}
+                  dropDownContainerStyle={{
+                    width: 300,
+                    borderColor: '#DCDCDC',
+                  }}
+                  open={categoryOpen}
+                  value={categoryValue}
+                  items={categoryItems}
+                  setOpen={setCategoryOpen}
+                  setValue={setCategoryValue}
+                  setItems={setCategoryItems}
+                  placeholder='— 일정 카테고리를 선택해주세요 —'
+                  modalProps={{
+                    animationType: 'fade',
+                  }}
+                />
+              </TouchableOpacity>
+            )}
           </View>
+        </View>
+        <View style={styles.submitButton}>
+          <Text style={styles.submitText}>완료</Text>
         </View>
       </View>
     </TouchableWithoutFeedback>
@@ -515,12 +452,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#2B70CC',
     width: 300,
     height: 50,
+    marginTop: 15,
   },
   submitText: {
     color: 'white',
-  },
-  btnCon: {
-    justifyContent: 'center',
-    textAlign: 'center',
   },
 });
