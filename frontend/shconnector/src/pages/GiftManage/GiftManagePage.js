@@ -1,31 +1,15 @@
-import {
-  Text,
-  View,
-  StyleSheet,
-  ScrollView,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
+import { Text, View, StyleSheet, ScrollView, TextInput, TouchableOpacity } from 'react-native';
 import MyChart from '../../components/giftManage/pieChart';
 import HeaderBar from '../../components/common/HeaderBar';
 import { Shadow } from 'react-native-shadow-2';
 import { AntDesign } from '@expo/vector-icons';
 import BottomSheetGift from '../../components/common/BottomSheetGift';
 import { useState } from 'react';
-import {
-  font,
-  statusBarHeight,
-  widthScale,
-  heightScale,
-  colors,
-} from '../../config/globalStyles';
+import { font, statusBarHeight, widthScale, heightScale, colors } from '../../config/globalStyles';
 
-export default function GiftManagePage({
-  navigation,
-}) {
+export default function GiftManagePage({ navigation }) {
   // 선물 내용 수정
-  const [modalVisible, setModalVisible] =
-    useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
   const handleClick = () => {
     setModalVisible(!modalVisible);
   };
@@ -33,6 +17,9 @@ export default function GiftManagePage({
   const handlePressArrow = () => {
     navigation.goBack();
   };
+
+  const currentDate = new Date();
+  const title = `${currentDate.getFullYear()}년 ${currentDate.getMonth() + 1}월 총 지출`;
 
   return (
     <View style={styles.container}>
@@ -46,76 +33,30 @@ export default function GiftManagePage({
         onPressRight={null}
       />
       <View style={styles.chart}>
-        <Shadow
-          distance={10}
-          style={styles.shadow}
-        >
-          <MyChart
-            ratio={0.7}
-            title='2023년 8월 총 지출'
-          />
+        <Shadow distance={10} style={styles.shadow}>
+          <MyChart ratio={0.7} title={title} />
         </Shadow>
       </View>
       <View style={styles.selectContainer}>
-        <TouchableOpacity
-          style={styles.select}
-          onPress={() =>
-            navigation.navigate('GiftAll')
-          }
-        >
-          <Text style={styles.selectText}>
-            전체 내역
-          </Text>
-          <AntDesign
-            name='right'
-            size={18}
-            color='black'
-          />
+        <TouchableOpacity style={styles.select} onPress={() => navigation.navigate('GiftAll')}>
+          <Text style={styles.selectText}>전체 내역</Text>
+          <AntDesign name='right' size={18} color='black' />
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.select}
-          onPress={() =>
-            navigation.navigate('GiftGive')
-          }
-        >
-          <Text style={styles.selectText}>
-            보낸 내역
-          </Text>
-          <AntDesign
-            name='right'
-            size={18}
-            color='black'
-          />
+        <TouchableOpacity style={styles.select} onPress={() => navigation.navigate('GiftGive')}>
+          <Text style={styles.selectText}>보낸 내역</Text>
+          <AntDesign name='right' size={18} color='black' />
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.select}
-          onPress={() =>
-            navigation.navigate('GiftReceived')
-          }
-        >
-          <Text style={styles.selectText}>
-            받은 내역
-          </Text>
-          <AntDesign
-            name='right'
-            size={18}
-            color='black'
-          />
+        <TouchableOpacity style={styles.select} onPress={() => navigation.navigate('GiftReceived')}>
+          <Text style={styles.selectText}>받은 내역</Text>
+          <AntDesign name='right' size={18} color='black' />
         </TouchableOpacity>
       </View>
       <TouchableOpacity onPress={handleClick}>
         <Text>click</Text>
       </TouchableOpacity>
 
-      <BottomSheetGift
-        visible={modalVisible}
-        setVisible={setModalVisible}
-      />
-      <AntDesign
-        name='pluscircle'
-        size={widthScale * 40}
-        style={styles.plusButton}
-      />
+      <BottomSheetGift visible={modalVisible} setVisible={setModalVisible} />
+      <AntDesign name='pluscircle' size={widthScale * 40} style={styles.plusButton} />
     </View>
   );
 }
