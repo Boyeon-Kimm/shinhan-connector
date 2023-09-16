@@ -48,7 +48,10 @@ export default function FriendPage({ navigation }) {
         allFriendList.forEach((item) => {
           if (item.relation === '친구') {
             friendList.push(item);
-          } else if (item.relation === '직장동료' || item.relation === '거래처') {
+          } else if (
+            item.relation === '직장동료' ||
+            item.relation === '거래처'
+          ) {
             companyList.push(item);
           } else if (item.relation === '가족') {
             familyList.push(item);
@@ -89,13 +92,15 @@ export default function FriendPage({ navigation }) {
           />
         ))}
       </ScrollView>
-      <ScrollView style={styles.list}>
+      <ScrollView>
+        <View style={styles.list}>
+          <FriendEach relationship='직장' name='김보연' group='신한은행' />
+          <FriendEach relationship='직장' name='김보연' group='신한은행' />
+          {/* <FriendEach relationship="직장" name="김보연" group="신한은행" />
         <FriendEach relationship="직장" name="김보연" group="신한은행" />
         <FriendEach relationship="직장" name="김보연" group="신한은행" />
-        <FriendEach relationship="직장" name="김보연" group="신한은행" />
-        <FriendEach relationship="직장" name="김보연" group="신한은행" />
-        <FriendEach relationship="직장" name="김보연" group="신한은행" />
-        <FriendEach relationship="직장" name="김보연" group="신한은행" />
+        <FriendEach relationship="직장" name="김보연" group="신한은행" /> */}
+        </View>
       </ScrollView>
     </View>
   );
@@ -106,7 +111,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     backgroundColor: 'white',
-    
   },
   horizonCon: {
     // width: '100%',
@@ -115,6 +119,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     width: 350,
     heigth: 300,
+    marginBottom: 10,
   },
   input: {
     fontSize: font(15),
@@ -130,5 +135,8 @@ const styles = StyleSheet.create({
   },
   list: {
     paddingHorizontal: 30,
-  }
+    marginTop: 10,
+    justifyContent: 'flex-start',
+    height: 680,
+  },
 });
