@@ -19,6 +19,7 @@ import LikeSavings from "./src/pages/Recommend/LikeSavings";
 import Gift from "./src/pages/Recommend/Gift";
 import AccountList from "./src/pages/Account/AccountList";
 import FriendPage from "./src/pages/Friend/FriendPage";
+import FriendUpdatePage from "./src/pages/Friend/FriendUpdatePage";
 import CalendarPage from "./src/pages/Calendar/CalendarPage";
 import AccountDetail from "./src/pages/Account/AccountDetail";
 
@@ -114,6 +115,17 @@ export default function App() {
             }}
           />
           <Stack.Screen
+            name="Gift"
+            component={Gift}
+            options={{
+              title: "",
+              headerStyle: {
+                backgroundColor: "white",
+                shadowColor: "white",
+              },
+            }}
+          />
+          <Stack.Screen
             name="AccountList"
             component={AccountList}
             options={{
@@ -193,6 +205,17 @@ export default function App() {
           <Stack.Screen
             name="LikeSavings"
             component={LikeSavings}
+            options={{
+              title: "",
+              headerStyle: {
+                backgroundColor: "white",
+                shadowColor: "white",
+              },
+            }}
+          />
+          <Stack.Screen
+            name="FriendUpdatePage"
+            component={FriendUpdatePage}
             options={{
               title: "",
               headerStyle: {
