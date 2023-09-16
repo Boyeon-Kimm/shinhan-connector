@@ -1,18 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  friendList: [],
+  friendItems: [],
 };
 
 const FriendSlice = createSlice({
   name: "FriendSlice",
   initialState,
   reducers: {
-    updateFriendList: (state, action) => {
-      state.friendList = action.payload;
+    updateFriendItems: (state, action) => {
+      state.friendItems = action.payload;
     },
   },
 });
 
 export default FriendSlice;
-export const { updateFriendList } = FriendSlice.actions;
+export const { updateFriendItems } = FriendSlice.actions;
