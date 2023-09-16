@@ -2,25 +2,33 @@ import { StyleSheet, Text, View, TextInput } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useState } from 'react';
+import Button from '../../components/common/Button';
+import { colors } from '../../config/globalStyles';
+import API from '../../util/api';
 
-export default function SignUp() {
+export default function SignUp({ navigation }) {
   const [id, setId] = useState(null);
   const [password, setPassword] = useState(null);
   const [name, setName] = useState(null);
   const [age, setAge] = useState(null);
   const [phone, setPhone] = useState(null);
-  const [account, setAccount] = useState(null);
+  const [accountNumber, setAccountNumber] = useState('110222999999');
+  const [confirm, setConfirm] = useState('1234');
 
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
+  const [isCertified, setIsCertified] = useState(false);
+  const [isSend1, setIsSend1] = useState(false);
+  const [message, setMessage] = useState(null);
+
+  const [genderOpen, setGenderOpen] = useState(false);
+  const [genderValue, setGenderValue] = useState(null);
   const [items, setItems] = useState([
-    { label: '여성', value: '1' },
-    { label: '남성', value: '2' },
+    { label: '여성', value: '여성' },
+    { label: '남성', value: '남성' },
   ]);
 
   const [codeOpen, setCodeOpen] = useState(false);
-  const [codeValue, setCodeValue] = useState(null);
-  const [bankcode, setBankcode] = useState([
+  const [codeValue, setCodeValue] = useState('088');
+  const [bankCode, setBankCode] = useState([
     { label: '경남은행', value: '039' },
     { label: '광주은행', value: '034' },
     { label: '국민은행', value: '004' },
@@ -58,9 +66,128 @@ export default function SignUp() {
     { label: 'SC제일은행', value: '023' },
   ]);
 
+  const handleChangePhone = (text) => {
+    // console.log(text.length);
+    if (text.length > 13) {
+      text.substr(0, 13);
+      return;
+    }
+    let newText = text.replace(/[^0-9]/g, '');
+    if (newText.length < 10)
+      newText = newText
+        .replace(/^(\d{0,3})(\d{0,3})(\d{0,4})$/g, '$1-$2-$3')
+        .replace(/\-{1,2}$/g, '');
+    else
+      newText = newText
+        .replace(/^(\d{0,3})(\d{0,4})(\d{4})$/g, '$1-$2-$3')
+        .replace(/\-{1,2}$/g, '');
+    console.log(newText);
+    setPhone(newText);
+  };
+
+  const handlePressSend1 = async () => {
+    const url = 'api/member/1transfer';
+    const body = { bankCode: codeValue, accountNumber };
+    console.log('바디', body);
+    const response = await API.post(url, body).catch((error) => {
+      console.log('Axios 에러', error.response);
+      if (error.response.status === 400) {
+        setMessage(error.response.data.message);
+      }
+    });
+    console.log(response);
+
+    if (response && response.status === 200) {
+      setIsSend1(true);
+      setMessage(response.data.message);
+    } else {
+      setMessage('1원 송금에 실패하였습니다');
+    }
+  };
+
+  const handlePressAuth1 = async () => {
+    const url = 'api/member/1transfer/check';
+    const body = { bankCode: codeValue, accountNumber, confirm };
+    const response = await API.post(url, body).catch((error) => {
+      // console.log('Axios 에러', error);
+      if (error.response.status === 403) {
+        setMessage(error.response.data.message);
+      }
+    });
+    console.log(response);
+    if (response && response.status === 200) {
+      setIsCertified(true);
+      setMessage(response.data.message);
+      // 인증되었습니다 띄우기
+    } else {
+      // 인증에 실패하였습니다  띄우기
+    }
+
+    // console.log('finish');
+  };
+
+  const handlePressFinish = async () => {
+    if (
+      !id ||
+      !password ||
+      !name ||
+      !age ||
+      !genderValue ||
+      !phone ||
+      !codeValue ||
+      !accountNumber
+    ) {
+      setMessage('빈 칸을 채워주세요');
+      return;
+    }
+    const urlCheck = 'api/member/check';
+    const bodyCheck = { id };
+    const response = await API.post(urlCheck, bodyCheck).catch((error) => {
+      console.log('Axios 에러', error);
+    });
+
+    if (response) {
+      if (response.data.result === true) {
+        //중복 알림
+        setMessage('이미 존재하는 아이디입니다.');
+        return;
+      } else {
+        const urlSignup = 'api/member/sign-up';
+        const bodySignup = {
+          id,
+          password,
+          name,
+          age,
+          gender: genderValue,
+          contact: phone,
+          bankCode: codeValue,
+          accountNumber,
+        };
+        const response = await API.post(urlSignup, bodySignup).catch(
+          (error) => {
+            console.error('Axios 에러', error.response);
+            // 403이면 계좌 인증 필요
+            if (error.response.status === 403) {
+              setIsCertified(false);
+              setMessage('계좌를 인증해주세요.');
+            }
+          }
+        );
+      }
+    }
+
+    if (response && response.status === 200) {
+      // 토스트?로 회원가입이 완료되었습니다.
+      navigation.navigate('Login');
+    } else {
+      // 모달로 띄우기
+    }
+
+    // console.log('finish');
+  };
+
   return (
     <View style={styles.container}>
-      <Text>{id}</Text>
       <StatusBar style='auto' />
       <View style={styles.titleCon}>
         <Text style={styles.title}>회원가입</Text>
@@ -72,7 +199,7 @@ export default function SignUp() {
           onChangeText={(text) => setId(text)}
           style={styles.input}
           placeholder='아이디'
-          keyboardType='text'
+          keyboardType='default'
         />
         <TextInput
           value={password}
@@ -86,7 +213,7 @@ export default function SignUp() {
           onChangeText={(text) => setName(text)}
           style={styles.input}
           placeholder='이름'
-          keyboardType='text'
+          keyboardType='default'
         />
         <TextInput
           value={age}
@@ -97,15 +224,16 @@ export default function SignUp() {
         />
         <DropDownPicker
           style={styles.input}
+          containerStyle={{ zIndex: 6000 }}
           dropDownContainerStyle={{
             width: 300,
             borderColor: '#DCDCDC',
           }}
-          open={open}
-          value={value}
+          open={genderOpen}
+          value={genderValue}
           items={items}
-          setOpen={setOpen}
-          setValue={setValue}
+          setOpen={setGenderOpen}
+          setValue={setGenderValue}
           setItems={setItems}
           placeholder='— 성별을 선택하세요 —'
           modalProps={{
@@ -114,40 +242,85 @@ export default function SignUp() {
         />
         <TextInput
           value={phone}
-          onChangeText={(text) => setPhone(text)}
+          onChangeText={handleChangePhone}
           style={styles.input}
-          placeholder='전화번호'
+          placeholder='휴대폰 번호'
           keyboardType='phone-pad'
         />
         <DropDownPicker
           style={styles.input}
+          // containerStyle={{ zIndex: 5000 }}
           dropDownContainerStyle={{
             width: 300,
             borderColor: '#DCDCDC',
           }}
           open={codeOpen}
           value={codeValue}
-          items={bankcode}
+          items={bankCode}
           setOpen={setCodeOpen}
           setValue={setCodeValue}
-          setItems={setBankcode}
+          setItems={setBankCode}
           placeholder='— 은행을 선택해주세요 —'
           modalProps={{
             animationType: 'fade',
           }}
         />
+        <View>
+          <TextInput
+            value={accountNumber}
+            onChangeText={(text) => {
+              setIsCertified(false);
+              setIsSend1(false);
+              setMessage(null);
+              setAccountNumber(text);
+            }}
+            style={styles.input}
+            placeholder='계좌번호'
+            keyboardType='number-pad'
+          />
+          {/* <Button
+            title='인증'
+            backgroundColor={colors.shinhan}
+            color='white'
+            onPress={handlePressAuth1}
+          ></Button> */}
+        </View>
         <TextInput
-          value={account}
-          onChangeText={(text) => setAccount(text)}
+          value={confirm}
+          onChangeText={(text) => setConfirm(text)}
           style={styles.input}
-          placeholder='계좌번호'
+          placeholder='송금메세지의 인증번호를 입력해주세요'
           keyboardType='number-pad'
+          readOnly={isCertified ? true : false}
         />
-        <Text style={styles.tomatoText}>계좌 인증을 완료해주세요.</Text>
+        <Text style={styles.tomatoText}>
+          {message ? message : '계좌 인증을 완료해주세요.'}
+        </Text>
       </View>
-      <View style={styles.submitButton}>
+      <View style={styles.btnCon}>
+        <Button
+          title={
+            isCertified
+              ? '회원 가입하기'
+              : isSend1
+              ? '인증하기'
+              : '1원 송금하기'
+          }
+          backgroundColor={colors.shinhan}
+          color='white'
+          onPress={
+            isCertified
+              ? handlePressFinish
+              : isSend1
+              ? handlePressAuth1
+              : handlePressSend1
+          }
+        />
+      </View>
+
+      {/* <View style={styles.submitButton}>
         <Text style={styles.submitText}>완료</Text>
-      </View>
+      </View> */}
     </View>
   );
 }
@@ -189,6 +362,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#2B70CC',
     width: 300,
     height: 50,
+  },
+  btnCon: {
+    justifyContent: 'center',
+    textAlign: 'center',
+    width: 325,
+  },
+  containerStyle: {
+    backgroundColor: 'white',
+    borderColor: colors.inputBorder,
+    zIndex: 5000,
   },
   submitText: {
     color: 'white',
