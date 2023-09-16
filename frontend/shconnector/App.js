@@ -25,6 +25,8 @@ import AccountDetail from "./src/pages/Account/AccountDetail";
 import GiftAll from "./src/pages/GiftManage/GiftAll";
 import GiftGive from "./src/pages/GiftManage/GiftGive";
 import GiftReceived from "./src/pages/GiftManage/GiftReceived";
+import LetterDetail from "./src/pages/Letter/LetterDetail";
+import Mature from "./src/pages/Letter/Mature";
 
 const Stack = createStackNavigator();
 
@@ -229,6 +231,28 @@ export default function App() {
           <Stack.Screen
             name="GiftReceived"
             component={GiftReceived}
+            options={{
+              title: "",
+              headerStyle: {
+                backgroundColor: "white",
+                shadowColor: "white",
+              },
+            }}
+          />
+          <Stack.Screen
+            name="LetterDetail"
+            component={LetterDetail}
+            options={{
+              title: "",
+              headerStyle: {
+                backgroundColor: "white",
+                shadowColor: "white",
+              },
+            }}
+          />
+          <Stack.Screen
+            name="Mature"
+            component={Mature}
             options={{
               title: "",
               headerStyle: {

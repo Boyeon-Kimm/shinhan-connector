@@ -10,6 +10,8 @@ import MyChart from "../../components/giftManage/pieChart";
 import HeaderBar from "../../components/common/HeaderBar";
 import { Shadow } from "react-native-shadow-2";
 import { AntDesign } from "@expo/vector-icons";
+import BottomSheetGift from "../../components/common/BottomSheetGift";
+import { useState } from "react";
 import {
   font,
   statusBarHeight,
@@ -19,6 +21,11 @@ import {
 } from "../../config/globalStyles";
 
 export default function GiftManagePage({ navigation }) {
+  // 선물 내용 수정
+  const [modalVisible, setModalVisible] = useState(true);
+  const handleClick = () => {
+    setModalVisible(!modalVisible);
+  };
 
   const handlePressArrow = () => {
     navigation.goBack();
@@ -54,6 +61,11 @@ export default function GiftManagePage({ navigation }) {
           <AntDesign name="right" size={18} color="black" />
         </TouchableOpacity>
       </View>
+      <TouchableOpacity onPress={handleClick}>
+        <Text>click</Text>
+      </TouchableOpacity>
+
+      <BottomSheetGift visible={modalVisible} setVisible={setModalVisible} />
       <AntDesign
         name="pluscircle"
         size={widthScale * 40}
