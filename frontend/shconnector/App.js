@@ -15,6 +15,7 @@ import CheckExpense from "./src/pages/Transfer/CheckExpense";
 import CheckTransfer from "./src/pages/Transfer/CheckTransfer";
 import WriteLetter from "./src/pages/Letter/WriteLetter";
 import Savings from "./src/pages/Recommend/Savings";
+import LikeSavings from "./src/pages/Recommend/LikeSavings";
 import Gift from "./src/pages/Recommend/Gift";
 import AccountList from "./src/pages/Account/AccountList";
 import FriendPage from "./src/pages/Friend/FriendPage";
@@ -181,6 +182,17 @@ export default function App() {
           <Stack.Screen
             name="AccountDetail"
             component={AccountDetail}
+            options={{
+              title: "",
+              headerStyle: {
+                backgroundColor: "white",
+                shadowColor: "white",
+              },
+            }}
+          />
+          <Stack.Screen
+            name="LikeSavings"
+            component={LikeSavings}
             options={{
               title: "",
               headerStyle: {
