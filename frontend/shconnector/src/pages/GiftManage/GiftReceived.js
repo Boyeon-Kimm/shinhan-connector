@@ -9,6 +9,7 @@ import {
 import MyChart from '../../components/giftManage/pieChart';
 import HeaderBar from '../../components/common/HeaderBar';
 import { Shadow } from 'react-native-shadow-2';
+import GiftEach from '../../components/List/GiftEach';
 
 export default function GiftReceived({ navigation }) {
   const handlePressArrow = () => {
@@ -30,6 +31,9 @@ export default function GiftReceived({ navigation }) {
         <Shadow distance={10} style={styles.shadow}>
           <MyChart ratio={0.7} title='2023년 8월 받은 내역' />
         </Shadow>
+      </View>
+      <View style={styles.list}>
+        <GiftEach />
       </View>
     </View>
   );
