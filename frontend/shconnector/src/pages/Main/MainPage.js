@@ -28,7 +28,7 @@ export default function MainPage({ navigation }) {
         showBackArrow={false}
         onPressArrow={null}
         title={'홈'}
-        showLogout={name ? true : null}
+        showLogout={name ? true : false}
         showBell={true}
         showThreeDots={false}
         onPressRight={null}
