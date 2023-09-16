@@ -3,14 +3,14 @@ import { useWindowDimensions, View, StyleSheet, Text } from "react-native";
 import { VictoryPie, VictoryLabel, VictoryContainer } from "victory-native";
 // import { useDimension } from 'react-native-responsive-dimensions';
 
-export default function pieChart({ ratio }) {
+export default function pieChart({ ratio, title }) {
   const { height, width } = useWindowDimensions();
   const pieWidth = width * ratio;
   const pieHeight = height * ratio * 0.5;
 
   return (
     <View style={styles.chart}>
-      <Text style={styles.chartTitle}>2023년 8월 총 지출</Text>
+      <Text style={styles.chartTitle}>{title}</Text>
       <View style={styles.chartConatiner}>
         <VictoryPie
           data={[
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginTop: 25,
     fontWeight: "600",
-    fontSize: 18,
+    fontSize: 22,
   },
   chartConatiner: {
     // borderWidth: 5,

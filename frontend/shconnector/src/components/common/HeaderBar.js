@@ -60,15 +60,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: statusBarHeight + font(20),
-    marginHorizontal: font(15),
-    // paddingHorizontal: 35,
+    // marginHorizontal: font(15),
+    paddingHorizontal: 35,
   },
 
   titleLeft: {
     flexDirection: 'row',
     flexGrow: 1,
     alignItems: 'center',
-    gap: font(6),
+    gap: font(10),
   },
   titleRight: {
     flexDirection: 'row',
@@ -80,6 +80,5 @@ const styles = StyleSheet.create({
   title: {
     fontSize: font(22),
     fontWeight: '600',
-    gap: font(7),
   },
 });
