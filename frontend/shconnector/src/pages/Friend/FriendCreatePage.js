@@ -27,7 +27,7 @@ export default function FriendCreatePage({navigation}) {
         onPressArrow={handlePressArrow}
         title={null}
         showLogout={false}
-        showBell={true}
+        showBell={false}
         showThreeDots={false}
         onPressRight={null}
       />
