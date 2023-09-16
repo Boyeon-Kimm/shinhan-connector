@@ -111,33 +111,21 @@ export default function App() {
             name='AccountList'
             component={AccountList}
             options={{
-              title: '',
-              headerStyle: {
-                backgroundColor: 'white',
-                shadowColor: 'white',
-              },
+              headerShown: false,
             }}
           />
           <Stack.Screen
             name='FriendPage'
             component={FriendPage}
             options={{
-              title: '',
-              headerStyle: {
-                backgroundColor: 'white',
-                shadowColor: 'white',
-              },
+              headerShown: false,
             }}
           />
           <Stack.Screen
             name='CalendarPage'
             component={CalendarPage}
             options={{
-              title: '',
-              headerStyle: {
-                backgroundColor: 'white',
-                shadowColor: 'white',
-              },
+              headerShown: false,
             }}
           />
           <Stack.Screen
@@ -188,6 +176,13 @@ export default function App() {
             name='LikeSavings'
             component={LikeSavings}
             options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name='FriendUpdatePage'
+            component={FriendUpdatePage}
+            options={{
               title: '',
               headerStyle: {
                 backgroundColor: 'white',
@@ -196,68 +191,45 @@ export default function App() {
             }}
           />
           <Stack.Screen
-            name="FriendUpdatePage"
-            component={FriendUpdatePage}
-            options={{
-              title: "",
-              headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
-              },
-            }}
-          />
-          <Stack.Screen
-            name="GiftAll"
+            name='GiftAll'
             component={GiftAll}
             options={{
-              title: "",
-              headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
-              },
+              headerShown: false,
             }}
           />
           <Stack.Screen
-            name="GiftGive"
+            name='GiftGive'
             component={GiftGive}
             options={{
-              title: "",
-              headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
-              },
+              headerShown: false,
             }}
           />
           <Stack.Screen
-            name="GiftReceived"
+            name='GiftReceived'
             component={GiftReceived}
             options={{
-              title: "",
-              headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
-              },
+              headerShown: false,
             }}
           />
           <Stack.Screen
-            name="LetterDetail"
+            name='LetterDetail'
             component={LetterDetail}
             options={{
-              title: "",
+              title: '',
               headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
+                backgroundColor: 'white',
+                shadowColor: 'white',
               },
             }}
           />
           <Stack.Screen
-            name="Mature"
+            name='Mature'
             component={Mature}
             options={{
-              title: "",
+              title: '',
               headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
+                backgroundColor: 'white',
+                shadowColor: 'white',
               },
             }}
           />

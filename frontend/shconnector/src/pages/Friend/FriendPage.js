@@ -1,16 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View, StyleSheet, ScrollView, TextInput } from 'react-native';
 import HeaderBar from '../../components/common/HeaderBar';
 import HorizonButton from '../../components/common/HorizonButton';
 import FriendListCard from '../../components/FriendListCard';
 import { colors, font, widthScale } from '../../config/globalStyles';
 import FriendDetailPage from './FriendDetailPage';
+import API from '../../util/api';
+import store from '../../../store';
+import FriendEach from '../../components/friend/FriendEach';
 
 const category = ['전체보기', '가족', '친구', '직장', '거래처', '기타'];
 
 export default function FriendPage({ navigation }) {
   const [searchCondition, setSearchCondition] = useState(null);
   const [currentCategory, setCurrentCategory] = useState(category[0]);
+
+  const [allFriendList, setAllFriendList] = useState([]); // 이거 전체 리스트 (페이지 로딩 시 불러옴)
+  const familyList = []; // 이거 가족 리스트
+  const friendList = []; // 이거 친구 리스트
+  const companyList = []; // 이거 직장 리스트
 
   const handlePressArrow = () => {
     navigation.goBack();
@@ -23,6 +31,39 @@ export default function FriendPage({ navigation }) {
   const onPressCategory = (newCategory) => {
     setCurrentCategory(newCategory);
   };
+
+  const getAllFriends = async () => {
+    const URL = 'api/friend/list';
+    const AccessToken = store.getState().login.accessToken;
+
+    await API.get(URL, {
+      headers: {
+        Authorization: 'Bearer' + AccessToken,
+      },
+    })
+      .then((response) => {
+        setAllFriendList(response.data);
+      })
+      .then(() => {
+        allFriendList.forEach((item) => {
+          if (item.relation === '친구') {
+            friendList.push(item);
+          } else if (
+            item.relation === '직장동료' ||
+            item.relation === '거래처'
+          ) {
+            companyList.push(item);
+          } else if (item.relation === '가족') {
+            familyList.push(item);
+          }
+        });
+      })
+      .catch((error) => console.error(error));
+  };
+
+  useEffect(() => {
+    getAllFriends();
+  }, []);
 
   return (
     // <FriendDetailPage friendNo={1}></FriendDetailPage>
@@ -51,15 +92,16 @@ export default function FriendPage({ navigation }) {
           />
         ))}
       </ScrollView>
-      <View>
-        <TextInput
-          style={styles.input}
-          onChangeText={handleTextChange}
-          placeholder='검색어를 입력해주세요'
-          keyboardType='default'
-        />
-      </View>
-      <FriendListCard />
+      <ScrollView>
+        <View style={styles.list}>
+          <FriendEach relationship='직장' name='김보연' group='신한은행' />
+          <FriendEach relationship='직장' name='김보연' group='신한은행' />
+          {/* <FriendEach relationship="직장" name="김보연" group="신한은행" />
+        <FriendEach relationship="직장" name="김보연" group="신한은행" />
+        <FriendEach relationship="직장" name="김보연" group="신한은행" />
+        <FriendEach relationship="직장" name="김보연" group="신한은행" /> */}
+        </View>
+      </ScrollView>
     </View>
   );
 }
@@ -69,12 +111,15 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     backgroundColor: 'white',
-    alignItems: 'center',
   },
   horizonCon: {
     // width: '100%',
     // flexDirection: 'row',
     // flexWrap: 'nowrap',
+    paddingVertical: 10,
+    width: 350,
+    heigth: 300,
+    marginBottom: 10,
   },
   input: {
     fontSize: font(15),
@@ -87,5 +132,11 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderColor: colors.inputBorder,
     backgroundColor: colors.inputBackground,
+  },
+  list: {
+    paddingHorizontal: 30,
+    marginTop: 10,
+    justifyContent: 'flex-start',
+    height: 680,
   },
 });

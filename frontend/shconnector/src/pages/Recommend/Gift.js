@@ -22,8 +22,16 @@ export default function Gift({ navigation }) {
     { label: '남성', value: '2' },
   ]);
 
+  const [giftOpen, setGiftOpen] = useState(false);
+  const [giftValue, setGiftValue] = useState(null);
+  const [giftItems, setGiftItems] = useState([
+    { label: '선물', value: '1' },
+    { label: '경조사비', value: '2' },
+  ]);
+
   const [kindOpen, setKindOpen] = useState(false);
-  const [kindValue, setKindValue] = useState(null);
+  const [kindValue, setKindValue] =
+    useState(null);
   const [kindItems, setKindItems] = useState([
     { label: '결혼식', value: '1' },
     { label: '장례식', value: '2' },
@@ -43,34 +51,92 @@ export default function Gift({ navigation }) {
       <HeaderBar
         showBackArrow={true}
         onPressArrow={handlePressArrow}
-        title={null}
+        title={"당신을 위한 맞춤 추천"}
         showLogout={false}
-        showBell={false}
+        showBell={true}
         showThreeDots={false}
         onPressRight={null}
       />
-      <View>
-        <Text style={styles.title}>당신을 위한 맞춤 추천</Text>
-      </View>
       <View style={styles.blueDiv}>
         <View style={styles.textDiv}>
-          <Text style={styles.boldText}>다른 사람들은</Text>
-          <Text style={styles.boldText}>얼마를 지출할지 궁금하신가요?</Text>
+          <Text style={styles.boldText}>
+            다른 사람들은
+          </Text>
+          <Text style={styles.boldText}>
+            얼마를 지출할지 궁금하신가요?
+          </Text>
           <View style={styles.lowerTextDiv}>
-            <Text>아래 검색 조건을 입력하여 찾아보세요!</Text>
-            <Text>입력한 조건 별로 확인 가능합니다.</Text>
+            <Text>
+              아래 검색 조건을 입력하여
+              찾아보세요!
+            </Text>
+            <Text>
+              입력한 조건 별로 확인 가능합니다.
+            </Text>
           </View>
         </View>
         <View style={styles.imgDiv}>
-          <Image source={char6} resizeMode='contain' style={styles.img} />
+          <Image
+            source={char6}
+            resizeMode='contain'
+            style={styles.img}
+          />
         </View>
       </View>
-      <View style={styles.inputDiv}>
-        <TextInput
-          style={styles.input}
-          placeholder='연봉'
-          keyboardType='number-pad'
+      
+      <View style={styles.lower}>
+        <View style={styles.boxShadow}>
+          <Text style={styles.boldText}>
+            연봉 4,000 ~ 5,000만원
+          </Text>
+          <Text style={styles.boldText}>
+            20대 여성들은
+          </Text>
+          <View style={styles.rowText}>
+            <Text style={styles.blueText}>
+              [결혼식]
+            </Text>
+            <Text style={styles.boldText}>
+              축의금으로
+            </Text>
+          </View>
+          <Text style={styles.blueBig}>
+            200,000원
+          </Text>
+          <Text style={styles.boldText}>
+            을 지출합니다!
+          </Text>
+        </View>
+      </View>
+      <View style={styles.btnCon}>
+        <Button
+          title='아래 조건으로 검색하기'
+          backgroundColor='#2B70CC'
+          color='white'
         />
+      </View>
+      <View style={styles.inputDiv}>
+        <View>
+          <DropDownPicker
+            style={{ ...styles.input, zIndex: 1 }}
+            dropDownContainerStyle={{
+              width: 95,
+              zIndex: 2,
+              // borderColor: "#F4F5F7",
+            }}
+            open={giftOpen}
+            value={giftValue}
+            items={giftItems}
+            setOpen={setGiftOpen}
+            setValue={setGiftValue}
+            setItems={setGiftItems}
+            placeholder='종류'
+            modalProps={{
+              animationType: 'fade',
+            }}
+            zIndex={99}
+          />
+        </View>
         <TextInput
           style={styles.input}
           placeholder='연령'
@@ -93,6 +159,7 @@ export default function Gift({ navigation }) {
             modalProps={{
               animationType: 'fade',
             }}
+            zIndex={99}
           />
         </View>
         <View>
@@ -112,28 +179,11 @@ export default function Gift({ navigation }) {
             modalProps={{
               animationType: 'fade',
             }}
+            zIndex={99}
           />
         </View>
       </View>
-      <View style={styles.btnCon}>
-        <Button
-          title='해당 조건으로 검색하기'
-          backgroundColor='#2B70CC'
-          color='white'
-        />
-      </View>
-      <View style={styles.lower}>
-        <View style={styles.boxShadow}>
-          <Text style={styles.boldText}>연봉 4,000 ~ 5,000만원</Text>
-          <Text style={styles.boldText}>20대 여성들은</Text>
-          <View style={styles.rowText}>
-            <Text style={styles.blueText}>[결혼식]</Text>
-            <Text style={styles.boldText}>축의금으로</Text>
-          </View>
-          <Text style={styles.blueBig}>200,000원</Text>
-          <Text style={styles.boldText}>을 지출합니다!</Text>
-        </View>
-      </View>
+      
     </View>
   );
 }
@@ -188,17 +238,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
     gap: 5,
-    overflow: 'scroll',
     paddingVertical: 10,
   },
   lower: {
     alignItems: 'center',
   },
   boxShadow: {
-    elevation: 10, // 그림자의 강도를 조절할 수 있습니다.
-    backgroundColor: 'white', // 그림자를 더 확실하게 보이게 하려면 뷰의 배경색을 설정할 수 있습니다.
-    borderRadius: 10, // 뷰의 모서리를 둥글게 만들 수 있습니다.
-    padding: 20, // 뷰의 내용과 패딩을 설정합니다.
+    elevation: 10,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 20,
     width: 300,
     height: 260,
     marginTop: 25,
@@ -222,6 +271,9 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   btnCon: {
-     
-  }
+    alignItems: 'center',
+    width: '100%',
+    marginTop: 20,
+    marginBottom: 10,
+  },
 });

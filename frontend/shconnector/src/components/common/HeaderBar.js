@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { Fontisto, AntDesign, Entypo } from '@expo/vector-icons';
 import { font, statusBarHeight } from '../../config/globalStyles';
+import { useNavigation } from '@react-navigation/native';
 
 export default function HeaderBar({
   showBackArrow,
@@ -14,6 +15,11 @@ export default function HeaderBar({
   onPressRight,
 }) {
   const thisIconSize = font(22);
+  const navigation = useNavigation();
+
+  const handlePressHome = ()=>{
+    navigation.navigate("Home");
+  }
 
   return (
     <View style={styles.titleCon}>
@@ -36,11 +42,11 @@ export default function HeaderBar({
             <Text style={styles.logout}>로그아웃</Text>
           </TouchableWithoutFeedback>
         ) : null}
-        {/* {showBell ? (
-          <TouchableWithoutFeedback onPress={onPressRight}>
-            <Fontisto name='bell' size={thisIconSize} color='black' />
+        {showBell ? (
+          <TouchableWithoutFeedback onPress={handlePressHome}>
+            <Entypo name='home' size={24} color='black' />
           </TouchableWithoutFeedback>
-        ) : null} */}
+        ) : null}
         {showThreeDots ? (
           <TouchableWithoutFeedback onPress={onPressRight}>
             <Entypo
@@ -62,6 +68,7 @@ const styles = StyleSheet.create({
     marginTop: statusBarHeight + font(20),
     // marginHorizontal: font(15),
     paddingHorizontal: 35,
+    marginVertical: 15,
   },
 
   titleLeft: {
