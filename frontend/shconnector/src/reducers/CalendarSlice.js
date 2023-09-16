@@ -6,6 +6,7 @@ const initialState = {
   currYear: new Date().getFullYear(),
   currMonth: new Date().getMonth() + 1,
   schedules: [],
+  daySchedules: [],
 };
 
 const CalendarSlice = createSlice({
@@ -30,6 +31,9 @@ const CalendarSlice = createSlice({
     updateSchedules: (state, action) => {
       state.schedules = action.payload;
     },
+    updateDaySchedules: (state, action) => {
+      state.daySchedules = action.payload;
+    },
   },
 });
 
@@ -41,4 +45,5 @@ export const {
   updateCurrYear,
   updateCurrMonth,
   updateSchedules,
+  updateDaySchedules,
 } = CalendarSlice.actions;
