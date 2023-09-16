@@ -437,9 +437,6 @@ export default function CalendarCreate({ navigation }) {
             onPress={handlePressRegist}
           />
         </View>
-        {/* <View style={styles.submitButton}>
-        <Text style={styles.submitText}>완료</Text>
-      </View> */}
       </View>
     </TouchableWithoutFeedback>
   );
