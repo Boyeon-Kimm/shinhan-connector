@@ -3,6 +3,19 @@ import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { Fontisto, AntDesign, Entypo } from '@expo/vector-icons';
 import { font, statusBarHeight } from '../../config/globalStyles';
 
+import {
+  updateAccountNo,
+  updateMemberNo,
+  updateId,
+  updateName,
+  updateAge,
+  updateGender,
+  updateContact,
+  updateAccessToken,
+  updateRefreshToken,
+} from '../../reducers/LoginSlice';
+import { useDispatch } from 'react-redux';
+
 export default function HeaderBar({
   showBackArrow,
   onPressArrow,
@@ -13,9 +26,18 @@ export default function HeaderBar({
   onPressRight,
 }) {
   const thisIconSize = font(22);
+  const dispatch = useDispatch();
 
   const onPressLogout = () => {
-    // 로그아웃 코드 구현 예정
+    dispatch(updateAccountNo(null));
+    dispatch(updateMemberNo(null));
+    dispatch(updateId(null));
+    dispatch(updateName(null));
+    dispatch(updateAge(null));
+    dispatch(updateGender(null));
+    dispatch(updateContact(null));
+    dispatch(updateAccessToken(null));
+    dispatch(updateRefreshToken(null));
   };
 
   const onPressBackArrow = onPressArrow;
@@ -41,11 +63,11 @@ export default function HeaderBar({
             <Text style={styles.logout}>로그아웃</Text>
           </TouchableWithoutFeedback>
         ) : null}
-        {showBell ? (
+        {/* {showBell ? (
           <TouchableWithoutFeedback onPress={onPressRight}>
             <Fontisto name='bell' size={thisIconSize} color='black' />
           </TouchableWithoutFeedback>
-        ) : null}
+        ) : null} */}
         {showThreeDots ? (
           <TouchableWithoutFeedback onPress={onPressRight}>
             <Entypo
