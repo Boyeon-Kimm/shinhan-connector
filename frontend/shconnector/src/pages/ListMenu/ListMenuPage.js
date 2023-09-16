@@ -105,9 +105,12 @@ export default function ListMenuPage({ navigation }) {
           <TouchableOpacity onPress={() => navigation.navigate('Savings')}>
             <Text style={styles.boldText}>나에게 맞는 적금편지 상품 찾기</Text>
           </TouchableOpacity>
-          <Text style={styles.boldText}>나에게 맞는 선물 · 금액 찾기</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('LikeSavings')}>
-            <Text style={styles.boldText}>찜한 적금 내역</Text>
+
+          <TouchableOpacity onPress={() => navigation.navigate("Gift")}>
+            <Text style={styles.boldText}>나에게 맞는 선물 · 금액 찾기</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("LikeSavings")}>
+            <Text style={styles.boldText}>찜한 적금상품 내역</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

@@ -13,7 +13,7 @@ export default function LikeSavings() {
     <View style={styles.container}>
       <StatusBar style="auto" />
       <View>
-        <Text style={styles.title}>찜한 적금 목록</Text>
+        <Text style={styles.title}>찜한 적금상품 목록</Text>
       </View>
       <ScrollView>
         <SavingEach />

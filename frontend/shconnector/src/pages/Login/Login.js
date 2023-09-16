@@ -118,6 +118,7 @@ export default function Login({ navigation }) {
               style={styles.input}
               placeholder='비밀번호'
               keyboardType='default'
+              secureTextEntry={true}
               onChangeText={(text) => setPassword(text)}
             />
           </View>
@@ -195,6 +196,5 @@ const styles = StyleSheet.create({
   btnCon: {
     justifyContent: 'center',
     textAlign: 'center',
-    width: 325,
   },
 });

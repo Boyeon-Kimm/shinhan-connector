@@ -221,4 +221,7 @@ const styles = StyleSheet.create({
     color: '#2B70CC',
     marginVertical: 5,
   },
+  btnCon: {
+     
+  }
 });

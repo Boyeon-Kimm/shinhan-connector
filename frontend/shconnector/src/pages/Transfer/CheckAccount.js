@@ -29,8 +29,8 @@ export default function CheckAccount() {
           <TextInput style={styles.input} value="김싸피" keyboardType="text" />
         </View>
         {/* 이체 계좌 변경 해... 말아..? */}
-        <TouchableOpacity onPress={() => navigation.navigate("Transfer")}>
-          <Text style={styles.grayboldtext}>이체계좌 변경</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("FriendUpdatePage")}>
+          <Text style={styles.grayboldtext}>계좌정보 수정</Text>
         </TouchableOpacity>
       </View>
       <TouchableOpacity style={styles.buttondiv}>
