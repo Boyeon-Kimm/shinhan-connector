@@ -1,26 +1,26 @@
-import { Provider } from "react-redux";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import "react-native-gesture-handler";
-import MyNavBar from "./src/components/common/NavBar";
-import FriendCreatePage from "./src/pages/Friend/FriendCreatePage";
+import { Provider } from 'react-redux';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import 'react-native-gesture-handler';
+import MyNavBar from './src/components/common/NavBar';
+import FriendCreatePage from './src/pages/Friend/FriendCreatePage';
 
-import store from "./store";
-import CalendarCreate from "./src/pages/Calendar/CalendarCreate";
-import Login from "./src/pages/Login/Login";
-import Signup from "./src/pages/Login/Signup";
-import Transfer from "./src/pages/Transfer/Transfer";
-import CheckAccount from "./src/pages/Transfer/CheckAccount";
-import CheckExpense from "./src/pages/Transfer/CheckExpense";
-import CheckTransfer from "./src/pages/Transfer/CheckTransfer";
-import WriteLetter from "./src/pages/Letter/WriteLetter";
-import Savings from "./src/pages/Recommend/Savings";
-import LikeSavings from "./src/pages/Recommend/LikeSavings";
-import Gift from "./src/pages/Recommend/Gift";
-import AccountList from "./src/pages/Account/AccountList";
-import FriendPage from "./src/pages/Friend/FriendPage";
-import CalendarPage from "./src/pages/Calendar/CalendarPage";
-import AccountDetail from "./src/pages/Account/AccountDetail";
+import store from './store';
+import CalendarCreate from './src/pages/Calendar/CalendarCreate';
+import Login from './src/pages/Login/Login';
+import Signup from './src/pages/Login/Signup';
+import Transfer from './src/pages/Transfer/Transfer';
+import CheckAccount from './src/pages/Transfer/CheckAccount';
+import CheckExpense from './src/pages/Transfer/CheckExpense';
+import CheckTransfer from './src/pages/Transfer/CheckTransfer';
+import WriteLetter from './src/pages/Letter/WriteLetter';
+import Savings from './src/pages/Recommend/Savings';
+import LikeSavings from './src/pages/Recommend/LikeSavings';
+import Gift from './src/pages/Recommend/Gift';
+import AccountList from './src/pages/Account/AccountList';
+import FriendPage from './src/pages/Friend/FriendPage';
+import CalendarPage from './src/pages/Calendar/CalendarPage';
+import AccountDetail from './src/pages/Account/AccountDetail';
 
 const Stack = createStackNavigator();
 
@@ -28,176 +28,187 @@ export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator initialRouteName='Home'>
           <Stack.Screen
-            name="Home"
+            name='Home'
             component={MyNavBar}
             options={{
               headerShown: false,
             }}
           />
           <Stack.Screen
-            name="FriendCreate"
+            name='FriendCreate'
             component={FriendCreatePage}
             options={{
-              title: "",
+              title: '',
               headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
+                backgroundColor: 'white',
+                shadowColor: 'white',
               },
             }}
           />
           <Stack.Screen
-            name="CalendarCreate"
+            name='CalendarCreate'
             component={CalendarCreate}
             options={{
-              title: "",
+              title: '',
               headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
+                backgroundColor: 'white',
+                shadowColor: 'white',
               },
             }}
           />
           <Stack.Screen
-            name="Login"
+            name='Login'
             component={Login}
             options={{
-              title: "",
+              title: '',
               headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
+                backgroundColor: 'white',
+                shadowColor: 'white',
               },
             }}
           />
           <Stack.Screen
-            name="Signup"
+            name='Signup'
             component={Signup}
             options={{
-              title: "",
+              title: '',
               headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
+                backgroundColor: 'white',
+                shadowColor: 'white',
               },
             }}
           />
           <Stack.Screen
-            name="Transfer"
+            name='Transfer'
             component={Transfer}
             options={{
-              title: "",
+              title: '',
               headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
+                backgroundColor: 'white',
+                shadowColor: 'white',
               },
             }}
           />
           <Stack.Screen
-            name="WriteLetter"
+            name='WriteLetter'
             component={WriteLetter}
             options={{
-              title: "",
+              title: '',
               headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
+                backgroundColor: 'white',
+                shadowColor: 'white',
               },
             }}
           />
           <Stack.Screen
-            name="Savings"
+            name='Savings'
             component={Savings}
             options={{
-              title: "",
+              title: '',
               headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
+                backgroundColor: 'white',
+                shadowColor: 'white',
               },
             }}
           />
           <Stack.Screen
-            name="AccountList"
+            name='AccountList'
             component={AccountList}
             options={{
-              title: "",
+              title: '',
               headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
+                backgroundColor: 'white',
+                shadowColor: 'white',
               },
             }}
           />
           <Stack.Screen
-            name="FriendPage"
+            name='FriendPage'
             component={FriendPage}
             options={{
-              title: "",
+              title: '',
               headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
+                backgroundColor: 'white',
+                shadowColor: 'white',
               },
             }}
           />
           <Stack.Screen
-            name="CalendarPage"
+            name='CalendarPage'
             component={CalendarPage}
             options={{
-              title: "",
+              title: '',
               headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
+                backgroundColor: 'white',
+                shadowColor: 'white',
               },
             }}
           />
           <Stack.Screen
-            name="CheckAccount"
+            name='CheckAccount'
             component={CheckAccount}
             options={{
-              title: "",
+              title: '',
               headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
+                backgroundColor: 'white',
+                shadowColor: 'white',
               },
             }}
           />
           <Stack.Screen
-            name="CheckExpense"
+            name='CheckExpense'
             component={CheckExpense}
             options={{
-              title: "",
+              title: '',
               headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
+                backgroundColor: 'white',
+                shadowColor: 'white',
               },
             }}
           />
           <Stack.Screen
-            name="CheckTransfer"
+            name='CheckTransfer'
             component={CheckTransfer}
             options={{
-              title: "",
+              title: '',
               headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
+                backgroundColor: 'white',
+                shadowColor: 'white',
               },
             }}
           />
           <Stack.Screen
-            name="AccountDetail"
+            name='AccountDetail'
             component={AccountDetail}
             options={{
-              title: "",
+              title: '',
               headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
+                backgroundColor: 'white',
+                shadowColor: 'white',
               },
             }}
           />
           <Stack.Screen
-            name="LikeSavings"
+            name='LikeSavings'
             component={LikeSavings}
             options={{
-              title: "",
+              title: '',
               headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
+                backgroundColor: 'white',
+                shadowColor: 'white',
+              },
+            }}
+          />
+          <Stack.Screen
+            name='Gift'
+            component={Gift}
+            options={{
+              title: '',
+              headerStyle: {
+                backgroundColor: 'white',
+                shadowColor: 'white',
               },
             }}
           />
