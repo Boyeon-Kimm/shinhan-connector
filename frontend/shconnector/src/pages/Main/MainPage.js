@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StatusBar } from 'expo-status-bar';
 import { Fontisto } from '@expo/vector-icons';
 
+import HeaderBar from '../../components/common/HeaderBar';
+
 import {
   updateAccountNo,
   updateMemberNo,
@@ -42,10 +44,19 @@ export default function MainPage({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar style='auto' />
-      <View style={styles.titleCon}>
+      <HeaderBar
+        showBackArrow={false}
+        onPressArrow={null}
+        title={'홈'}
+        showLogout={false}
+        showBell={true}
+        showThreeDots={false}
+        onPressRight={null}
+      />
+      {/* <View style={styles.titleCon}>
         <Text style={styles.title}>홈</Text>
         <Fontisto name='bell' size={24} color='black' />
-      </View>
+      </View> */}
       <View style={styles.loginCon}>
         <Text>이름{name}</Text>
         {/* 테스트용 */}
