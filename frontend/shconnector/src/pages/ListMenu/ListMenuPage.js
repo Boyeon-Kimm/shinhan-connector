@@ -123,9 +123,6 @@ export default function ListMenuPage({
           <TouchableOpacity onPress={() => navigation.navigate('LikeSavings')}>
             <Text style={styles.boldText}>찜한 적금상품 내역</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Mature')}>
-            <Text style={styles.boldText}>만기 적금 축하~~test!</Text>
-          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
