@@ -23,7 +23,8 @@ export default function Gift({ navigation }) {
   ]);
 
   const [kindOpen, setKindOpen] = useState(false);
-  const [kindValue, setKindValue] = useState(null);
+  const [kindValue, setKindValue] =
+    useState(null);
   const [kindItems, setKindItems] = useState([
     { label: '결혼식', value: '1' },
     { label: '장례식', value: '2' },
@@ -45,24 +46,39 @@ export default function Gift({ navigation }) {
         onPressArrow={handlePressArrow}
         title={null}
         showLogout={false}
-        showBell={false}
+        showBell={true}
         showThreeDots={false}
         onPressRight={null}
       />
       <View>
-        <Text style={styles.title}>당신을 위한 맞춤 추천</Text>
+        <Text style={styles.title}>
+          당신을 위한 맞춤 추천
+        </Text>
       </View>
       <View style={styles.blueDiv}>
         <View style={styles.textDiv}>
-          <Text style={styles.boldText}>다른 사람들은</Text>
-          <Text style={styles.boldText}>얼마를 지출할지 궁금하신가요?</Text>
+          <Text style={styles.boldText}>
+            다른 사람들은
+          </Text>
+          <Text style={styles.boldText}>
+            얼마를 지출할지 궁금하신가요?
+          </Text>
           <View style={styles.lowerTextDiv}>
-            <Text>아래 검색 조건을 입력하여 찾아보세요!</Text>
-            <Text>입력한 조건 별로 확인 가능합니다.</Text>
+            <Text>
+              아래 검색 조건을 입력하여
+              찾아보세요!
+            </Text>
+            <Text>
+              입력한 조건 별로 확인 가능합니다.
+            </Text>
           </View>
         </View>
         <View style={styles.imgDiv}>
-          <Image source={char6} resizeMode='contain' style={styles.img} />
+          <Image
+            source={char6}
+            resizeMode='contain'
+            style={styles.img}
+          />
         </View>
       </View>
       <View style={styles.inputDiv}>
@@ -124,14 +140,26 @@ export default function Gift({ navigation }) {
       </View>
       <View style={styles.lower}>
         <View style={styles.boxShadow}>
-          <Text style={styles.boldText}>연봉 4,000 ~ 5,000만원</Text>
-          <Text style={styles.boldText}>20대 여성들은</Text>
+          <Text style={styles.boldText}>
+            연봉 4,000 ~ 5,000만원
+          </Text>
+          <Text style={styles.boldText}>
+            20대 여성들은
+          </Text>
           <View style={styles.rowText}>
-            <Text style={styles.blueText}>[결혼식]</Text>
-            <Text style={styles.boldText}>축의금으로</Text>
+            <Text style={styles.blueText}>
+              [결혼식]
+            </Text>
+            <Text style={styles.boldText}>
+              축의금으로
+            </Text>
           </View>
-          <Text style={styles.blueBig}>200,000원</Text>
-          <Text style={styles.boldText}>을 지출합니다!</Text>
+          <Text style={styles.blueBig}>
+            200,000원
+          </Text>
+          <Text style={styles.boldText}>
+            을 지출합니다!
+          </Text>
         </View>
       </View>
     </View>
@@ -221,7 +249,5 @@ const styles = StyleSheet.create({
     color: '#2B70CC',
     marginVertical: 5,
   },
-  btnCon: {
-     
-  }
+  btnCon: {},
 });

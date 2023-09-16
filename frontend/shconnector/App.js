@@ -5,28 +5,28 @@ import 'react-native-gesture-handler';
 import MyNavBar from './src/components/common/NavBar';
 import FriendCreatePage from './src/pages/Friend/FriendCreatePage';
 
-import store from "./store";
-import CalendarCreate from "./src/pages/Calendar/CalendarCreate";
-import Login from "./src/pages/Login/Login";
-import Signup from "./src/pages/Login/Signup";
-import Transfer from "./src/pages/Transfer/Transfer";
-import CheckAccount from "./src/pages/Transfer/CheckAccount";
-import CheckExpense from "./src/pages/Transfer/CheckExpense";
-import CheckTransfer from "./src/pages/Transfer/CheckTransfer";
-import WriteLetter from "./src/pages/Letter/WriteLetter";
-import Savings from "./src/pages/Recommend/Savings";
-import LikeSavings from "./src/pages/Recommend/LikeSavings";
-import Gift from "./src/pages/Recommend/Gift";
-import AccountList from "./src/pages/Account/AccountList";
-import FriendPage from "./src/pages/Friend/FriendPage";
-import FriendUpdatePage from "./src/pages/Friend/FriendUpdatePage";
-import CalendarPage from "./src/pages/Calendar/CalendarPage";
-import AccountDetail from "./src/pages/Account/AccountDetail";
-import GiftAll from "./src/pages/GiftManage/GiftAll";
-import GiftGive from "./src/pages/GiftManage/GiftGive";
-import GiftReceived from "./src/pages/GiftManage/GiftReceived";
-import LetterDetail from "./src/pages/Letter/LetterDetail";
-import Mature from "./src/pages/Letter/Mature";
+import store from './store';
+import CalendarCreate from './src/pages/Calendar/CalendarCreate';
+import Login from './src/pages/Login/Login';
+import Signup from './src/pages/Login/Signup';
+import Transfer from './src/pages/Transfer/Transfer';
+import CheckAccount from './src/pages/Transfer/CheckAccount';
+import CheckExpense from './src/pages/Transfer/CheckExpense';
+import CheckTransfer from './src/pages/Transfer/CheckTransfer';
+import WriteLetter from './src/pages/Letter/WriteLetter';
+import Savings from './src/pages/Recommend/Savings';
+import LikeSavings from './src/pages/Recommend/LikeSavings';
+import Gift from './src/pages/Recommend/Gift';
+import AccountList from './src/pages/Account/AccountList';
+import FriendPage from './src/pages/Friend/FriendPage';
+import FriendUpdatePage from './src/pages/Friend/FriendUpdatePage';
+import CalendarPage from './src/pages/Calendar/CalendarPage';
+import AccountDetail from './src/pages/Account/AccountDetail';
+import GiftAll from './src/pages/GiftManage/GiftAll';
+import GiftGive from './src/pages/GiftManage/GiftGive';
+import GiftReceived from './src/pages/GiftManage/GiftReceived';
+import LetterDetail from './src/pages/Letter/LetterDetail';
+import Mature from './src/pages/Letter/Mature';
 
 const Stack = createStackNavigator();
 
@@ -111,33 +111,21 @@ export default function App() {
             name='AccountList'
             component={AccountList}
             options={{
-              title: '',
-              headerStyle: {
-                backgroundColor: 'white',
-                shadowColor: 'white',
-              },
+              headerShown: false,
             }}
           />
           <Stack.Screen
             name='FriendPage'
             component={FriendPage}
             options={{
-              title: '',
-              headerStyle: {
-                backgroundColor: 'white',
-                shadowColor: 'white',
-              },
+              headerShown: false,
             }}
           />
           <Stack.Screen
             name='CalendarPage'
             component={CalendarPage}
             options={{
-              title: '',
-              headerStyle: {
-                backgroundColor: 'white',
-                shadowColor: 'white',
-              },
+              headerShown: false,
             }}
           />
           <Stack.Screen
@@ -188,6 +176,13 @@ export default function App() {
             name='LikeSavings'
             component={LikeSavings}
             options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name='FriendUpdatePage'
+            component={FriendUpdatePage}
+            options={{
               title: '',
               headerStyle: {
                 backgroundColor: 'white',
@@ -196,68 +191,45 @@ export default function App() {
             }}
           />
           <Stack.Screen
-            name="FriendUpdatePage"
-            component={FriendUpdatePage}
-            options={{
-              title: "",
-              headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
-              },
-            }}
-          />
-          <Stack.Screen
-            name="GiftAll"
+            name='GiftAll'
             component={GiftAll}
             options={{
-              title: "",
-              headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
-              },
+              headerShown: false,
             }}
           />
           <Stack.Screen
-            name="GiftGive"
+            name='GiftGive'
             component={GiftGive}
             options={{
-              title: "",
-              headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
-              },
+              headerShown: false,
             }}
           />
           <Stack.Screen
-            name="GiftReceived"
+            name='GiftReceived'
             component={GiftReceived}
             options={{
-              title: "",
-              headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
-              },
+              headerShown: false,
             }}
           />
           <Stack.Screen
-            name="LetterDetail"
+            name='LetterDetail'
             component={LetterDetail}
             options={{
-              title: "",
+              title: '',
               headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
+                backgroundColor: 'white',
+                shadowColor: 'white',
               },
             }}
           />
           <Stack.Screen
-            name="Mature"
+            name='Mature'
             component={Mature}
             options={{
-              title: "",
+              title: '',
               headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
+                backgroundColor: 'white',
+                shadowColor: 'white',
               },
             }}
           />

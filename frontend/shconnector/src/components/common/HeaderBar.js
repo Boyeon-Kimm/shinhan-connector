@@ -1,7 +1,19 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native';
-import { Fontisto, AntDesign, Entypo } from '@expo/vector-icons';
-import { font, statusBarHeight } from '../../config/globalStyles';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableWithoutFeedback,
+} from 'react-native';
+import {
+  Fontisto,
+  AntDesign,
+  Entypo,
+} from '@expo/vector-icons';
+import {
+  font,
+  statusBarHeight,
+} from '../../config/globalStyles';
 
 export default function HeaderBar({
   showBackArrow,
@@ -32,17 +44,29 @@ export default function HeaderBar({
       </View>
       <View style={styles.titleRight}>
         {showLogout ? (
-          <TouchableWithoutFeedback onPress={onPressLogout}>
-            <Text style={styles.logout}>로그아웃</Text>
+          <TouchableWithoutFeedback
+            onPress={onPressLogout}
+          >
+            <Text style={styles.logout}>
+              로그아웃
+            </Text>
           </TouchableWithoutFeedback>
         ) : null}
-        {/* {showBell ? (
-          <TouchableWithoutFeedback onPress={onPressRight}>
-            <Fontisto name='bell' size={thisIconSize} color='black' />
+        {showBell ? (
+          <TouchableWithoutFeedback
+            onPress={onPressRight}
+          >
+            <Entypo
+              name='home'
+              size={24}
+              color='black'
+            />
           </TouchableWithoutFeedback>
-        ) : null} */}
+        ) : null}
         {showThreeDots ? (
-          <TouchableWithoutFeedback onPress={onPressRight}>
+          <TouchableWithoutFeedback
+            onPress={onPressRight}
+          >
             <Entypo
               name='dots-three-vertical'
               size={thisIconSize}
