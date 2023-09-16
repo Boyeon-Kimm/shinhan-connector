@@ -83,13 +83,45 @@ export default function Gift({ navigation }) {
           />
         </View>
       </View>
+      
+      <View style={styles.lower}>
+        <View style={styles.boxShadow}>
+          <Text style={styles.boldText}>
+            연봉 4,000 ~ 5,000만원
+          </Text>
+          <Text style={styles.boldText}>
+            20대 여성들은
+          </Text>
+          <View style={styles.rowText}>
+            <Text style={styles.blueText}>
+              [결혼식]
+            </Text>
+            <Text style={styles.boldText}>
+              축의금으로
+            </Text>
+          </View>
+          <Text style={styles.blueBig}>
+            200,000원
+          </Text>
+          <Text style={styles.boldText}>
+            을 지출합니다!
+          </Text>
+        </View>
+      </View>
+      <View style={styles.btnCon}>
+        <Button
+          title='아래 조건으로 검색하기'
+          backgroundColor='#2B70CC'
+          color='white'
+        />
+      </View>
       <View style={styles.inputDiv}>
         <View>
           <DropDownPicker
             style={{ ...styles.input, zIndex: 1 }}
             dropDownContainerStyle={{
               width: 95,
-              zIndex: 1000
+              zIndex: 2,
               // borderColor: "#F4F5F7",
             }}
             open={giftOpen}
@@ -151,37 +183,7 @@ export default function Gift({ navigation }) {
           />
         </View>
       </View>
-      <View style={styles.btnCon}>
-        <Button
-          title='해당 조건으로 검색하기'
-          backgroundColor='#2B70CC'
-          color='white'
-        />
-      </View>
-      <View style={styles.lower}>
-        <View style={styles.boxShadow}>
-          <Text style={styles.boldText}>
-            연봉 4,000 ~ 5,000만원
-          </Text>
-          <Text style={styles.boldText}>
-            20대 여성들은
-          </Text>
-          <View style={styles.rowText}>
-            <Text style={styles.blueText}>
-              [결혼식]
-            </Text>
-            <Text style={styles.boldText}>
-              축의금으로
-            </Text>
-          </View>
-          <Text style={styles.blueBig}>
-            200,000원
-          </Text>
-          <Text style={styles.boldText}>
-            을 지출합니다!
-          </Text>
-        </View>
-      </View>
+      
     </View>
   );
 }
@@ -236,17 +238,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
     gap: 5,
-    overflow: 'scroll',
     paddingVertical: 10,
   },
   lower: {
     alignItems: 'center',
   },
   boxShadow: {
-    elevation: 10, // 그림자의 강도를 조절할 수 있습니다.
-    backgroundColor: 'white', // 그림자를 더 확실하게 보이게 하려면 뷰의 배경색을 설정할 수 있습니다.
-    borderRadius: 10, // 뷰의 모서리를 둥글게 만들 수 있습니다.
-    padding: 20, // 뷰의 내용과 패딩을 설정합니다.
+    elevation: 10,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 20,
     width: 300,
     height: 260,
     marginTop: 25,
@@ -272,5 +273,7 @@ const styles = StyleSheet.create({
   btnCon: {
     alignItems: 'center',
     width: '100%',
+    marginTop: 20,
+    marginBottom: 10,
   },
 });
