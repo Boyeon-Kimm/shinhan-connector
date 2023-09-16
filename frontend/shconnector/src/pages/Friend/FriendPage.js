@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, StyleSheet, ScrollView, TextInput } from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  ScrollView,
+  TextInput,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import HeaderBar from '../../components/common/HeaderBar';
 import HorizonButton from '../../components/common/HorizonButton';
 import FriendListCard from '../../components/FriendListCard';
@@ -16,9 +23,9 @@ export default function FriendPage({ navigation }) {
   const [currentCategory, setCurrentCategory] = useState(category[0]);
 
   const [allFriendList, setAllFriendList] = useState([]); // 이거 전체 리스트 (페이지 로딩 시 불러옴)
-  
+
   const handlePressArrow = () => {
-    navigation.goBack();
+    navigation.navigate('Home', { screen: 'Main' });
   };
 
   const handleTextChange = (newText) => {
@@ -37,9 +44,11 @@ export default function FriendPage({ navigation }) {
       headers: {
         Authorization: 'Bearer' + AccessToken,
       },
-    }).then((response) => {
+    })
+      .then((response) => {
         setAllFriendList(response.data);
-    }).catch((error) => console.error(error));
+      })
+      .catch((error) => console.error(error));
   };
 
   useEffect(() => {
@@ -75,17 +84,23 @@ export default function FriendPage({ navigation }) {
       </ScrollView>
       <ScrollView>
         <View style={styles.list}>
-        {allFriendList
-          .filter((friend, i) => (
-            friend.relation === (currentCategory === category[0] ? friend.relation : currentCategory)
-        )).map((friend, i) => (
-          <FriendEach
-            key={friend.friendNo}
-            relationship={friend.relation}
-            name={friend.name}
-            group={friend.belong}
-          />
-        ))}
+          {allFriendList
+            .filter(
+              (friend, i) =>
+                friend.relation ===
+                (currentCategory === category[0]
+                  ? friend.relation
+                  : currentCategory)
+            )
+            .map((friend, i) => (
+              <FriendEach
+                key={friend.friendNo}
+                friendNo={friend.friendNo}
+                relationship={friend.relation}
+                name={friend.name}
+                group={friend.belong}
+              />
+            ))}
         </View>
       </ScrollView>
     </View>
