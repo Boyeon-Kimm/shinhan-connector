@@ -16,10 +16,7 @@ export default function FriendPage({ navigation }) {
   const [currentCategory, setCurrentCategory] = useState(category[0]);
 
   const [allFriendList, setAllFriendList] = useState([]); // 이거 전체 리스트 (페이지 로딩 시 불러옴)
-  const familyList = []; // 이거 가족 리스트
-  const friendList = []; // 이거 친구 리스트
-  const companyList = []; // 이거 직장 리스트
-
+  
   const handlePressArrow = () => {
     navigation.goBack();
   };
@@ -40,22 +37,9 @@ export default function FriendPage({ navigation }) {
       headers: {
         Authorization: 'Bearer' + AccessToken,
       },
-    })
-      .then((response) => {
+    }).then((response) => {
         setAllFriendList(response.data);
-      })
-      .then(() => {
-        allFriendList.forEach((item) => {
-          if (item.relation === '친구') {
-            friendList.push(item);
-          } else if (item.relation === '직장동료' || item.relation === '거래처') {
-            companyList.push(item);
-          } else if (item.relation === '가족') {
-            familyList.push(item);
-          }
-        });
-      })
-      .catch((error) => console.error(error));
+    }).catch((error) => console.error(error));
   };
 
   useEffect(() => {
@@ -90,12 +74,17 @@ export default function FriendPage({ navigation }) {
         ))}
       </ScrollView>
       <ScrollView style={styles.list}>
-        <FriendEach relationship="직장" name="김보연" group="신한은행" />
-        <FriendEach relationship="직장" name="김보연" group="신한은행" />
-        <FriendEach relationship="직장" name="김보연" group="신한은행" />
-        <FriendEach relationship="직장" name="김보연" group="신한은행" />
-        <FriendEach relationship="직장" name="김보연" group="신한은행" />
-        <FriendEach relationship="직장" name="김보연" group="신한은행" />
+        {allFriendList
+          .filter((friend, i) => (
+            friend.relation === (currentCategory === category[0] ? friend.relation : currentCategory)
+        )).map((friend, i) => (
+          <FriendEach
+            key={friend.friendNo}
+            relationship={friend.relation}
+            name={friend.name}
+            group={friend.belong}
+          />
+        ))}
       </ScrollView>
     </View>
   );
@@ -106,7 +95,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     backgroundColor: 'white',
-    
   },
   horizonCon: {
     // width: '100%',
@@ -130,5 +118,5 @@ const styles = StyleSheet.create({
   },
   list: {
     paddingHorizontal: 30,
-  }
+  },
 });
