@@ -61,11 +61,6 @@ export default function GiftManagePage({ navigation }) {
           <AntDesign name="right" size={18} color="black" />
         </TouchableOpacity>
       </View>
-      <TouchableOpacity onPress={handleClick}>
-        <Text>click</Text>
-      </TouchableOpacity>
-
-      <BottomSheetGift visible={modalVisible} setVisible={setModalVisible} />
       <AntDesign
         name="pluscircle"
         size={widthScale * 40}
