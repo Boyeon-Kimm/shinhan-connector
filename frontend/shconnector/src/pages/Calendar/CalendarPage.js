@@ -1,8 +1,20 @@
 import { useEffect } from 'react';
-import { Text, View, Dimensions, StyleSheet } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import {
+  Text,
+  View,
+  Dimensions,
+  StyleSheet,
+} from 'react-native';
+import {
+  useDispatch,
+  useSelector,
+} from 'react-redux';
 import { StatusBar } from 'expo-status-bar';
-import { Feather, AntDesign, Fontisto } from '@expo/vector-icons';
+import {
+  Feather,
+  AntDesign,
+  Fontisto,
+} from '@expo/vector-icons';
 import MyCalendar from '../../components/calendar/CalendarCustom';
 import ScheduleDayList from '../../components/calendar/ScheduleDayList';
 import {
@@ -17,12 +29,22 @@ import { updateSchedules } from '../../reducers/CalendarSlice';
 import API from '../../util/api';
 import { makeTimestamp } from '../../util/globalFunc';
 
-export default function CalendarPage({ navigation }) {
+export default function CalendarPage({
+  navigation,
+}) {
   const dispatch = useDispatch();
-  const selected = useSelector((state) => state.calendar.selected);
-  const currMonth = useSelector((state) => state.calendar.currMonth);
-  const currYear = useSelector((state) => state.calendar.currYear);
-  const schedules = useSelector((state) => state.calendar.schedules);
+  const selected = useSelector(
+    (state) => state.calendar.selected
+  );
+  const currMonth = useSelector(
+    (state) => state.calendar.currMonth
+  );
+  const currYear = useSelector(
+    (state) => state.calendar.currYear
+  );
+  const schedules = useSelector(
+    (state) => state.calendar.schedules
+  );
   const headerSize = 24;
   const myInfo = [
     {
@@ -98,22 +120,34 @@ export default function CalendarPage({ navigation }) {
 
   const getSchedules = async (year, month) => {
     console.log('getSchedules 실행');
-    const prevMonth = month === 1 ? 12 : month - 1;
-    const prevYear = month === 1 ? year - 1 : year;
-    const nextMonth = month === 12 ? 1 : month + 1;
-    const nextYear = month === 12 ? year + 1 : year;
-    const startDate = makeTimestamp(prevYear, prevMonth);
-    const endDate = makeTimestamp(nextYear, nextMonth);
+    const prevMonth =
+      month === 1 ? 12 : month - 1;
+    const prevYear =
+      month === 1 ? year - 1 : year;
+    const nextMonth =
+      month === 12 ? 1 : month + 1;
+    const nextYear =
+      month === 12 ? year + 1 : year;
+    const startDate = makeTimestamp(
+      prevYear,
+      prevMonth
+    );
+    const endDate = makeTimestamp(
+      nextYear,
+      nextMonth
+    );
     // const url = `api/schedule/list?start-date=[${startDate}]&end-date=[${endDate}]`;
     const url = `api/schedule/list?start-date=${startDate}&end-date=${endDate}`;
     console.log(url);
-    const response = await API.get(url).catch((error) =>
-      console.error('Axios 에러', error)
+    const response = await API.get(url).catch(
+      (error) =>
+        console.error('Axios 에러', error)
     );
     console.log('response', response);
     console.log('response'); // 실행 안됨
     //데이터 형식 확인할 것
-    if (response) dispatch(updateSchedules(response.data));
+    if (response)
+      dispatch(updateSchedules(response.data));
     console.log(schedules);
     // return response.data; // 응답 반환
   };
@@ -131,14 +165,19 @@ export default function CalendarPage({ navigation }) {
   }, [currYear, currMonth]);
 
   return (
-    <View style={{ flex: 1, backgroundColor: 'white' }}>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: 'white',
+      }}
+    >
       <StatusBar style='auto' />
       <HeaderBar
         showBackArrow={true}
         onPressArrow={handlePressArrow}
         title={'나의 일정'}
         showLogout={false}
-        showBell={true}
+        showBell={false}
         showThreeDots={false}
         onPressRight={null}
       />
@@ -149,18 +188,29 @@ export default function CalendarPage({ navigation }) {
         </View>
         <Fontisto name='bell' size={24} color='black' />
       </View> */}
-      <MyCalendar myInfo={myInfo} othersInfo={othersInfo} />
+      <MyCalendar
+        myInfo={myInfo}
+        othersInfo={othersInfo}
+      />
       {selected ? (
         <ScheduleDayList />
       ) : (
         <View style={styles.infoDiv}>
           <View style={styles.infoCard}>
-            <Text style={styles.boldText}>이번 달 지출한 경조사 비용</Text>
-            <Text style={styles.blueText}>450,000원</Text>
+            <Text style={styles.boldText}>
+              이번 달 지출한 경조사 비용
+            </Text>
+            <Text style={styles.blueText}>
+              450,000원
+            </Text>
           </View>
           <View style={styles.infoCard}>
-            <Text style={styles.boldText}>올해 지출한 경조사 비용</Text>
-            <Text style={styles.blueText}>1,240,000원</Text>
+            <Text style={styles.boldText}>
+              올해 지출한 경조사 비용
+            </Text>
+            <Text style={styles.blueText}>
+              1,240,000원
+            </Text>
           </View>
         </View>
       )}

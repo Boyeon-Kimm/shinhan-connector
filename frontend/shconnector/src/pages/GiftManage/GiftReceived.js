@@ -11,14 +11,18 @@ import HeaderBar from '../../components/common/HeaderBar';
 import { Shadow } from 'react-native-shadow-2';
 
 export default function GiftReceived({ navigation }) {
+  const handlePressArrow = () => {
+    navigation.goBack();
+  };
+  
   return (
     <View style={styles.container}>
       <HeaderBar
         showBackArrow={true}
-        onPressArrow={() => navigation.goBack()}
+        onPressArrow={handlePressArrow}
         title={'받은 내역'}
         showLogout={false}
-        showBell={true}
+        showBell={false}
         showThreeDots={false}
         onPressRight={null}
       />

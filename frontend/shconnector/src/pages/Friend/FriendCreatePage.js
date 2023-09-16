@@ -16,7 +16,9 @@ import { colors } from '../../config/globalStyles';
 import API from '../../util/api';
 import MyButton from '../../components/common/Button';
 
-export default function FriendCreatePage({ navigation }) {
+export default function FriendCreatePage({
+  navigation,
+}) {
   const [name, setName] = useState(null);
   const [contact, setContact] = useState(null);
 
@@ -33,7 +35,8 @@ export default function FriendCreatePage({ navigation }) {
   const [belong, setBelong] = useState();
 
   const [codeOpen, setCodeOpen] = useState(false);
-  const [codeValue, setCodeValue] = useState(null);
+  const [codeValue, setCodeValue] =
+    useState(null);
   const [bankCode, setBankCode] = useState([
     { label: '경남은행', value: '039' },
     { label: '광주은행', value: '034' },
@@ -61,7 +64,10 @@ export default function FriendCreatePage({ navigation }) {
     { label: '우체국', value: '071' },
     { label: '웰컴저축은행', value: '105' },
     { label: '전북은행', value: '037' },
-    { label: '제이피모던체이스은행', value: '057' },
+    {
+      label: '제이피모던체이스은행',
+      value: '057',
+    },
     { label: '제주은행', value: '035' },
     { label: '카카오뱅크', value: '090' },
     { label: '케이뱅크', value: '089' },
@@ -72,7 +78,8 @@ export default function FriendCreatePage({ navigation }) {
     { label: 'SC제일은행', value: '023' },
   ]);
 
-  const [accountNumber, setAccountNumber] = useState(null);
+  const [accountNumber, setAccountNumber] =
+    useState(null);
   const [image, setImage] = useState();
   const [message, setMessage] = useState(null);
 
@@ -89,11 +96,17 @@ export default function FriendCreatePage({ navigation }) {
     let newText = text.replace(/[^0-9]/g, '');
     if (newText.length < 10)
       newText = newText
-        .replace(/^(\d{0,3})(\d{0,3})(\d{0,4})$/g, '$1-$2-$3')
+        .replace(
+          /^(\d{0,3})(\d{0,3})(\d{0,4})$/g,
+          '$1-$2-$3'
+        )
         .replace(/\-{1,2}$/g, '');
     else
       newText = newText
-        .replace(/^(\d{0,3})(\d{0,4})(\d{4})$/g, '$1-$2-$3')
+        .replace(
+          /^(\d{0,3})(\d{0,4})(\d{4})$/g,
+          '$1-$2-$3'
+        )
         .replace(/\-{1,2}$/g, '');
     console.log(newText);
     setContact(newText);
@@ -110,11 +123,17 @@ export default function FriendCreatePage({ navigation }) {
       if (newText.length === 11) {
         console.log('test');
         newText = newText
-          .replace(/^(\d{0,3})(\d{0,2})(\d{0,6})$/g, '$1-$2-$3')
+          .replace(
+            /^(\d{0,3})(\d{0,2})(\d{0,6})$/g,
+            '$1-$2-$3'
+          )
           .replace(/\-{1,2}$/g, '');
       } else
         newText = newText
-          .replace(/^(\d{0,3})(\d{0,3})(\d{0,6})$/g, '$1-$2-$3')
+          .replace(
+            /^(\d{0,3})(\d{0,3})(\d{0,6})$/g,
+            '$1-$2-$3'
+          )
           .replace(/\-{1,2}$/g, '');
       console.log(newText);
 
@@ -142,7 +161,10 @@ export default function FriendCreatePage({ navigation }) {
 
     if (image) body.image = image;
     console.log('바디', body);
-    const response = await API.post(url, body).catch((error) => {
+    const response = await API.post(
+      url,
+      body
+    ).catch((error) => {
       console.log('Axios 에러', error.response);
       // if (error.response.status === 400) {
       //   setMessage(error.response.data.message);
@@ -169,7 +191,7 @@ export default function FriendCreatePage({ navigation }) {
             onPressArrow={handlePressArrow}
             title={null}
             showLogout={false}
-            showBell={false}
+            showBell={true}
             showThreeDots={false}
             onPressRight={null}
           />

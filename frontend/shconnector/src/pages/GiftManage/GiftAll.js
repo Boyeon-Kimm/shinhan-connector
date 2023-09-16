@@ -22,14 +22,19 @@ export default function GiftAll({ navigation }) {
   const onPressHorizon = (newCategory) => {
     setCurrentCategory(newCategory);
   };
+  
+  const handlePressArrow = () => {
+    navigation.goBack();
+  };
+  
   return (
     <View style={styles.container}>
       <HeaderBar
         showBackArrow={true}
-        onPressArrow={() => navigation.goBack()}
-        title={'전체 내역'}
+        onPressArrow={handlePressArrow}
+        title={null}
         showLogout={false}
-        showBell={true}
+        showBell={false}
         showThreeDots={false}
         onPressRight={null}
       />

@@ -20,9 +20,13 @@ import {
   updateRefreshToken,
 } from '../../reducers/LoginSlice';
 
-export default function ListMenuPage({ navigation }) {
+export default function ListMenuPage({
+  navigation,
+}) {
   const dispatch = useDispatch();
-  const name = useSelector((state) => state.login.name);
+  const name = useSelector(
+    (state) => state.login.name
+  );
 
   const onPressLogout = () => {
     dispatch(updateAccountNo(null));
@@ -45,7 +49,7 @@ export default function ListMenuPage({ navigation }) {
         title={name ? name + '님' : '로그인이 필요합니다'}
         showLogout={name ? true : false}
         onPressLogout={onPressLogout}
-        showBell={true}
+        showBell={false}
         showThreeDots={false}
         onPressRight={null}
         navigation={navigation}
@@ -84,7 +88,9 @@ export default function ListMenuPage({ navigation }) {
           <TouchableOpacity
             onPress={() => navigation.navigate('CalendarCreate')}
           >
-            <Text style={styles.boldText}>일정 추가</Text>
+            <Text style={styles.boldText}>
+              일정 추가
+            </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.menu}>
