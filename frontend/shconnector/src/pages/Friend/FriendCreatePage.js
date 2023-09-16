@@ -269,10 +269,13 @@ export default function FriendCreatePage({
               placeholder='계좌번호(선택)'
               keyboardType='number-pad'
             />
-            <View>
+            {/* <View>
               <Text style={styles.optionText}>명함 사진</Text>
               <View style={styles.picture}></View>
-            </View>
+            </View> */}
+          </View>
+          <View style={styles.messageContainer}>
+            {message && <Text style={styles.errorMessage}>{message}</Text>}
           </View>
           <View style={styles.btnCon}>
             <MyButton
@@ -356,5 +359,15 @@ const styles = StyleSheet.create({
   },
   submitText: {
     color: 'white',
+  },
+  messageContainer: {
+    width: 300,
+    marginBottom: 10,
+    alignItems: 'center',
+  },
+  errorMessage: {
+    color: 'tomato',
+    fontSize: 14,
+    textAlign: 'center',
   },
 });
