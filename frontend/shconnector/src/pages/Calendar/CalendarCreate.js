@@ -1,5 +1,6 @@
-import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
+import { StatusBar } from 'expo-status-bar';
+
 import {
   Text,
   View,
@@ -13,20 +14,26 @@ import {
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import DropDownPicker from "react-native-dropdown-picker";
 import HeaderBar from "../../components/common/HeaderBar";
+import { useDispatch, useSelector } from 'react-redux';
+import { updateFriendItems } from '../../reducers/FriendSlice';
+import API from '../../util/api';
+import { colors } from '../../config/globalStyles';
+import Button from '../../components/common/Button';
 
 Date.prototype.format = function (f) {
   if (!this.valueOf()) return " ";
+  
+  let weekName = [
+    '일요일',
+    '월요일',
+    '화요일',
+    '수요일',
+    '목요일',
+    '금요일',
+    '토요일',
 
-  var weekName = [
-    "일요일",
-    "월요일",
-    "화요일",
-    "수요일",
-    "목요일",
-    "금요일",
-    "토요일",
   ];
-  var d = this;
+  let d = this;
 
   return f.replace(/(yyyy|yy|MM|dd|E|hh|mm|ss|a\/p)/gi, function ($1) {
     switch ($1) {
@@ -72,19 +79,54 @@ Number.prototype.zf = function (len) {
 };
 
 export default function CalendarCreate({ navigation }) {
+  const dispatch = useDispatch();
+  const friendList = useSelector((state) => state.friend.friendItems);
+
+  //일정 분류 관련
+  const [isFriendSchedule, setIsMySchedule] = useState(true);
+  const toggleFriendSwitch = () => {
+    setIsMySchedule((previousState) => !previousState);
+  };
+
+  // 지인 선택 관련
+  const [friendOpen, setFriendOpen] = useState(false);
+  const [friendValue, setFriendValue] = useState(null);
+  const [friendItems, setFriendItems] = useState([
+    // { label: '매주', value: '1' },
+    // { label: '매달', value: '2' },
+    // { label: '매년', value: '3' },
+  ]);
+
+  // 카테고리 선택 관련
+  const [categoryOpen, setCategoryOpen] = useState(false);
+  const [categoryValue, setCategoryValue] = useState(null);
+  const [categoryItems, setCategoryItems] = useState([
+    { label: '결혼식', value: '결혼식' },
+    { label: '장례식', value: '장례식' },
+    { label: '잔치', value: '잔치' },
+    { label: '생일', value: '생일' },
+    { label: '집들이', value: '집들이' },
+    { label: '기타', value: '기타' },
+  ]);
+
+  const [name, setName] = useState(null);
+  const [content, setContent] = useState(null);
+
   // 반복 주기 관련
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    { label: "매주", value: "1" },
-    { label: "매달", value: "2" },
-    { label: "매년", value: "3" },
+  const [repeatOpen, setRepeatOpen] = useState(false);
+  const [repeatValue, setRepeatValue] = useState(null);
+  const [repeatItems, setRepeatItems] = useState([
+    { label: '매주', value: '1' },
+    { label: '매달', value: '2' },
+    { label: '매년', value: '3' },
+
   ]);
 
   // 날짜 및 시간 선택 관련
   const placeholder = "날짜 및 시간 선택";
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [text, setText] = useState("");
+  const [dateText, setText] = useState('');
+
   const showDatePicker = () => {
     setDatePickerVisibility(true);
   };
@@ -97,7 +139,7 @@ export default function CalendarCreate({ navigation }) {
     setText(date.format("yyyy/MM/dd a/p hh:mm"));
   };
 
-  // 토글 스위치 관련
+  // 알림토글 스위치 관련
   const [isEnabled, setIsEnabled] = useState(false);
   const [isAlarmVisible, setAlarmVisible] = useState(false);
   const toggleSwitch = () => {
@@ -108,13 +150,16 @@ export default function CalendarCreate({ navigation }) {
   // 알림 시간 관련
   const timePlaceholder = "— 알림 받을 시간을 선택해주세요 —";
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
-  const [timeText, setTimeText] = useState("");
+  const [timeText, setTimeText] = useState('');
+
   const showTimePicker = () => {
     setTimePickerVisibility(true);
   };
+
   const hideTimePicker = () => {
     setTimePickerVisibility(false);
   };
+
   const handleTimeConfirm = (date) => {
     console.warn("dateFormat: ", date.format("a/p hh:mm"));
     hideTimePicker();
@@ -125,31 +170,196 @@ export default function CalendarCreate({ navigation }) {
     navigation.goBack();
   };
 
+  const handlePressRegist = async () => {
+    const url = 'api/schedule';
+    const body = {};
+    const response = await API.post(url, body).catch((error) => {
+      console.error('Axios 에러', error);
+      if (error.response.status === 400) {
+        dispatch(updateMessage('아이디 혹은 비밀번호를 확인해주세요'));
+        console.log('아이디 혹은 비밀번호를 확인해주세요');
+      }
+    });
+
+    // console.log(response.data.token.accessToken);
+
+    if (response && response.status === 200) {
+      dispatch(updateAccountNo(response.data.signInResponse.accountNo));
+      dispatch(updateMemberNo(response.data.signInResponse.memberNo));
+      dispatch(updateId(response.data.signInResponse.id));
+      dispatch(updateName(response.data.signInResponse.name));
+      dispatch(updateAge(response.data.signInResponse.age));
+      dispatch(updateGender(response.data.signInResponse.gender));
+      dispatch(updateContact(response.data.signInResponse.contact));
+      dispatch(updateAccessToken(response.data.token.accessToken));
+      dispatch(updateRefreshToken(response.data.token.refreshToken));
+      //메인 이동
+      navigation.navigate('Home');
+    } else {
+      // 모달로 띄울 것
+      console.log('로그인 실패');
+    }
+  };
+
+  const saveFriendItems = async () => {
+    const url = 'api/friend/list';
+    const response = await API.get(url).catch((error) => {
+      console.error('Axios 에러', error);
+    });
+    console.log(response.data);
+    if (response && response.status === 200) {
+      const newList = [];
+      for (item of response.data) {
+        newList.push({
+          label: `[${item.relation}] ${item.name}`,
+          value: item.friendNo,
+        });
+
+        // { label: '매주', value: '1' },
+        // { label: '매달', value: '2' },
+        // { label: '매년', value: '3' },
+      }
+      // console.log(newList);
+      dispatch(updateFriendItems(newList));
+    }
+  };
+
+  useEffect(() => {
+    saveFriendItems();
+  }, []);
+
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={styles.container}>
-        <StatusBar style="auto" />
-        <HeaderBar
-          showBackArrow={true}
-          onPressArrow={handlePressArrow}
-          title={null}
-          showLogout={false}
-          showBell={true}
-          showThreeDots={false}
-          onPressRight={null}
-        />
-        <View style={styles.titleCon}>
-          <Text style={styles.title}>새로운 일정 추가</Text>
+    <View style={styles.container}>
+      <StatusBar style='auto' />
+      <HeaderBar
+        showBackArrow={true}
+        onPressArrow={handlePressArrow}
+        title={null}
+        showLogout={false}
+        showBell={true}
+        showThreeDots={false}
+        onPressRight={null}
+      />
+      <View style={styles.titleCon}>
+        <Text style={styles.title}>새로운 일정 추가</Text>
+      </View>
+      <View style={styles.alarmContainer}>
+        <View style={styles.alarmContainerHeader}>
+          <Text>{isFriendSchedule ? '지인의 일정' : '나의 일정'}</Text>
+          <Switch
+            trackColor={{ false: '#767577', true: '#81b0ff' }}
+            thumbColor={isEnabled ? '#ffffff' : '#f4f3f4'}
+            ios_backgroundColor='#3e3e3e'
+            onValueChange={toggleFriendSwitch}
+            value={isFriendSchedule}
+          />
+          {isFriendSchedule ? (
+            <DropDownPicker
+              style={styles.dropDown}
+              dropDownContainerStyle={{
+                width: 300,
+                borderColor: '#DCDCDC',
+              }}
+              open={friendOpen}
+              value={friendValue}
+              items={friendList}
+              setOpen={setFriendOpen}
+              setValue={setFriendValue}
+              // setItems={setRepeatItems}
+              placeholder='— 지인을 선택해주세요 —'
+              modalProps={{
+                animationType: 'fade',
+              }}
+            />
+          ) : null}
         </View>
+        {isAlarmVisible && (
+          <TouchableOpacity onPress={showTimePicker}>
+            <TextInput
+              pointerEvents='none'
+              style={styles.input}
+              placeholder={timePlaceholder}
+              placeholderTextColor='#BABABA'
+              underlineColorAndroid='transparent'
+              editable={false}
+              value={timeText}
+            />
+            <DateTimePickerModal
+              headerTextIOS={timePlaceholder}
+              isVisible={isTimePickerVisible}
+              mode='time'
+              onConfirm={handleTimeConfirm}
+              onCancel={hideTimePicker}
+            />
+          </TouchableOpacity>
+        )}
+      </View>
+      <DropDownPicker
+        style={styles.dropDown}
+        dropDownContainerStyle={{
+          width: 300,
+          borderColor: '#DCDCDC',
+        }}
+        open={categoryOpen}
+        value={categoryValue}
+        items={categoryItems}
+        setOpen={setCategoryOpen}
+        setValue={setCategoryValue}
+        setItems={setCategoryItems}
+        placeholder='— 일정 카테고리를 선택해주세요 —'
+        modalProps={{
+          animationType: 'fade',
+        }}
+      />
+      <TextInput
+        value={name}
+        onChangeText={setName}
+        style={styles.input}
+        placeholder='제목'
+        keyboardType='text'
+      />
+      <TextInput
+        value={content}
+        onChangeText={setContent}
+        style={styles.longInput}
+        placeholder='상세 설명'
+        keyboardType='default'
+      />
+      <TouchableOpacity onPress={showDatePicker}>
         <TextInput
           style={styles.input}
-          placeholder="제목"
-          keyboardType="text"
+          placeholder={placeholder}
+          placeholderTextColor='#BABABA'
+          underlineColorAndroid='transparent'
+          editable={false}
+          value={dateText}
         />
-        <TextInput
-          style={styles.longInput}
-          placeholder="상세 설명"
-          keyboardType="text"
+        <DateTimePickerModal
+          headerTextIOS={placeholder}
+          isVisible={isDatePickerVisible}
+          mode='datetime'
+          onConfirm={handleConfirm}
+          onCancel={hideDatePicker}
+        />
+      </TouchableOpacity>
+      <View>
+        <DropDownPicker
+          style={styles.dropDown}
+          dropDownContainerStyle={{
+            width: 300,
+            borderColor: '#DCDCDC',
+          }}
+          open={repeatOpen}
+          value={repeatValue}
+          items={repeatItems}
+          setOpen={setRepeatOpen}
+          setValue={setRepeatValue}
+          setItems={setRepeatItems}
+          placeholder='— 반복 주기를 선택해주세요 —'
+          modalProps={{
+            animationType: 'fade',
+          }}
+
         />
         <TouchableOpacity onPress={showDatePicker}>
           <TextInput
@@ -220,10 +430,18 @@ export default function CalendarCreate({ navigation }) {
             )}
           </View>
         </View>
-        <View style={styles.submitButton}>
-          <Text style={styles.submitText}>완료</Text>
-        </View>
+      <View style={styles.btnCon}>
+        <Button
+          title='완료'
+          backgroundColor={colors.shinhan}
+          color='white'
+          onPress={handlePressRegist}
+        />
       </View>
+      {/* <View style={styles.submitButton}>
+        <Text style={styles.submitText}>완료</Text>
+      </View> */}
+    </View>
     </TouchableWithoutFeedback>
   );
 }
@@ -304,5 +522,9 @@ const styles = StyleSheet.create({
   },
   submitText: {
     color: "white",
+  },
+  btnCon: {
+    justifyContent: 'center',
+    textAlign: 'center',
   },
 });
