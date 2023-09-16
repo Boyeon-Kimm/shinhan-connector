@@ -51,17 +51,12 @@ export default function Gift({ navigation }) {
       <HeaderBar
         showBackArrow={true}
         onPressArrow={handlePressArrow}
-        title={null}
+        title={"당신을 위한 맞춤 추천"}
         showLogout={false}
         showBell={true}
         showThreeDots={false}
         onPressRight={null}
       />
-      <View>
-        <Text style={styles.title}>
-          당신을 위한 맞춤 추천
-        </Text>
-      </View>
       <View style={styles.blueDiv}>
         <View style={styles.textDiv}>
           <Text style={styles.boldText}>
@@ -88,78 +83,7 @@ export default function Gift({ navigation }) {
           />
         </View>
       </View>
-      <View style={styles.inputDiv}>
-        <View>
-          <DropDownPicker
-            style={styles.input}
-            dropDownContainerStyle={{
-              width: 95,
-              zIndex: 1000
-              // borderColor: "#F4F5F7",
-            }}
-            open={giftOpen}
-            value={giftValue}
-            items={giftItems}
-            setOpen={setGiftOpen}
-            setValue={setGiftValue}
-            setItems={setGiftItems}
-            placeholder='종류'
-            modalProps={{
-              animationType: 'fade',
-            }}
-          />
-        </View>
-        <TextInput
-          style={styles.input}
-          placeholder='연령'
-          keyboardType='number-pad'
-        />
-        <View>
-          <DropDownPicker
-            style={styles.input}
-            dropDownContainerStyle={{
-              width: 95,
-              // borderColor: "#F4F5F7",
-            }}
-            open={open}
-            value={value}
-            items={items}
-            setOpen={setOpen}
-            setValue={setValue}
-            setItems={setItems}
-            placeholder='성별'
-            modalProps={{
-              animationType: 'fade',
-            }}
-          />
-        </View>
-        <View>
-          <DropDownPicker
-            style={styles.input}
-            dropDownContainerStyle={{
-              width: 95,
-              borderColor: '#F4F5F7',
-            }}
-            open={kindOpen}
-            value={kindValue}
-            items={kindItems}
-            setOpen={setKindOpen}
-            setValue={setKindValue}
-            setItems={setKindItems}
-            placeholder='경조사'
-            modalProps={{
-              animationType: 'fade',
-            }}
-          />
-        </View>
-      </View>
-      <View style={styles.btnCon}>
-        <Button
-          title='해당 조건으로 검색하기'
-          backgroundColor='#2B70CC'
-          color='white'
-        />
-      </View>
+      
       <View style={styles.lower}>
         <View style={styles.boxShadow}>
           <Text style={styles.boldText}>
@@ -184,6 +108,82 @@ export default function Gift({ navigation }) {
           </Text>
         </View>
       </View>
+      <View style={styles.btnCon}>
+        <Button
+          title='아래 조건으로 검색하기'
+          backgroundColor='#2B70CC'
+          color='white'
+        />
+      </View>
+      <View style={styles.inputDiv}>
+        <View>
+          <DropDownPicker
+            style={{ ...styles.input, zIndex: 1 }}
+            dropDownContainerStyle={{
+              width: 95,
+              zIndex: 2,
+              // borderColor: "#F4F5F7",
+            }}
+            open={giftOpen}
+            value={giftValue}
+            items={giftItems}
+            setOpen={setGiftOpen}
+            setValue={setGiftValue}
+            setItems={setGiftItems}
+            placeholder='종류'
+            modalProps={{
+              animationType: 'fade',
+            }}
+            zIndex={99}
+          />
+        </View>
+        <TextInput
+          style={styles.input}
+          placeholder='연령'
+          keyboardType='number-pad'
+        />
+        <View>
+          <DropDownPicker
+            style={styles.input}
+            dropDownContainerStyle={{
+              width: 95,
+              // borderColor: "#F4F5F7",
+            }}
+            open={open}
+            value={value}
+            items={items}
+            setOpen={setOpen}
+            setValue={setValue}
+            setItems={setItems}
+            placeholder='성별'
+            modalProps={{
+              animationType: 'fade',
+            }}
+            zIndex={99}
+          />
+        </View>
+        <View>
+          <DropDownPicker
+            style={styles.input}
+            dropDownContainerStyle={{
+              width: 95,
+              borderColor: '#F4F5F7',
+            }}
+            open={kindOpen}
+            value={kindValue}
+            items={kindItems}
+            setOpen={setKindOpen}
+            setValue={setKindValue}
+            setItems={setKindItems}
+            placeholder='경조사'
+            modalProps={{
+              animationType: 'fade',
+            }}
+            zIndex={99}
+          />
+        </View>
+      </View>
+      
     </View>
   );
 }
@@ -238,17 +238,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
     gap: 5,
-    overflow: 'scroll',
     paddingVertical: 10,
   },
   lower: {
     alignItems: 'center',
   },
   boxShadow: {
-    elevation: 10, // 그림자의 강도를 조절할 수 있습니다.
-    backgroundColor: 'white', // 그림자를 더 확실하게 보이게 하려면 뷰의 배경색을 설정할 수 있습니다.
-    borderRadius: 10, // 뷰의 모서리를 둥글게 만들 수 있습니다.
-    padding: 20, // 뷰의 내용과 패딩을 설정합니다.
+    elevation: 10,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 20,
     width: 300,
     height: 260,
     marginTop: 25,
@@ -274,5 +273,7 @@ const styles = StyleSheet.create({
   btnCon: {
     alignItems: 'center',
     width: '100%',
+    marginTop: 20,
+    // marginBottom: 10,
   },
 });

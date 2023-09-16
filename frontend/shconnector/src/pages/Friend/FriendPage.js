@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     width: 350,
     heigth: 300,
+    marginBottom: 10,
   },
   input: {
     fontSize: font(15),
@@ -118,5 +119,8 @@ const styles = StyleSheet.create({
   },
   list: {
     paddingHorizontal: 30,
+    marginTop: 10,
+    justifyContent: 'flex-start',
+    height: 680,
   },
 });

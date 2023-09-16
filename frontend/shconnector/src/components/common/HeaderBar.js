@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
     marginTop: statusBarHeight + font(20),
     // marginHorizontal: font(15),
     paddingHorizontal: 35,
+    marginVertical: 15,
   },
 
   titleLeft: {

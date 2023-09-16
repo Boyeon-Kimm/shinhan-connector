@@ -15,7 +15,7 @@ import {
 import { colors } from '../../config/globalStyles';
 import { dayFormat } from '../../util/globalFunc';
 
-export default function CalendarCustom({ othersInfo }) {
+export default function CalendarCustom({ scheduleInfo }) {
   // const [colors,mySchedule, schedule]
 
   const dispatch = useDispatch();
@@ -23,9 +23,11 @@ export default function CalendarCustom({ othersInfo }) {
   const selected = useSelector((state) => state.calendar.selected);
   const currYear = useSelector((state) => state.calendar.currYear);
   const currMonth = useSelector((state) => state.calendar.currMonth);
-  // const [marked, setMarked] = useState({});
+  const schedules = useSelector((state) => state.calendar.schedules);
+
   const marked = useSelector((state) => state.calendar.marked);
   // 도트 설정
+  const mine = { key: 'mine', color: colors.mine };
   const family = { key: 'family', color: colors.family };
   const friend = { key: 'friend', color: colors.friend };
   const coworker = { key: 'coworker', color: colors.coworker };
@@ -35,8 +37,8 @@ export default function CalendarCustom({ othersInfo }) {
   // 최초 실행 시 실행됨
   useEffect(() => {
     dispatch(initAll());
-    makeDots(othersInfo);
-  }, []);
+    makeDots(schedules);
+  }, [schedules]);
 
   const makeDots = (info) => {
     const newMarked = {};
@@ -44,17 +46,20 @@ export default function CalendarCustom({ othersInfo }) {
       // 날짜 포맷팅
       const thisDate = new Date(schedule.date * 1000);
       const formatted = dayFormat(thisDate);
-
-      const category = schedule.Friend.relation;
+      // console.log(schedule.friend);
+      const category = schedule.friend ? schedule.friend.relation : '내일정';
 
       // 카테고리 별 추가할 도트 지정
       let target = null;
+
+      if (category === '내일정') target = mine;
       if (category === '가족') target = family;
       if (category === '친구') target = friend;
       if (category === '직장') target = coworker;
       if (category === '거래처') target = client;
       if (category === '기타') target = extra;
 
+      console.log(formatted);
       if (!newMarked[formatted]) {
         newMarked[formatted] = {
           dots: [],
@@ -125,32 +130,19 @@ export default function CalendarCustom({ othersInfo }) {
 
   return (
     <View style={styles.container}>
-      <Text>{currMonth} {currYear}</Text>
+            <Text>  {currMonth} {currYear}</Text>
+
       <Calendar
         initialDate={dayFormat(new Date())}
         onDayPress={onPressDay}
         markingType='multi-dot'
         markedDates={marked}
         onMonthChange={(date) => {
-
           dispatch(updateCurrMonth(date.month));
           dispatch(updateCurrYear(date.year));
-          console.log('month changed', date.year, date.month);
-          console.log('current      ', currMonth, currYear);
-
+          // console.log('month changed', date.year, date.month);
+          // console.log('current      ', currMonth, currYear);
         }}
-        // onPressArrowLeft={(substractMonth) => {
-        //   substractMonth();
-        //   onPressArrowLeft();
-        // }}
-        // onPressArrowRight={(addMonth) => {
-        //   addMonth();
-        //   onPressArrowRight();
-        // }}
-        // markedDates={{
-        //   [selected]: { dots: [friend, family], selected: true, disableTouchEvent: true, selectedColor: 'orange' },
-        //   // '2023-09-21': { dots: [friend, family], selectedColor: 'orange' },
-        // }}
       />
     </View>
   );

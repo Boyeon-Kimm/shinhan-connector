@@ -27,15 +27,15 @@ export default function Savings({ navigation }) {
       <HeaderBar
         showBackArrow={true}
         onPressArrow={handlePressArrow}
-        title={null}
+        title={"당신을 위한 맞춤 추천"}
         showLogout={false}
         showBell={true}
         showThreeDots={false}
         onPressRight={null}
       />
-      <View>
-        <Text style={styles.title}>당신을 위한 맞춤 추천</Text>
-      </View>
+      {/* <View>
+        <Text style={styles.title}></Text>
+      </View> */}
       <View style={styles.blueDiv}>
         <View style={styles.textDiv}>
           <Text style={styles.boldText}>고객님에게 딱 맞는</Text>

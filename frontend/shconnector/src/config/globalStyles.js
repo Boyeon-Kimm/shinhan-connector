@@ -19,6 +19,7 @@ export const colors = {
   subcontent: '#666666', // 서브콘텐트
   button: '#D2E4FC', // 평행버튼 색상
 
+  mine: 'black',
   family: 'red',
   friend: 'orange',
   coworker: 'yellow',

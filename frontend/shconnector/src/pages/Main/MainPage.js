@@ -1,17 +1,11 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
 
-import {
-  useDispatch,
-  useSelector,
-} from 'react-redux';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+
+import { useDispatch, useSelector } from 'react-redux';
 import { StatusBar } from 'expo-status-bar';
 import { Fontisto } from '@expo/vector-icons';
+import { makeTimestampWithDay } from '../../util/globalFunc';
+import API from '../../util/api';
 
 import HeaderBar from '../../components/common/HeaderBar';
 import {
@@ -32,12 +26,13 @@ import char2 from '../../../assets/character2.png';
 import char3 from '../../../assets/character3.png';
 import char7 from '../../../assets/character7.png';
 import char8 from '../../../assets/character8.png';
+import { useEffect, useState } from 'react';
 
 export default function MainPage({ navigation }) {
   const dispatch = useDispatch();
-  const name = useSelector(
-    (state) => state.login.name
-  );
+  const name = useSelector((state) => state.login.name);
+  const [recentSchedule, setRecentSchedule] = useState(null);
+
 
   const onPressLogout = () => {
     dispatch(updateAccountNo(null));
@@ -54,6 +49,38 @@ export default function MainPage({ navigation }) {
   const handlePressSend = () => {
     // 송금하기 눌렀을 때 구현할 예정
   };
+
+  const getRecentSchedule = async () => {
+    // console.log('getRecentSchedule 실행');
+    const thisMonth = new Date().getMonth() + 1;
+    const thisYear = new Date().getFullYear();
+    const thisDay = new Date().getDate();
+
+    const nextMonth = thisMonth === 12 ? 1 : thisMonth + 1;
+    const nextYear = thisMonth === 12 ? thisYear + 1 : thisYear;
+    const nextDay = 28;
+    const startDate = makeTimestampWithDay(thisYear, thisMonth, thisDay) / 1000;
+    const endDate = makeTimestampWithDay(nextYear, nextMonth, nextDay) / 1000;
+    // const url = `api/schedule/list`;
+    const url = `api/schedule/list?start=${startDate}&end=${endDate}`;
+    // const url = `api/schedule/list?start=${startDate}&end=${endDate}`;
+    // console.log(url);
+    const response = await API.get(url).catch((error) =>
+      console.error('Axios 에러', error)
+    );
+    // console.log('일정응답 데이터:', response.data);
+    //데이터 형식 확인할 것
+    if (response && response.status === 200 && response.data[0]) {
+      setRecentSchedule(response.data[0]);
+      console.log(response.data[0]);
+    }
+  };
+
+  useEffect(() => {
+    if (name) {
+      getRecentSchedule();
+    }
+  }, [name]);
 
   return (
     <View style={styles.container}>
@@ -74,8 +101,6 @@ export default function MainPage({ navigation }) {
       </View> */}
 
       <View style={styles.loginCon}>
-        {/* <Text>이름{name}</Text> */}
-        {/* 테스트용 */}
         {name ? (
           <View style={styles.schedule}>
             <View style={styles.ddaydiv}>
@@ -87,22 +112,26 @@ export default function MainPage({ navigation }) {
               2023-09-17 13:00
             </Text>
             <View style={styles.aboutdiv}>
-              <View style={styles.schedulename}>
-                <Text style={styles.scboldText}>
-                  [친구] 김신한 님의
-                </Text>
-                <View style={styles.maindiv}>
-                  <Text style={styles.bluetext}>
-                    결혼식
-                  </Text>
-                  <Text style={styles.scboldText}>
-                    일정이 있습니다.
-                  </Text>
+              {recentSchedule ? (
+                <View style={styles.schedulename}>
+                  {recentSchedule.friend ? (
+                    <Text style={styles.scboldText}>
+                      [{recentSchedule.friend.relation}]{' '}
+                      {recentSchedule.friend.name} 님의
+                    </Text>
+                  ) : (
+                    <Text style={styles.scboldText}>나의</Text>
+                  )}
+                  <View style={styles.maindiv}>
+                    <Text style={styles.bluetext}>{recentSchedule.name}</Text>
+                    <Text style={styles.scboldText}>일정이 있습니다.</Text>
+                  </View>
                 </View>
-              </View>
-              <Text style={styles.dday}>
-                200,000원
-              </Text>
+              ) : (
+                <Text>로딩 중 입니다.</Text>
+              )}
+
+              {/* <Text style={styles.dday}>200,000원</Text> */}
             </View>
           </View>
         ) : (
@@ -133,16 +162,26 @@ export default function MainPage({ navigation }) {
           </View>
         )}
         <MyButton
-          title={!name ? "로그인" : "송금하기"}
-          backgroundColor="#2B70CC"
-          color="white"
+          title={
+            !name
+              ? '로그인'
+              : recentSchedule
+              ? recentSchedule.friend
+                ? '송금하기'
+                : '일정 보기'
+              : null
+          }
+          backgroundColor='#2B70CC'
+          color='white'
           onPress={
             !name
               ? () => navigation.navigate('Login')
-              : () =>
-                  navigation.navigate(
-                    'CheckAccount'
-                  )
+              : recentSchedule
+              ? () =>
+                  navigation.navigate('CheckAccount', {
+                    friend: recentSchedule ? recentSchedule.friend : 'test',
+                  })
+              : () => navigation.navigate('Home', { screen: 'Calendar' })
           }
         />
       </View>
@@ -156,11 +195,7 @@ export default function MainPage({ navigation }) {
           <View style={styles.serviceLine}>
             <TouchableOpacity
               style={styles.serviceEach}
-              onPress={() =>
-                navigation.navigate(
-                  'FriendCreate'
-                )
-              }
+              onPress={() => navigation.navigate('FriendCreate')}
             >
               <Text style={styles.serviceTitle}>
                 지인 등록
@@ -173,11 +208,7 @@ export default function MainPage({ navigation }) {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.serviceEach}
-              onPress={() =>
-                navigation.navigate(
-                  'CalendarCreate'
-                )
-              }
+              onPress={() => navigation.navigate('CalendarCreate')}
             >
               <Text style={styles.serviceTitle}>
                 일정 등록
@@ -192,9 +223,7 @@ export default function MainPage({ navigation }) {
           <View style={styles.serviceLine}>
             <TouchableOpacity
               style={styles.serviceEach}
-              onPress={() =>
-                navigation.navigate('Savings')
-              }
+              onPress={() => navigation.navigate('Savings')}
             >
               <Text style={styles.serviceTitle}>
                 적금편지 상품찾기
@@ -207,9 +236,7 @@ export default function MainPage({ navigation }) {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.serviceEach}
-              onPress={() =>
-                navigation.navigate('Gift')
-              }
+              onPress={() => navigation.navigate('Gift')}
             >
               <Text style={styles.serviceTitle}>
                 선물 · 금액 추천

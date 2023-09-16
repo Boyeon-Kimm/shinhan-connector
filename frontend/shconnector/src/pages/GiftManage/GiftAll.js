@@ -76,13 +76,13 @@ export default function GiftAll({ navigation }) {
       <HeaderBar
         showBackArrow={true}
         onPressArrow={handlePressArrow}
-        title={null}
+        title={"전체 내역"}
         showLogout={false}
         showBell={false}
         showThreeDots={false}
         onPressRight={null}
       />
-      <ScrollView horizontal={true} style={styles.categorydiv}>
+      {/* <ScrollView horizontal={true} style={styles.categorydiv}>
         {category.map((item) => (
           <HorizonButton
             key={item}
@@ -96,7 +96,7 @@ export default function GiftAll({ navigation }) {
             selected={currentCategory === item ? true : false}
           />
         ))}
-      </ScrollView>
+      </ScrollView> */}
       <ScrollView>
         <View style={styles.itemlist}>
           {giftList

@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Text,
   View,
@@ -9,11 +9,11 @@ import {
   TouchableOpacity,
   Keyboard,
   TouchableWithoutFeedback,
-} from "react-native";
-import Button from "../../components/common/Button";
-import HeaderBar from "../../components/common/HeaderBar";
-import API from "../../util/api";
-import char9 from "../../../assets/character9.png";
+} from 'react-native';
+import Button from '../../components/common/Button';
+import HeaderBar from '../../components/common/HeaderBar';
+import API from '../../util/api';
+import char9 from '../../../assets/character9.png';
 
 import {
   updateAccountNo,
@@ -26,8 +26,8 @@ import {
   updateAccessToken,
   updateRefreshToken,
   updateMessage,
-} from "../../reducers/LoginSlice";
-import { colors } from "../../config/globalStyles";
+} from '../../reducers/LoginSlice';
+import { colors } from '../../config/globalStyles';
 
 export default function Login({ navigation }) {
   const dispatch = useDispatch();
@@ -43,25 +43,25 @@ export default function Login({ navigation }) {
 
   const handlePressLogin = async () => {
     if (!id) {
-      dispatch(updateMessage("아이디를 입력해주세요"));
+      dispatch(updateMessage('아이디를 입력해주세요'));
       return;
     }
     if (!password) {
-      dispatch(updateMessage("비밀번호를 입력해주세요"));
+      dispatch(updateMessage('비밀번호를 입력해주세요'));
       return;
     }
     dispatch(updateMessage(null));
 
-    const url = "api/member/sign-in";
+    const url = 'api/member/sign-in';
     const body = {
       id,
       password,
     };
     const response = await API.post(url, body).catch((error) => {
-      console.error("Axios 에러", error);
+      console.error('Axios 에러', error);
       if (error.response.status === 400) {
-        dispatch(updateMessage("아이디 혹은 비밀번호를 확인해주세요"));
-        console.log("아이디 혹은 비밀번호를 확인해주세요");
+        dispatch(updateMessage('아이디 혹은 비밀번호를 확인해주세요'));
+        console.log('아이디 혹은 비밀번호를 확인해주세요');
       }
     });
 
@@ -78,10 +78,10 @@ export default function Login({ navigation }) {
       dispatch(updateAccessToken(response.data.token.accessToken));
       dispatch(updateRefreshToken(response.data.token.refreshToken));
       //메인 이동
-      navigation.navigate("Home");
+      navigation.navigate('Home');
     } else {
       // 모달로 띄울 것
-      console.log("로그인 실패");
+      console.log('로그인 실패');
     }
   };
 
@@ -99,7 +99,7 @@ export default function Login({ navigation }) {
         />
         <View style={styles.upper}>
           <View style={styles.titleCon}>
-            <Image source={char9} resizeMode="contain" style={styles.imgEach} />
+            <Image source={char9} resizeMode='contain' style={styles.imgEach} />
             <View style={styles.textCon}>
               <Text style={styles.boldtext}>로그인</Text>
               <Text style={styles.subtext}>
@@ -110,14 +110,14 @@ export default function Login({ navigation }) {
           <View style={styles.inputCon}>
             <TextInput
               style={styles.input}
-              placeholder="아이디"
-              keyboardType="default"
+              placeholder='아이디'
+              keyboardType='default'
               onChangeText={(text) => setId(text)}
             />
             <TextInput
               style={styles.input}
-              placeholder="비밀번호"
-              keyboardType="default"
+              placeholder='비밀번호'
+              keyboardType='default'
               secureTextEntry={true}
               onChangeText={(text) => setPassword(text)}
             />
@@ -125,16 +125,19 @@ export default function Login({ navigation }) {
           <Text style={styles.alertmessage}>{message}</Text>
           <View style={styles.btnCon}>
             <Button
-              title="로그인"
+              title='로그인'
               backgroundColor={colors.shinhan}
-              color="white"
+              color='white'
               onPress={handlePressLogin}
             />
+            <TouchableOpacity
+              style={styles.signup}
+              onPress={() => navigation.navigate('Signup')}
+            >
+              <Text>회원가입</Text>
+            </TouchableOpacity>
           </View>
         </View>
-        <TouchableOpacity style={styles.signup} onPress={() => navigation.navigate("Signup")}>
-          <Text>회원가입</Text>
-        </TouchableOpacity>
       </View>
     </TouchableWithoutFeedback>
   );
@@ -143,38 +146,38 @@ export default function Login({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
-    alignItems: "center",
+    backgroundColor: 'white',
+    alignItems: 'center',
   },
   titleCon: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     gap: 30,
   },
   inputCon: {
-    alignItems: "center",
+    alignItems: 'center',
   },
   imgEach: {
-    height: "35%",
-    width: "35%",
+    height: '35%',
+    width: '35%',
   },
   boldtext: {
-    fontWeight: "600",
+    fontWeight: '600',
     fontSize: 24,
   },
   subtext: {
     fontSize: 16,
-    color: "gray",
+    color: 'gray',
   },
   textCon: {
-    alignItems: "center",
+    alignItems: 'center',
     gap: 10,
   },
   input: {
     fontSize: 15,
     borderWidth: 1,
     borderRadius: 5,
-    borderColor: "#DCDCDC",
+    borderColor: '#DCDCDC',
     height: 50,
     width: 300,
     padding: 10,
@@ -182,12 +185,14 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   btnCon: {
-    textAlign: "center",
+    textAlign: 'center',
   },
   alertmessage: {
-    color: "tomato",
+    color: 'tomato',
     paddingBottom: 10,
   },
   signup: {
-  }
+    alignItems: 'center',
+    marginTop: 15,
+  },
 });
