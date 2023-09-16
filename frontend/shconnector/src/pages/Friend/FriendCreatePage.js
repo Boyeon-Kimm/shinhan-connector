@@ -11,7 +11,6 @@ import {
 import { useState } from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
 import HeaderBar from '../../components/common/HeaderBar';
-import { Feather } from '@expo/vector-icons';
 import { colors } from '../../config/globalStyles';
 import API from '../../util/api';
 import MyButton from '../../components/common/Button';

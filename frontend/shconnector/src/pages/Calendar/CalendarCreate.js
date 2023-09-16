@@ -18,68 +18,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateFriendItems } from '../../reducers/FriendSlice';
 import API from '../../util/api';
 import { colors } from '../../config/globalStyles';
-import Button from '../../components/common/Button';
-
-Date.prototype.format = function (f) {
-  if (!this.valueOf()) return ' ';
-
-  let weekName = [
-    '일요일',
-    '월요일',
-    '화요일',
-    '수요일',
-    '목요일',
-    '금요일',
-    '토요일',
-  ];
-  let d = this;
-
-  return f.replace(/(yyyy|yy|MM|dd|E|hh|mm|ss|a\/p)/gi, function ($1) {
-    switch ($1) {
-      case 'yyyy':
-        return d.getFullYear();
-      case 'yy':
-        return (d.getFullYear() % 1000).zf(2);
-      case 'MM':
-        return (d.getMonth() + 1).zf(2);
-      case 'dd':
-        return d.getDate().zf(2);
-      case 'E':
-        return weekName[d.getDay()];
-      case 'HH':
-        return d.getHours().zf(2);
-      case 'hh':
-        return ((h = d.getHours() % 12) ? h : 12).zf(2);
-      case 'mm':
-        return d.getMinutes().zf(2);
-      case 'ss':
-        return d.getSeconds().zf(2);
-      case 'a/p':
-        return d.getHours() < 12 ? '오전' : '오후';
-      default:
-        return $1;
-    }
-  });
-};
-
-String.prototype.string = function (len) {
-  var s = '',
-    i = 0;
-  while (i++ < len) {
-    s += this;
-  }
-  return s;
-};
-String.prototype.zf = function (len) {
-  return '0'.toString(len - this.length) + this;
-};
-Number.prototype.zf = function (len) {
-  return this.toString().zf(len);
-};
+import dayjs from 'dayjs';
+import MyButton from '../../components/common/Button';
 
 export default function CalendarCreate({ navigation }) {
   const dispatch = useDispatch();
   const friendList = useSelector((state) => state.friend.friendItems);
+  const [message, setMessage] = useState(null);
 
   //일정 분류 관련
   const [isFriendSchedule, setIsMySchedule] = useState(true);
@@ -90,11 +35,7 @@ export default function CalendarCreate({ navigation }) {
   // 지인 선택 관련
   const [friendOpen, setFriendOpen] = useState(false);
   const [friendValue, setFriendValue] = useState(null);
-  const [friendItems, setFriendItems] = useState([
-    // { label: '매주', value: '1' },
-    // { label: '매달', value: '2' },
-    // { label: '매년', value: '3' },
-  ]);
+  const [friendItems, setFriendItems] = useState([]);
 
   // 카테고리 선택 관련
   const [categoryOpen, setCategoryOpen] = useState(false);
@@ -110,14 +51,16 @@ export default function CalendarCreate({ navigation }) {
 
   const [name, setName] = useState(null);
   const [content, setContent] = useState(null);
+  const [timestamp, setTimestamp] = useState(null);
 
   // 반복 주기 관련
   const [repeatOpen, setRepeatOpen] = useState(false);
   const [repeatValue, setRepeatValue] = useState(null);
   const [repeatItems, setRepeatItems] = useState([
-    { label: '매주', value: '1' },
-    { label: '매달', value: '2' },
-    { label: '매년', value: '3' },
+    { label: '반복 없음', value: '0' },
+    { label: '매 주', value: '1' },
+    { label: '매 달', value: '2' },
+    { label: '매 년', value: '3' },
   ]);
 
   // 날짜 및 시간 선택 관련
@@ -131,10 +74,13 @@ export default function CalendarCreate({ navigation }) {
   const hideDatePicker = () => {
     setDatePickerVisibility(false);
   };
+
   const handleConfirm = (date) => {
-    console.warn('dateFormat: ', date.format('yyyy/MM/dd a/p hh:mm'));
+    console.log(date);
+    console.log('테스트', dayjs(date).unix());
     hideDatePicker();
-    setText(date.format('yyyy/MM/dd a/p hh:mm'));
+    setText(dayjs(date).format('YYYY/MM/DD A hh:mm'));
+    setTimestamp(dayjs(date).unix());
   };
 
   // 알림토글 스위치 관련
@@ -143,9 +89,19 @@ export default function CalendarCreate({ navigation }) {
   const toggleSwitch = () => {
     setIsEnabled((previousState) => !previousState);
     setAlarmVisible((previousState) => !previousState);
+    setAlarmValue(0);
   };
 
   // 알림 시간 관련
+  const [alarmOpen, setAlarmOpen] = useState(false);
+  const [alarmValue, setAlarmValue] = useState(0);
+  const [alarmItems, setAlarmItems] = useState([
+    // { label: '알람 없음', value: '0' },
+    { label: '3일 전', value: '1' },
+    { label: '7일 전', value: '2' },
+    { label: '한 달 전', value: '3' },
+  ]);
+
   const timePlaceholder = '— 알림 받을 시간을 선택해주세요 —';
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
   const [timeText, setTimeText] = useState('');
@@ -169,33 +125,42 @@ export default function CalendarCreate({ navigation }) {
   };
 
   const handlePressRegist = async () => {
+    if (!name || !content || !timestamp || !repeatValue) {
+      setMessage('필수 입력 사항을 입력해주세요');
+      return;
+    }
+    if (isFriendSchedule && !categoryValue) {
+      setMessage('일정 카테고리를 선택해주세요');
+      return;
+    }
+    console.log(alarmValue);
+
     const url = 'api/schedule';
-    const body = {};
+    const body = {
+      name,
+      category: isFriendSchedule ? categoryValue : '내일정',
+      date: timestamp,
+      repeatCycle: repeatValue,
+      content,
+      alarm: alarmValue,
+    };
+
+    if (isFriendSchedule) body.friendNo = friendValue;
+    console.log(body);
     const response = await API.post(url, body).catch((error) => {
-      console.error('Axios 에러', error);
+      console.error('Axios 에러', error.response);
       if (error.response.status === 400) {
         dispatch(updateMessage('아이디 혹은 비밀번호를 확인해주세요'));
         console.log('아이디 혹은 비밀번호를 확인해주세요');
       }
     });
 
-    // console.log(response.data.token.accessToken);
-
-    if (response && response.status === 200) {
-      dispatch(updateAccountNo(response.data.signInResponse.accountNo));
-      dispatch(updateMemberNo(response.data.signInResponse.memberNo));
-      dispatch(updateId(response.data.signInResponse.id));
-      dispatch(updateName(response.data.signInResponse.name));
-      dispatch(updateAge(response.data.signInResponse.age));
-      dispatch(updateGender(response.data.signInResponse.gender));
-      dispatch(updateContact(response.data.signInResponse.contact));
-      dispatch(updateAccessToken(response.data.token.accessToken));
-      dispatch(updateRefreshToken(response.data.token.refreshToken));
+    if (response && response.status === 201) {
       //메인 이동
       navigation.navigate('Home');
     } else {
       // 모달로 띄울 것
-      console.log('로그인 실패');
+      console.log('일정 등록 실패');
     }
   };
 
@@ -212,12 +177,7 @@ export default function CalendarCreate({ navigation }) {
           label: `[${item.relation}] ${item.name}`,
           value: item.friendNo,
         });
-
-        // { label: '매주', value: '1' },
-        // { label: '매달', value: '2' },
-        // { label: '매년', value: '3' },
       }
-      // console.log(newList);
       dispatch(updateFriendItems(newList));
     }
   };
@@ -243,17 +203,22 @@ export default function CalendarCreate({ navigation }) {
           <Text style={styles.title}>새로운 일정 추가</Text>
         </View>
         <TextInput
+          value={name}
+          onChangeText={setName}
           style={styles.input}
           placeholder='제목'
           keyboardType='text'
         />
         <TextInput
+          value={content}
+          onChangeText={setContent}
           style={styles.longInput}
           placeholder='상세 설명'
           keyboardType='text'
         />
         <TouchableOpacity onPress={showDatePicker}>
           <TextInput
+            value={dateText}
             pointerEvents='none'
             style={styles.input}
             placeholder={placeholder}
@@ -301,7 +266,24 @@ export default function CalendarCreate({ navigation }) {
             </View>
             {isAlarmVisible && (
               <TouchableOpacity onPress={showTimePicker}>
-                <TextInput
+                <DropDownPicker
+                  style={styles.dropDown}
+                  dropDownContainerStyle={{
+                    width: 300,
+                    borderColor: '#DCDCDC',
+                  }}
+                  open={alarmOpen}
+                  value={alarmValue}
+                  items={alarmItems}
+                  setOpen={setAlarmOpen}
+                  setValue={setAlarmValue}
+                  setItems={setAlarmItems}
+                  placeholder='— 알람 시간을 선택해주세요 —'
+                  modalProps={{
+                    animationType: 'fade',
+                  }}
+                />
+                {/* <TextInput
                   pointerEvents='none'
                   style={styles.input}
                   placeholder={timePlaceholder}
@@ -309,7 +291,7 @@ export default function CalendarCreate({ navigation }) {
                   underlineColorAndroid='transparent'
                   editable={false}
                   value={timeText}
-                />
+                /> */}
                 <DateTimePickerModal
                   headerTextIOS={timePlaceholder}
                   isVisible={isTimePickerVisible}
@@ -371,9 +353,18 @@ export default function CalendarCreate({ navigation }) {
             )}
           </View>
         </View>
-        <View style={styles.submitButton}>
-          <Text style={styles.submitText}>완료</Text>
+        <Text>{message}</Text>
+        <View style={styles.btnCon}>
+          <MyButton
+            title='등록'
+            backgroundColor={colors.shinhan}
+            color='white'
+            onPress={handlePressRegist}
+          />
         </View>
+        {/* <View style={styles.submitButton}>
+          <Text style={styles.submitText}>완료</Text>
+        </View> */}
       </View>
     </TouchableWithoutFeedback>
   );
@@ -407,6 +398,12 @@ const styles = StyleSheet.create({
     width: 300,
     padding: 10,
     marginBottom: 15,
+  },
+  btnCon: {
+    justifyContent: 'center',
+    textAlign: 'center',
+    width: 300,
+    marginTop: 10,
   },
   dropDown: {
     fontSize: 15,
