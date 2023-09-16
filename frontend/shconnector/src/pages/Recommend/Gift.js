@@ -274,6 +274,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     marginTop: 20,
-    marginBottom: 10,
+    // marginBottom: 10,
   },
 });
