@@ -15,7 +15,7 @@ import HeaderBar from '../../components/common/HeaderBar';
 Date.prototype.format = function (f) {
   if (!this.valueOf()) return ' ';
 
-  var weekName = [
+  let weekName = [
     '일요일',
     '월요일',
     '화요일',
@@ -24,7 +24,7 @@ Date.prototype.format = function (f) {
     '금요일',
     '토요일',
   ];
-  var d = this;
+  let d = this;
 
   return f.replace(/(yyyy|yy|MM|dd|E|hh|mm|ss|a\/p)/gi, function ($1) {
     switch ($1) {
@@ -70,6 +70,14 @@ Number.prototype.zf = function (len) {
 };
 
 export default function CalendarCreate({navigation}) {
+  //일정 관련
+  const [isFriendSchedule,setIsMySchedule] = useState(true);
+  const toggleFriendSwitch = () => {
+    setIsMySchedule((previousState) => !previousState);
+  };
+
+
+
   // 반복 주기 관련
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -95,7 +103,7 @@ export default function CalendarCreate({navigation}) {
     setText(date.format('yyyy/MM/dd a/p hh:mm'));
   };
 
-  // 토글 스위치 관련
+  // 알림토글 스위치 관련
   const [isEnabled, setIsEnabled] = useState(false);
   const [isAlarmVisible, setAlarmVisible] = useState(false);
   const toggleSwitch = () => {
@@ -138,11 +146,46 @@ export default function CalendarCreate({navigation}) {
       <View style={styles.titleCon}>
         <Text style={styles.title}>새로운 일정 추가</Text>
       </View>
+      <View style={styles.alarmContainer}>
+          <View style={styles.alarmContainerHeader}>
+            <Text>{isFriendSchedule? "지인의 일정":"나의 일정"}</Text>
+            <Switch
+              trackColor={{ false: '#767577', true: '#81b0ff' }}
+              thumbColor={isEnabled ? '#ffffff' : '#f4f3f4'}
+              ios_backgroundColor='#3e3e3e'
+              onValueChange={toggleFriendSwitch}
+              value={isFriendSchedule}
+            />
+          </View>
+          {isAlarmVisible && (
+            <TouchableOpacity onPress={showTimePicker}>
+              <TextInput
+                pointerEvents='none'
+                style={styles.input}
+                placeholder={timePlaceholder}
+                placeholderTextColor='#BABABA'
+                underlineColorAndroid='transparent'
+                editable={false}
+                value={timeText}
+              />
+              <DateTimePickerModal
+                headerTextIOS={timePlaceholder}
+                isVisible={isTimePickerVisible}
+                mode='time'
+                onConfirm={handleTimeConfirm}
+                onCancel={hideTimePicker}
+              />
+            </TouchableOpacity>
+          )}
+        </View>
+
+      
+
       <TextInput style={styles.input} placeholder='제목' keyboardType='text' />
       <TextInput
         style={styles.longInput}
         placeholder='상세 설명'
-        keyboardType='text'
+        keyboardType='default'
       />
       <TouchableOpacity onPress={showDatePicker}>
         <TextInput
