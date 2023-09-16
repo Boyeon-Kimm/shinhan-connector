@@ -7,13 +7,13 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
-  Pressable,
   Keyboard,
   TouchableWithoutFeedback,
 } from 'react-native';
-import char9 from '../../../assets/character9.png';
 import Button from '../../components/common/Button';
+import HeaderBar from '../../components/common/HeaderBar';
 import API from '../../util/api';
+import char9 from '../../../assets/character9.png';
 
 import {
   updateAccountNo,
@@ -36,6 +36,10 @@ export default function Login({ navigation }) {
   const [password, setPassword] = useState(null);
 
   const message = useSelector((state) => state.login.message);
+
+  const handlePressArrow = () => {
+    navigation.goBack();
+  };
 
   const handlePressLogin = async () => {
     if (!id) {
@@ -84,6 +88,15 @@ export default function Login({ navigation }) {
   return (
     <TouchableWithoutFeedback onPresss={() => Keyboard.dismiss()}>
       <View style={styles.container}>
+        <HeaderBar
+          showBackArrow={true}
+          onPressArrow={handlePressArrow}
+          title={null}
+          showLogout={false}
+          showBell={false}
+          showThreeDots={false}
+          onPressRight={null}
+        />
         <View style={styles.upper}>
           <View style={styles.titleCon}>
             <Image source={char9} resizeMode='contain' style={styles.imgEach} />
