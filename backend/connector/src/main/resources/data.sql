@@ -16,10 +16,27 @@ VALUES (100000, 'test', '$2a$10$utsNAnkpTnxLLhxcjlnfEeUqB/4lK4rPAoqR5Xrljlb.BK74
 INSERT INTO FRIEND (FRIEND_NO, ACCOUNT_NUMBER, BANK_CODE, BELONG, CONTACT, IMAGE, NAME, RELATION, MEMBER_NO)
 VALUES (100000, '456789123456', '088', '신기한모임', '987654321', '이미지.jpg', '김친구', 'FRIEND', 100000),
 (100001, '852285228852', '088', '또다른모임', '987654321', '이미지.jpg', '박친구', 'FRIEND', 100000),
-(100002, '891385789133', '088', '이건모임', '987654321', '이미지.jpg', '김거래', 'BUSINESS', 100000);
+(100002, '891385789133', '088', '이건모임', '987654321', '이미지.jpg', '김거래', 'BUSINESS', 100000),
+(100003, '891385889443', '088', '가족', '987654321', '이미지.jpg', '아부지', 'FAMILY', 100000);
 
 INSERT INTO SCHEDULE (schedule_no, friend_no, name, category, date, repeat_cycle, content, alarm, favorite, member_no)
-VALUES (100000, 100000, '새로운일정', '결혼식', 1646643307, 'NONE', null, 'NONE', 'false', 100000);
+VALUES
+(100000, 100000, '김친구 결혼식', '결혼식', 1694860623, 'NONE', null, 'NONE', 'false', 100000),
+(100001, 100001, '집들이', '집들이', 1694861623, 'NONE', null, 'NONE', 'false', 100000),
+(100002, 100003, '아버지 생신', '생일', 1694861723, 'NONE', null, 'NONE', 'false', 100000),
+(100003, 100003, '모임 행사', '기타', 1694861724, 'NONE', null, 'NONE', 'false', 100000),
+(100004, 100002, '깜짝파티', '생일', 1694862623, 'NONE', null, 'NONE', 'false', 100000),
+(100005, 100001, '친구네 집들이', '집들이', 1694862633, 'NONE', null, 'NONE', 'false', 100000),
+(100006, 100003, '부모님 결혼 기념일', '기타', 1694863623, 'NONE', null, 'NONE', 'false', 100000),
+(100007, 100002, '박친구 결혼식', '결혼식', 1694864623, 'NONE', null, 'NONE', 'false', 100000),
+(100008, 100002, '거래처 미팅', '기타', 1694865623, 'NONE', null, 'NONE', 'false', 100000);
+
+INSERT INTO GIFT_SEND (gift_send_no, category, name, note, price, schedule_no)
+VALUES
+(100000, '집들이', '휴지', '무난한 선물', 20000, 100001),
+(100001, '기타', '간단한 선물', '거래처 미팅', 20000, 100008),
+(100002, '생일', '아버지 생신', '케이크', 50000, 100003),
+(100003, '기타', '부모님 결혼기념일', '저녁식사', 100000, 100006);
 
 INSERT INTO MY_SCHEDULE (my_schedule_no, name, category, date, repeat_cycle, content, alarm, favorite, member_no)
 VALUES

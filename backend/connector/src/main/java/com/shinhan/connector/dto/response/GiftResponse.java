@@ -10,11 +10,13 @@ public class GiftResponse {
     private String name;
     private String category;
     private String note;
+    private Long date;
 
-    public GiftResponse(Integer scheduleNo, String name, String category, String note) {
+    public GiftResponse(Integer scheduleNo, String name, String category, String note, Long date) {
         this.scheduleNo = scheduleNo;
         this.name = name;
         this.category = category;
         this.note = note;
+        this.date = date;
     }
 }

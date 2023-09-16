@@ -10,7 +10,7 @@ public class GiftReceiveResponse extends GiftResponse {
     private Long priceMax;
 
     public GiftReceiveResponse(GiftReceive giftReceive) {
-        super(giftReceive.getNo(), giftReceive.getName(), giftReceive.getCategory(), giftReceive.getNote());
+        super(giftReceive.getNo(), giftReceive.getName(), giftReceive.getCategory(), giftReceive.getNote(), giftReceive.getMySchedule().getDate());
         this.friendNo = giftReceive.getFriend().getNo();
         this.priceMin = giftReceive.getPriceMin();
         this.priceMax = giftReceive.getPriceMax();

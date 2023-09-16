@@ -8,7 +8,7 @@ public class GiftSendResponse extends GiftResponse {
     private Long price;
 
     public GiftSendResponse(GiftSend giftSend) {
-        super(giftSend.getNo(), giftSend.getName(), giftSend.getCategory(), giftSend.getNote());
+        super(giftSend.getNo(), giftSend.getName(), giftSend.getCategory(), giftSend.getNote(), giftSend.getSchedule().getDate());
         this.price = giftSend.getPrice();
     }
 
