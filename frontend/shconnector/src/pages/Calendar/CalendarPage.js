@@ -23,78 +23,6 @@ export default function CalendarPage({ navigation }) {
   const currMonth = useSelector((state) => state.calendar.currMonth);
   const currYear = useSelector((state) => state.calendar.currYear);
   const schedules = useSelector((state) => state.calendar.schedules);
-  const headerSize = 24;
-  const myInfo = [
-    {
-      scheduleNo: 5,
-      name: '일정이름',
-      content: '일정 상세설명',
-      date: '1693699200',
-      repeatCycle: '2',
-      favorite: 'true',
-      alarm: '0',
-      Friend: null,
-    },
-  ];
-  const othersInfo = [
-    {
-      scheduleNo: 5,
-      name: '일정이름',
-      content: '일정 상세설명',
-      date: '1693699200',
-      repeatCycle: '2',
-      favorite: 'true',
-      alarm: '0',
-      Friend: {
-        friendNo: '14',
-        name: '지인1',
-        contact: '010-1234-4567',
-        relation: '친구',
-        belong: 'ㅇㅇ산악회',
-        bankCode: '088',
-        account_number: '12342445789',
-        image: '지인1.png',
-      },
-    },
-    {
-      scheduleNo: 7,
-      name: '일정이름2',
-      content: '일정 상세설명2',
-      date: '1693699200',
-      repeatCycle: '0',
-      favorite: 'true',
-      alarm: '3',
-      Friend: {
-        friendNo: '14',
-        name: '지인2',
-        contact: '010-1234-4567',
-        relation: '가족',
-        belong: '가족',
-        bankCode: '088',
-        account_number: '12342445789',
-        image: '지인2.png',
-      },
-    },
-    {
-      scheduleNo: 9,
-      name: '일정이름3',
-      content: '일정 상세설명3',
-      date: '1693785600',
-      repeatCycle: '0',
-      favorite: 'true',
-      alarm: '3',
-      Friend: {
-        friendNo: '14',
-        name: '지인1',
-        contact: '010-1234-4567',
-        relation: '친구',
-        belong: 'ㅇㅇ산악회',
-        bankCode: '088',
-        account_number: '12342445789',
-        image: '지인1.png',
-      },
-    },
-  ];
 
   const getSchedules = async (year, month) => {
     console.log('getSchedules 실행');
@@ -102,20 +30,19 @@ export default function CalendarPage({ navigation }) {
     const prevYear = month === 1 ? year - 1 : year;
     const nextMonth = month === 12 ? 1 : month + 1;
     const nextYear = month === 12 ? year + 1 : year;
-    const startDate = makeTimestamp(prevYear, prevMonth);
-    const endDate = makeTimestamp(nextYear, nextMonth);
-    // const url = `api/schedule/list?start-date=[${startDate}]&end-date=[${endDate}]`;
-    const url = `api/schedule/list?start-date=${startDate}&end-date=${endDate}`;
+    const startDate = makeTimestamp(prevYear, prevMonth) / 1000;
+    const endDate = makeTimestamp(nextYear, nextMonth) / 1000;
+    // const url = `api/schedule/list`;
+    const url = `api/schedule/list?start=${startDate}&end=${endDate}`;
+    // const url = `api/schedule/list?start=${startDate}&end=${endDate}`;
     console.log(url);
     const response = await API.get(url).catch((error) =>
       console.error('Axios 에러', error)
     );
-    console.log('response', response);
-    console.log('response'); // 실행 안됨
+    console.log('일정응답 데이터:', response.data);
     //데이터 형식 확인할 것
-    if (response) dispatch(updateSchedules(response.data));
-    console.log(schedules);
-    // return response.data; // 응답 반환
+    if (response && response.status === 200)
+      dispatch(updateSchedules(response.data));
   };
 
   const handlePressArrow = () => {
@@ -142,16 +69,10 @@ export default function CalendarPage({ navigation }) {
         showThreeDots={false}
         onPressRight={null}
       />
-      {/* <View style={styles.titleCon}>
-        <View style={styles.titleLeft}>
-          <AntDesign name='left' size={headerSize} color='black' />
-          <Text style={styles.title}>나의 일정</Text>
-        </View>
-        <Fontisto name='bell' size={24} color='black' />
-      </View> */}
-      <MyCalendar myInfo={myInfo} othersInfo={othersInfo} />
+      <MyCalendar scheduleInfo={schedules} />
       {selected ? (
         <ScheduleDayList />
+        // null
       ) : (
         <View style={styles.infoDiv}>
           <View style={styles.infoCard}>

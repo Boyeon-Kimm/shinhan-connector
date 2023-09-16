@@ -1,33 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import ScheduleCard from './ScheduleCard';
 import HorizonButton from '../common/HorizonButton';
 import { colors, font } from '../../config/globalStyles';
 import DropDownPicker from 'react-native-dropdown-picker';
-
+import { useDispatch, useSelector } from 'react-redux';
+import API from '../../util/api';
+import { updateDaySchedules } from '../../reducers/CalendarSlice';
 const category = ['전체 선택', '보낸 내역', '받은 내역'];
 
-export default function ScheduleDayList({ date }) {
-  const [currentCategory, setCurrentCategory] = useState(category[0]);
+export default function ScheduleDayList() {
+  const dispatch = useDispatch();
+  const selectedDate = useSelector((state) => state.calendar.selected);
+  const daySchedules = useSelector((state) => state.calendar.daySchedules);
 
-  const scheduleList = [
-    {
-      scheduleNo: 5,
-      time: '13:00',
-      relation: '친구',
-      title: '김신한 결혼식 축의금',
-      amount: 100000,
-      isCompleted: true,
-    },
-    {
-      scheduleNo: 7,
-      time: '18:00',
-      relation: '가족',
-      title: '결혼기념일 선물',
-      amount: 1000000,
-      isCompleted: false,
-    },
-  ];
+  const [currentCategory, setCurrentCategory] = useState(category[0]);
 
   const onPressHorizon = (newCategory) => {
     setCurrentCategory(newCategory);
@@ -42,6 +29,33 @@ export default function ScheduleDayList({ date }) {
     { label: '거래처', value: '거래처' },
     { label: '기타', value: '기타' },
   ]);
+
+  const getDaySchedules = async () => {
+    const newDate = new Date(selectedDate);
+    const newTimestamp = newDate.getTime() / 1000;
+    // console.log(newTimestamp);
+    const url = `api/schedule/list?start=${newTimestamp}&end=${
+      newTimestamp + 86400
+    }`;
+
+    const response = await API.get(url).catch((error) => {
+      console.log('Axios 에러', error.response);
+      // if (error.response.status === 400) {
+      //   setMessage(error.response.data.message);
+      // }
+    });
+    // console.log(response.data);
+
+    if (response && response.status === 200) {
+      dispatch(updateDaySchedules(response.data));
+    } else {
+      console.log('하루 일정 목록 조회 실패');
+    }
+  };
+
+  useEffect(() => {
+    getDaySchedules();
+  }, [selectedDate]);
 
   return (
     <View style={styles.wholeContainer}>
@@ -77,14 +91,17 @@ export default function ScheduleDayList({ date }) {
       />
       <View style={{ flexGrow: 1 }}>
         <ScrollView>
-          {scheduleList.map((schedule, i) => (
+          {daySchedules.map((schedule, i) => (
             <ScheduleCard
               key={schedule.scheduleNo}
-              time={schedule.time}
-              relation={schedule.relation}
-              scheduleName={schedule.title}
-              amount={schedule.amount}
-              completed={schedule.isCompleted}
+              time={schedule.date}
+              friendName={schedule.friend ? schedule.friend.name : '나의 일정'}
+              relation={schedule.friend ? schedule.friend.relation : ''}
+              scheduleNo={schedule.scheduleNo}
+              scheduleName={schedule.name}
+              scheduleCategory={schedule.friend ? null : 'mine'}
+              // amount={schedule.amount}
+              // completed={schedule.isCompleted}
             ></ScheduleCard>
           ))}
         </ScrollView>

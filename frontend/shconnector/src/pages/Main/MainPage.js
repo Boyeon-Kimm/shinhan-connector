@@ -1,8 +1,10 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
-import { useDispatch, useSelector } from "react-redux";
-import { StatusBar } from "expo-status-bar";
-import { Fontisto } from "@expo/vector-icons";
+import { useDispatch, useSelector } from 'react-redux';
+import { StatusBar } from 'expo-status-bar';
+import { Fontisto } from '@expo/vector-icons';
+import { makeTimestampWithDay } from '../../util/globalFunc';
+import API from '../../util/api';
 
 import HeaderBar from '../../components/common/HeaderBar';
 import {
@@ -15,18 +17,20 @@ import {
   updateContact,
   updateAccessToken,
   updateRefreshToken,
-} from "../../reducers/LoginSlice";
+} from '../../reducers/LoginSlice';
 
-import MyButton from "../../components/common/Button";
-import char1 from "../../../assets/character1.png";
-import char2 from "../../../assets/character2.png";
-import char3 from "../../../assets/character3.png";
-import char7 from "../../../assets/character7.png";
-import char8 from "../../../assets/character8.png";
+import MyButton from '../../components/common/Button';
+import char1 from '../../../assets/character1.png';
+import char2 from '../../../assets/character2.png';
+import char3 from '../../../assets/character3.png';
+import char7 from '../../../assets/character7.png';
+import char8 from '../../../assets/character8.png';
+import { useEffect, useState } from 'react';
 
 export default function MainPage({ navigation }) {
   const dispatch = useDispatch();
   const name = useSelector((state) => state.login.name);
+  const [recentSchedule, setRecentSchedule] = useState(null);
 
   const onPressLogout = () => {
     dispatch(updateAccountNo(null));
@@ -43,6 +47,38 @@ export default function MainPage({ navigation }) {
   const handlePressSend = () => {
     // 송금하기 눌렀을 때 구현할 예정
   };
+
+  const getRecentSchedule = async () => {
+    // console.log('getRecentSchedule 실행');
+    const thisMonth = new Date().getMonth() + 1;
+    const thisYear = new Date().getFullYear();
+    const thisDay = new Date().getDate();
+
+    const nextMonth = thisMonth === 12 ? 1 : thisMonth + 1;
+    const nextYear = thisMonth === 12 ? thisYear + 1 : thisYear;
+    const nextDay = 28;
+    const startDate = makeTimestampWithDay(thisYear, thisMonth, thisDay) / 1000;
+    const endDate = makeTimestampWithDay(nextYear, nextMonth, nextDay) / 1000;
+    // const url = `api/schedule/list`;
+    const url = `api/schedule/list?start=${startDate}&end=${endDate}`;
+    // const url = `api/schedule/list?start=${startDate}&end=${endDate}`;
+    // console.log(url);
+    const response = await API.get(url).catch((error) =>
+      console.error('Axios 에러', error)
+    );
+    // console.log('일정응답 데이터:', response.data);
+    //데이터 형식 확인할 것
+    if (response && response.status === 200 && response.data[0]) {
+      setRecentSchedule(response.data[0]);
+      console.log(response.data[0]);
+    }
+  };
+
+  useEffect(() => {
+    if (name) {
+      getRecentSchedule();
+    }
+  }, [name]);
 
   return (
     <View style={styles.container}>
@@ -62,10 +98,7 @@ export default function MainPage({ navigation }) {
         <Fontisto name='bell' size={24} color='black' />
       </View> */}
 
-
       <View style={styles.loginCon}>
-        {/* <Text>이름{name}</Text> */}
-        {/* 테스트용 */}
         {name ? (
           <View style={styles.schedule}>
             <View style={styles.ddaydiv}>
@@ -73,14 +106,26 @@ export default function MainPage({ navigation }) {
             </View>
             <Text style={styles.date}>2023-09-17 13:00</Text>
             <View style={styles.aboutdiv}>
-              <View style={styles.schedulename}>
-                <Text style={styles.scboldText}>[친구] 김신한 님의</Text>
-                <View style={styles.maindiv}>
-                  <Text style={styles.bluetext}>결혼식</Text>
-                  <Text style={styles.scboldText}>일정이 있습니다.</Text>
+              {recentSchedule ? (
+                <View style={styles.schedulename}>
+                  {recentSchedule.friend ? (
+                    <Text style={styles.scboldText}>
+                      [{recentSchedule.friend.relation}]{' '}
+                      {recentSchedule.friend.name} 님의
+                    </Text>
+                  ) : (
+                    <Text style={styles.scboldText}>나의</Text>
+                  )}
+                  <View style={styles.maindiv}>
+                    <Text style={styles.bluetext}>{recentSchedule.name}</Text>
+                    <Text style={styles.scboldText}>일정이 있습니다.{recentSchedule.scheduleNo}</Text>
+                  </View>
                 </View>
-              </View>
-              <Text style={styles.dday}>200,000원</Text>
+              ) : (
+                <Text>로딩 중 입니다.</Text>
+              )}
+
+              {/* <Text style={styles.dday}>200,000원</Text> */}
             </View>
           </View>
         ) : (
@@ -96,21 +141,20 @@ export default function MainPage({ navigation }) {
             <View style={styles.loginRight}>
               <Image
                 source={char1}
-                resizeMode="contain"
+                resizeMode='contain'
                 style={styles.loginImg}
               />
             </View>
           </View>
         )}
         <MyButton
-
-          title={!name ? "로그인" : "송금하기"}
-          backgroundColor="#2B70CC"
-          color="white"
+          title={!name ? '로그인' : '송금하기'}
+          backgroundColor='#2B70CC'
+          color='white'
           onPress={
             !name
-              ? () => navigation.navigate("Login")
-              : () => navigation.navigate("CheckAccount")
+              ? () => navigation.navigate('Login')
+              : () => navigation.navigate('CheckAccount')
           }
         />
       </View>
@@ -122,23 +166,23 @@ export default function MainPage({ navigation }) {
           <View style={styles.serviceLine}>
             <TouchableOpacity
               style={styles.serviceEach}
-              onPress={() => navigation.navigate("FriendCreate")}
+              onPress={() => navigation.navigate('FriendCreate')}
             >
               <Text style={styles.serviceTitle}>지인 등록</Text>
               <Image
                 source={char7}
-                resizeMode="contain"
+                resizeMode='contain'
                 style={styles.serviceImg}
               />
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.serviceEach}
-              onPress={() => navigation.navigate("CalendarCreate")}
+              onPress={() => navigation.navigate('CalendarCreate')}
             >
               <Text style={styles.serviceTitle}>일정 등록</Text>
               <Image
                 source={char8}
-                resizeMode="contain"
+                resizeMode='contain'
                 style={styles.serviceImg}
               />
             </TouchableOpacity>
@@ -146,23 +190,23 @@ export default function MainPage({ navigation }) {
           <View style={styles.serviceLine}>
             <TouchableOpacity
               style={styles.serviceEach}
-              onPress={() => navigation.navigate("Savings")}
+              onPress={() => navigation.navigate('Savings')}
             >
               <Text style={styles.serviceTitle}>적금편지 상품찾기</Text>
               <Image
                 source={char2}
-                resizeMode="contain"
+                resizeMode='contain'
                 style={styles.serviceImg}
               />
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.serviceEach}
-              onPress={() => navigation.navigate("Gift")}
+              onPress={() => navigation.navigate('Gift')}
             >
               <Text style={styles.serviceTitle}>선물 · 금액 추천</Text>
               <Image
                 source={char3}
-                resizeMode="contain"
+                resizeMode='contain'
                 style={styles.serviceImg}
               />
             </TouchableOpacity>
@@ -176,18 +220,18 @@ export default function MainPage({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F1F6FD",
-    justifyContent: "center",
+    backgroundColor: '#F1F6FD',
+    justifyContent: 'center',
   },
   titleCon: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginTop: 45,
     marginHorizontal: 35,
   },
   title: {
     fontSize: 24,
-    fontWeight: "600",
+    fontWeight: '600',
   },
   loginCon: {
     flex: 1.3,
@@ -196,41 +240,41 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingBottom: 20,
     borderRadius: 15,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
   loginUpper: {
     flex: 2,
-    flexDirection: "row",
+    flexDirection: 'row',
     paddingLeft: 12,
   },
   loginImg: {
-    width: "80%",
-    height: "80%",
+    width: '80%',
+    height: '80%',
   },
   loginLeft: {
     flex: 1.5,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   loginRight: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   bottom: {
     flex: 2.5,
   },
   grayText: {
     fontSize: 16,
-    color: "gray",
+    color: 'gray',
   },
   boldText: {
     fontSize: 18,
-    fontWeight: "700",
+    fontWeight: '700',
     letterSpacing: 0.2,
   },
   scboldText: {
     fontSize: 20,
-    fontWeight: "700",
+    fontWeight: '700',
     letterSpacing: 0.2,
   },
   sub: {
@@ -243,29 +287,29 @@ const styles = StyleSheet.create({
   },
   serviceEach: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderRadius: 15,
-    justifyContent: "center",
+    justifyContent: 'center',
     marginHorizontal: 10,
     marginBottom: 23,
     paddingHorizontal: 15,
   },
   serviceTitle: {
     fontSize: 18,
-    fontWeight: "600",
+    fontWeight: '600',
   },
   serviceImg: {
-    width: "60%",
-    height: "60%",
+    width: '60%',
+    height: '60%',
     marginLeft: 50,
   },
   serviceLine: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   serviceTitle: {
     fontSize: 16,
-    fontWeight: "600",
+    fontWeight: '600',
     paddingLeft: 5,
     paddingVertical: 10,
   },
@@ -274,25 +318,25 @@ const styles = StyleSheet.create({
   },
   dday: {
     fontSize: 18,
-    fontWeight: "600",
-    color: "gray",
+    fontWeight: '600',
+    color: 'gray',
   },
   ddaydiv: {
     marginTop: 17,
-    flexDirection: "row",
-    justifyContent: "flex-end",
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
   },
   date: {
     fontSize: 17,
   },
   maindiv: {
-    flexDirection: "row",
+    flexDirection: 'row',
     gap: 5,
   },
   bluetext: {
-    color: "#2B70CC",
+    color: '#2B70CC',
     fontSize: 20,
-    fontWeight: "700",
+    fontWeight: '700',
     letterSpacing: 0.2,
   },
   aboutdiv: {
@@ -300,5 +344,5 @@ const styles = StyleSheet.create({
   },
   schedulename: {
     marginTop: 10,
-  }
+  },
 });
