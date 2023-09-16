@@ -84,20 +84,21 @@ export default function BottomSheetGift({ visible, setVisible }) {
   const [giftOpen, setGiftOpen] = useState(false);
   const [giftValue, setGiftValue] = useState(null);
   const [giftItems, setGiftItems] = useState([
-    { label: '교환권/상품권', value: '1' },
-    { label: '화장품', value: '2' },
-    { label: '옷', value: '3' },
-    { label: '향수', value: '4' },
-    { label: '주얼리', value: '5' },
-    { label: '식품', value: '6' },
-    { label: '리빙', value: '7' },
-    { label: '레저/스포츠', value: '8' },
-    { label: '유아동', value: '9' },
-    { label: '반려동물 용품', value: '10' },
-    { label: '도서/음잔/문고', value: '11' },
-    { label: '디지털/가전', value: '12' },
-    { label: '식물', value: '13' },
-    { label: '기타', value: '14' },
+
+    { label: "교환권/상품권", value: "교환권/상품권" },
+    { label: "화장품", value: "화장품" },
+    { label: "옷", value: "옷" },
+    { label: "향수", value: "향수" },
+    { label: "주얼리", value: "주얼리" },
+    { label: "식품", value: "식품" },
+    { label: "리빙", value: "리빙" },
+    { label: "레저/스포츠", value: "레저/스포츠" },
+    { label: "유아동", value: "유아동" },
+    { label: "반려동물 용품", value: "반려동물 용품" },
+    { label: "도서/음잔/문고", value: "도서/음잔/문고" },
+    { label: "디지털/가전", value: "디지털/가전" },
+    { label: "식물", value: "식물" },
+    { label: "기타", value: "기타" },
   ]);
 
   useEffect(() => {

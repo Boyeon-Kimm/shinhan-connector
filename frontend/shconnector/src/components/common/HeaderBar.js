@@ -1,19 +1,8 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableWithoutFeedback,
-} from 'react-native';
-import {
-  Fontisto,
-  AntDesign,
-  Entypo,
-} from '@expo/vector-icons';
-import {
-  font,
-  statusBarHeight,
-} from '../../config/globalStyles';
+import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { Fontisto, AntDesign, Entypo } from '@expo/vector-icons';
+import { font, statusBarHeight } from '../../config/globalStyles';
+import { useNavigation } from '@react-navigation/native';
 
 export default function HeaderBar({
   showBackArrow,
@@ -26,6 +15,11 @@ export default function HeaderBar({
   onPressRight,
 }) {
   const thisIconSize = font(22);
+  const navigation = useNavigation();
+
+  const handlePressHome = ()=>{
+    navigation.navigate("Home");
+  }
 
   return (
     <View style={styles.titleCon}>
@@ -44,29 +38,17 @@ export default function HeaderBar({
       </View>
       <View style={styles.titleRight}>
         {showLogout ? (
-          <TouchableWithoutFeedback
-            onPress={onPressLogout}
-          >
-            <Text style={styles.logout}>
-              로그아웃
-            </Text>
+          <TouchableWithoutFeedback onPress={onPressLogout}>
+            <Text style={styles.logout}>로그아웃</Text>
           </TouchableWithoutFeedback>
         ) : null}
         {showBell ? (
-          <TouchableWithoutFeedback
-            onPress={onPressRight}
-          >
-            <Entypo
-              name='home'
-              size={24}
-              color='black'
-            />
+          <TouchableWithoutFeedback onPress={handlePressHome}>
+            <Entypo name='home' size={24} color='black' />
           </TouchableWithoutFeedback>
         ) : null}
         {showThreeDots ? (
-          <TouchableWithoutFeedback
-            onPress={onPressRight}
-          >
+          <TouchableWithoutFeedback onPress={onPressRight}>
             <Entypo
               name='dots-three-vertical'
               size={thisIconSize}
