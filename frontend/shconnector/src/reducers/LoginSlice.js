@@ -10,6 +10,7 @@ const initialState = {
   contact: null,
   accessToken: null,
   refreshToken: null,
+  message: null,
 };
 
 const LoginSlice = createSlice({
@@ -43,6 +44,9 @@ const LoginSlice = createSlice({
     updateRefreshToken: (state, action) => {
       state.refreshToken = action.payload;
     },
+    updateMessage: (state, action) => {
+      state.message = action.payload;
+    },
   },
 });
 
@@ -57,4 +61,5 @@ export const {
   updateContact,
   updateAccessToken,
   updateRefreshToken,
+  updateMessage,
 } = LoginSlice.actions;
