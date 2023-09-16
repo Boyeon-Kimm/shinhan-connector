@@ -17,7 +17,6 @@ export default function ScheduleCard({ scheduleNumber, time, relation, scheduleN
     console.log("경조사비 추가");
   };
   const handleAddGift = () => {
-    navigation.navigate("GiftCreate");
     console.log("선물 추가");
   };
   const handleUpdateSchedule = () => {
