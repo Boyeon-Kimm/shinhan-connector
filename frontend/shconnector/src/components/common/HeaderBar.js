@@ -1,25 +1,19 @@
-import React from "react";
-import { View, Text, StyleSheet, TouchableWithoutFeedback } from "react-native";
-import { Fontisto, AntDesign, Entypo } from "@expo/vector-icons";
-import { font, statusBarHeight } from "../../config/globalStyles";
+import React from 'react';
+import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { Fontisto, AntDesign, Entypo } from '@expo/vector-icons';
+import { font, statusBarHeight } from '../../config/globalStyles';
 
 export default function HeaderBar({
   showBackArrow,
+  onPressArrow,
   title,
   showLogout,
+  onPressLogout,
   showBell,
   showThreeDots,
   onPressRight,
 }) {
   const thisIconSize = font(22);
-
-  const onPressLogout = () => {
-    // 로그아웃 코드 구현 예정
-  };
-
-  const onPressBackArrow = () => {
-    // 뒤로가기 코드 구현 예정
-  };
 
   return (
     <View style={styles.titleCon}>
@@ -27,10 +21,10 @@ export default function HeaderBar({
         {showBackArrow ? (
           <TouchableWithoutFeedback>
             <AntDesign
-              name="left"
+              name='left'
               size={thisIconSize}
-              color="black"
-              onPress={onPressBackArrow}
+              color='black'
+              onPress={onPressArrow}
             />
           </TouchableWithoutFeedback>
         ) : null}
@@ -42,17 +36,17 @@ export default function HeaderBar({
             <Text style={styles.logout}>로그아웃</Text>
           </TouchableWithoutFeedback>
         ) : null}
-        {showBell ? (
+        {/* {showBell ? (
           <TouchableWithoutFeedback onPress={onPressRight}>
-            <Fontisto name="bell" size={thisIconSize} color="black" />
+            <Fontisto name='bell' size={thisIconSize} color='black' />
           </TouchableWithoutFeedback>
-        ) : null}
+        ) : null} */}
         {showThreeDots ? (
           <TouchableWithoutFeedback onPress={onPressRight}>
             <Entypo
-              name="dots-three-vertical"
+              name='dots-three-vertical'
               size={thisIconSize}
-              color="black"
+              color='black'
             />
           </TouchableWithoutFeedback>
         ) : null}
@@ -63,29 +57,29 @@ export default function HeaderBar({
 
 const styles = StyleSheet.create({
   titleCon: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginTop: statusBarHeight + font(20),
     marginHorizontal: font(15),
     // paddingHorizontal: 35,
   },
 
   titleLeft: {
-    flexDirection: "row",
+    flexDirection: 'row',
     flexGrow: 1,
-    alignItems: "center",
+    alignItems: 'center',
     gap: font(6),
   },
   titleRight: {
-    flexDirection: "row",
+    flexDirection: 'row',
     // flexGrow: 1,
-    alignItems: "center",
+    alignItems: 'center',
     gap: font(14),
   },
 
   title: {
     fontSize: font(22),
-    fontWeight: "600",
+    fontWeight: '600',
     gap: font(7),
   },
 });

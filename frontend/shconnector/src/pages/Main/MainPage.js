@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { StatusBar } from "expo-status-bar";
 import { Fontisto } from "@expo/vector-icons";
 
+import HeaderBar from '../../components/common/HeaderBar';
 import {
   updateAccountNo,
   updateMemberNo,
@@ -27,7 +28,7 @@ export default function MainPage({ navigation }) {
   const dispatch = useDispatch();
   const name = useSelector((state) => state.login.name);
 
-  const handlePressLogout = () => {
+  const onPressLogout = () => {
     dispatch(updateAccountNo(null));
     dispatch(updateMemberNo(null));
     dispatch(updateId(null));
@@ -39,13 +40,29 @@ export default function MainPage({ navigation }) {
     dispatch(updateRefreshToken(null));
   };
 
+  const handlePressSend = () => {
+    // 송금하기 눌렀을 때 구현할 예정
+  };
+
   return (
     <View style={styles.container}>
-      <StatusBar style="auto" />
-      <View style={styles.titleCon}>
+      <StatusBar style='auto' />
+      <HeaderBar
+        showBackArrow={false}
+        onPressArrow={null}
+        title={'홈'}
+        showLogout={name ? true : false}
+        onPressLogout={onPressLogout}
+        showBell={true}
+        showThreeDots={false}
+        onPressRight={null}
+      />
+      {/* <View style={styles.titleCon}>
         <Text style={styles.title}>홈</Text>
-        <Fontisto name="bell" size={24} color="black" />
-      </View>
+        <Fontisto name='bell' size={24} color='black' />
+      </View> */}
+
+
       <View style={styles.loginCon}>
         {/* <Text>이름{name}</Text> */}
         {/* 테스트용 */}
@@ -86,6 +103,7 @@ export default function MainPage({ navigation }) {
           </View>
         )}
         <MyButton
+
           title={!name ? "로그인" : "송금하기"}
           backgroundColor="#2B70CC"
           color="white"

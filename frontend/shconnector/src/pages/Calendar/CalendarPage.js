@@ -2,9 +2,7 @@ import { useEffect } from 'react';
 import { Text, View, Dimensions, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { StatusBar } from 'expo-status-bar';
-import { Feather } from '@expo/vector-icons';
-import { AntDesign } from '@expo/vector-icons';
-import { Fontisto } from '@expo/vector-icons';
+import { Feather, AntDesign, Fontisto } from '@expo/vector-icons';
 import MyCalendar from '../../components/calendar/CalendarCustom';
 import ScheduleDayList from '../../components/calendar/ScheduleDayList';
 import {
@@ -18,7 +16,8 @@ import HeaderBar from '../../components/common/HeaderBar';
 import { updateSchedules } from '../../reducers/CalendarSlice';
 import API from '../../util/api';
 import { makeTimestamp } from '../../util/globalFunc';
-export default function CalendarPage() {
+
+export default function CalendarPage({ navigation }) {
   const dispatch = useDispatch();
   const selected = useSelector((state) => state.calendar.selected);
   const currMonth = useSelector((state) => state.calendar.currMonth);
@@ -96,6 +95,7 @@ export default function CalendarPage() {
       },
     },
   ];
+
   const getSchedules = async (year, month) => {
     console.log('getSchedules 실행');
     const prevMonth = month === 1 ? 12 : month - 1;
@@ -117,6 +117,11 @@ export default function CalendarPage() {
     console.log(schedules);
     // return response.data; // 응답 반환
   };
+
+  const handlePressArrow = () => {
+    navigation.goBack();
+  };
+
   useEffect(() => {
     //현재 월의 데이터 받아오는 api 실행
     // console.log(currYear);
@@ -124,16 +129,26 @@ export default function CalendarPage() {
     getSchedules(currYear, currMonth);
     // console.log(schedules);
   }, [currYear, currMonth]);
+
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
       <StatusBar style='auto' />
-      <View style={styles.titleCon}>
+      <HeaderBar
+        showBackArrow={true}
+        onPressArrow={handlePressArrow}
+        title={'나의 일정'}
+        showLogout={false}
+        showBell={true}
+        showThreeDots={false}
+        onPressRight={null}
+      />
+      {/* <View style={styles.titleCon}>
         <View style={styles.titleLeft}>
           <AntDesign name='left' size={headerSize} color='black' />
           <Text style={styles.title}>나의 일정</Text>
         </View>
         <Fontisto name='bell' size={24} color='black' />
-      </View>
+      </View> */}
       <MyCalendar myInfo={myInfo} othersInfo={othersInfo} />
       {selected ? (
         <ScheduleDayList />

@@ -1,9 +1,9 @@
-import { Provider } from "react-redux";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import "react-native-gesture-handler";
-import MyNavBar from "./src/components/common/NavBar";
-import FriendCreatePage from "./src/pages/Friend/FriendCreatePage";
+import { Provider } from 'react-redux';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import 'react-native-gesture-handler';
+import MyNavBar from './src/components/common/NavBar';
+import FriendCreatePage from './src/pages/Friend/FriendCreatePage';
 
 import store from "./store";
 import CalendarCreate from "./src/pages/Calendar/CalendarCreate";
@@ -29,187 +29,164 @@ export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator initialRouteName='Home'>
           <Stack.Screen
-            name="Home"
+            name='Home'
             component={MyNavBar}
             options={{
               headerShown: false,
             }}
           />
           <Stack.Screen
-            name="FriendCreate"
+            name='FriendCreate'
             component={FriendCreatePage}
             options={{
-              title: "",
-              headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
-              },
+              headerShown: false,
             }}
           />
           <Stack.Screen
-            name="CalendarCreate"
+            name='CalendarCreate'
             component={CalendarCreate}
             options={{
-              title: "",
-              headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
-              },
+              headerShown: false,
             }}
           />
           <Stack.Screen
-            name="Login"
-            component={Login}
-            options={{
-              title: "",
-              headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
-              },
-            }}
-          />
-          <Stack.Screen
-            name="Signup"
-            component={Signup}
-            options={{
-              title: "",
-              headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
-              },
-            }}
-          />
-          <Stack.Screen
-            name="Transfer"
-            component={Transfer}
-            options={{
-              title: "",
-              headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
-              },
-            }}
-          />
-          <Stack.Screen
-            name="WriteLetter"
-            component={WriteLetter}
-            options={{
-              title: "",
-              headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
-              },
-            }}
-          />
-          <Stack.Screen
-            name="Savings"
+            name='Savings'
             component={Savings}
             options={{
-              title: "",
-              headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
-              },
+              headerShown: false,
             }}
           />
           <Stack.Screen
-            name="Gift"
+            name='Gift'
             component={Gift}
             options={{
-              title: "",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name='Login'
+            component={Login}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name='Signup'
+            component={Signup}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name='Transfer'
+            component={Transfer}
+            options={{
+              title: '',
               headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
+                backgroundColor: 'white',
+                shadowColor: 'white',
               },
             }}
           />
           <Stack.Screen
-            name="AccountList"
+            name='WriteLetter'
+            component={WriteLetter}
+            options={{
+              title: '',
+              headerStyle: {
+                backgroundColor: 'white',
+                shadowColor: 'white',
+              },
+            }}
+          />
+
+          <Stack.Screen
+            name='AccountList'
             component={AccountList}
             options={{
-              title: "",
+              title: '',
               headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
+                backgroundColor: 'white',
+                shadowColor: 'white',
               },
             }}
           />
           <Stack.Screen
-            name="FriendPage"
+            name='FriendPage'
             component={FriendPage}
             options={{
-              title: "",
+              title: '',
               headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
+                backgroundColor: 'white',
+                shadowColor: 'white',
               },
             }}
           />
           <Stack.Screen
-            name="CalendarPage"
+            name='CalendarPage'
             component={CalendarPage}
             options={{
-              title: "",
+              title: '',
               headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
+                backgroundColor: 'white',
+                shadowColor: 'white',
               },
             }}
           />
           <Stack.Screen
-            name="CheckAccount"
+            name='CheckAccount'
             component={CheckAccount}
             options={{
-              title: "",
+              title: '',
               headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
+                backgroundColor: 'white',
+                shadowColor: 'white',
               },
             }}
           />
           <Stack.Screen
-            name="CheckExpense"
+            name='CheckExpense'
             component={CheckExpense}
             options={{
-              title: "",
+              title: '',
               headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
+                backgroundColor: 'white',
+                shadowColor: 'white',
               },
             }}
           />
           <Stack.Screen
-            name="CheckTransfer"
+            name='CheckTransfer'
             component={CheckTransfer}
             options={{
-              title: "",
+              title: '',
               headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
+                backgroundColor: 'white',
+                shadowColor: 'white',
               },
             }}
           />
           <Stack.Screen
-            name="AccountDetail"
+            name='AccountDetail'
             component={AccountDetail}
             options={{
-              title: "",
+              title: '',
               headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
+                backgroundColor: 'white',
+                shadowColor: 'white',
               },
             }}
           />
           <Stack.Screen
-            name="LikeSavings"
+            name='LikeSavings'
             component={LikeSavings}
             options={{
-              title: "",
+              title: '',
               headerStyle: {
-                backgroundColor: "white",
-                shadowColor: "white",
+                backgroundColor: 'white',
+                shadowColor: 'white',
               },
             }}
           />

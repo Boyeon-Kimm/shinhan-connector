@@ -8,52 +8,59 @@ import FriendDetailPage from './FriendDetailPage';
 
 const category = ['전체보기', '가족', '친구', '직장', '거래처', '기타'];
 
-export default function FriendPage() {
+export default function FriendPage({ navigation }) {
   const [searchCondition, setSearchCondition] = useState(null);
   const [currentCategory, setCurrentCategory] = useState(category[0]);
+
+  const handlePressArrow = () => {
+    navigation.goBack();
+  };
+
   const handleTextChange = (newText) => {
     setSearchCondition(newText);
   };
 
-  const onPressTest = (newCategory) => {
+  const onPressCategory = (newCategory) => {
     setCurrentCategory(newCategory);
   };
 
   return (
-    <FriendDetailPage friendNo={1}></FriendDetailPage>
-    // <View style={styles.container}>
-    //   <HeaderBar
-    //     showBackArrow={true}
-    //     title='지인 목록'
-    //     showBell={true}
-    //     onPressRight={null}
-    //   />
-    //   <ScrollView style={styles.horizonCon} horizontal={true}>
-    //     {category.map((item) => (
-    //       <HorizonButton
-    //         key={item}
-    //         onPress={() => {
-    //           onPressTest(item);
-    //         }}
-    //         title={item}
-    //         backgroundColor={colors.button}
-    //         color={colors.shinhan}
-    //         borderColor={colors.button}
-    //         selected={currentCategory === item ? true : false}
-    //       />
-    //     ))}
-    //   </ScrollView>
-    //   <View>
-    //     <TextInput
-    //       style={styles.input}
-    //       onChangeText={handleTextChange}
-    //       placeholder='검색어를 입력해주세요'
-    //       keyboardType='default'
-    //     />
-        
-    //   </View>
-    //   <FriendListCard />
-    // </View>
+    // <FriendDetailPage friendNo={1}></FriendDetailPage>
+    <View style={styles.container}>
+      <HeaderBar
+        showBackArrow={true}
+        onPressArrow={handlePressArrow}
+        title='지인 목록'
+        showLogout={false}
+        showBell={false}
+        showThreeDots={false}
+        onPressRight={null}
+      />
+      <ScrollView style={styles.horizonCon} horizontal={true}>
+        {category.map((item) => (
+          <HorizonButton
+            key={item}
+            onPress={() => {
+              onPressCategory(item);
+            }}
+            title={item}
+            backgroundColor={colors.button}
+            color={colors.shinhan}
+            borderColor={colors.button}
+            selected={currentCategory === item ? true : false}
+          />
+        ))}
+      </ScrollView>
+      <View>
+        <TextInput
+          style={styles.input}
+          onChangeText={handleTextChange}
+          placeholder='검색어를 입력해주세요'
+          keyboardType='default'
+        />
+      </View>
+      <FriendListCard />
+    </View>
   );
 }
 
