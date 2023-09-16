@@ -16,12 +16,15 @@ import { useState } from 'react';
 
 export default function CheckExpense({ route }) {
   const navigation = useNavigation();
+  const name = useSelector((state) => state.login.name);
   const accountNumber = useSelector((state) => state.login.accountNo);
   const [remainMoney, setRemainMoney] = useState(null);
+  const [sendMoney, setSendMoney] = useState(null);
   const { friend } = route.params;
 
   const getAccountData = async () => {
     const url = `/api/account/${accountNumber}`;
+    console.log(accountNumber);
     const response = await API.get(url).catch((error) => {
       console.log('Axios 에러', error.response);
       if (error.response.status === 400) {
@@ -39,9 +42,37 @@ export default function CheckExpense({ route }) {
       console.log('계좌 조회에 실패하였습니다');
     }
   };
+
+  const handleTransfer = async () => {
+    const url = `/api/account`;
+    const body = {
+      bankCode: friend.bankCode,
+      accountNumber: friend.accountNumber,
+      amount: sendMoney,
+      depositorName: name,
+    };
+    const response = await API.post(url,body).catch((error) => {
+      console.log('Axios 에러', error.response);
+      if (error.response.status === 400) {
+        console.log('잘못된 계좌 정보');
+      }
+      if (error.response.status === 403) {
+        console.log('잔액이 부족합니다.');
+      }
+    });
+    console.log(response);
+
+    if (response && response.status === 200) {
+      navigation.navigate('CheckTransfer', { friend, sendMoney });
+    } else {
+      console.log('송금에 실패하였습니다');
+    }
+  };
+
   useEffect(() => {
     getAccountData();
   }, []);
+
   return (
     <View style={styles.container}>
       <StatusBar style='auto' />
@@ -49,6 +80,8 @@ export default function CheckExpense({ route }) {
         <Text style={styles.boldtext}>{friend.name}님께</Text>
         <Text style={styles.boldtext}>얼마를 보내시겠습니까?</Text>
         <TextInput
+          value={sendMoney}
+          onChangeText={setSendMoney}
           style={styles.input}
           placeholder='보낼금액(원)'
           keyboardType='text'
@@ -61,7 +94,7 @@ export default function CheckExpense({ route }) {
             title='송금하기'
             backgroundColor='#2B70CC'
             color='white'
-            onPress={() => navigation.navigate('CheckTransfer', { friend })}
+            onPress={handleTransfer}
           />
         </TouchableOpacity>
       </View>

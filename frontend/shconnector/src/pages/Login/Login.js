@@ -65,10 +65,10 @@ export default function Login({ navigation }) {
       }
     });
 
-    // console.log(response.data.token.accessToken);
+    // console.log(response.data);
 
     if (response && response.status === 200) {
-      dispatch(updateAccountNo(response.data.signInResponse.accountNo));
+      dispatch(updateAccountNo(response.data.signInResponse.accountNumber));
       dispatch(updateMemberNo(response.data.signInResponse.memberNo));
       dispatch(updateId(response.data.signInResponse.id));
       dispatch(updateName(response.data.signInResponse.name));

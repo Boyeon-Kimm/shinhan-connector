@@ -17,9 +17,7 @@ export default function CheckAccount({ route }) {
   const myName = useSelector((state) => state.login.name);
   const navigation = useNavigation();
   const { friend } = route.params;
-  let bank = null;
-  if (friend.bank === '039') bank = '경남은행';
-
+  
   const bankMapping = {
     '039': '경남은행',
     '034': '광주은행',
