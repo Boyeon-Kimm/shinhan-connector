@@ -118,7 +118,7 @@ export default function MainPage({ navigation }) {
                   )}
                   <View style={styles.maindiv}>
                     <Text style={styles.bluetext}>{recentSchedule.name}</Text>
-                    <Text style={styles.scboldText}>일정이 있습니다.{recentSchedule.scheduleNo}</Text>
+                    <Text style={styles.scboldText}>일정이 있습니다.</Text>
                   </View>
                 </View>
               ) : (
@@ -148,13 +148,26 @@ export default function MainPage({ navigation }) {
           </View>
         )}
         <MyButton
-          title={!name ? '로그인' : '송금하기'}
+          title={
+            !name
+              ? '로그인'
+              : recentSchedule
+              ? recentSchedule.friend
+                ? '송금하기'
+                : '일정 보기'
+              : null
+          }
           backgroundColor='#2B70CC'
           color='white'
           onPress={
             !name
               ? () => navigation.navigate('Login')
-              : () => navigation.navigate('CheckAccount')
+              : recentSchedule
+              ? () =>
+                  navigation.navigate('CheckAccount', {
+                    friend: recentSchedule ? recentSchedule.friend : 'test',
+                  })
+              : () => navigation.navigate('Home', { screen: 'Calendar' })
           }
         />
       </View>
