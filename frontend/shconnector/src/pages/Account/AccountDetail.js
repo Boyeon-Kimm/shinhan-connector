@@ -7,15 +7,75 @@ import {
   ScrollView,
   Image,
 } from 'react-native';
+import { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import Symbol from '../../../assets/symbol.png';
 import MyButton from '../../components/common/Button';
 import SearchInput from '../../components/input/SearchInput';
 import DepositEach from '../../components/List/DepositEach';
+import { useDispatch, useSelector } from 'react-redux';
+import API from '../../util/api';
+import { updateAcountList } from '../../reducers/AccountSlice';
+import {dayFormat} from '../../util/globalFunc';
 
 export default function AccountDetail({ title, bank, accountNo }) {
+  const dispatch = useDispatch();
+
   const accountNumber = useSelector((state) => state.login.accountNo);
   const [remainMoney, setRemainMoney] = useState(null);
+  const accountHistory = useSelector((state) => state.account.accountList);
+
+  const bankMapping = {
+    '039': '경남은행',
+    '034': '광주은행',
+    '004': '국민은행',
+    '003': '기업은행',
+    '011': '농협중앙회',
+    '012': '지역농협·축협',
+    '031': '대구은행',
+    102: '대신저축은행',
+    '055': '도이치은행',
+    '052': '모건스탠리은행',
+    '059': '미쓰비시은행',
+    '032': '부산은행',
+    '064': '산림조합중앙회',
+    '002': '산업은행',
+    '050': '상호저축은행',
+    '045': '새마을금고',
+    '007': '수협',
+    '027': '씨티은행',
+    '088': '신한은행',
+    '048': '신협',
+    '060': '아메리카은행',
+    '005': '외환은행',
+    '020': '우리은행',
+    '071': '우체국',
+    105: '웰컴저축은행',
+    '037': '전북은행',
+    '057': '제이피모던체이스은행',
+    '035': '제주은행',
+    '090': '카카오뱅크',
+    '089': '케이뱅크',
+    '081': '하나은행',
+    '008': '한국수출입은행',
+    '001': '한국은행',
+    '054': 'HSBC',
+    '023': 'SC제일은행',
+  };
+
+  const getAccountHistory = async () => {
+    const url = `/api/account/${accountNumber}/history`;
+    const response = await API.get(url).catch((error) => {
+      console.log('Axios 에러', error.response);
+    });
+    console.log(response.data);
+
+    if (response && response.status === 200) {
+      dispatch(updateAcountList(response.data));
+    } else {
+      console.log('계좌 내역 조회에 실패하였습니다');
+    }
+  };
 
   const getAccountData = async () => {
     const url = `/api/account/${accountNumber}`;
@@ -32,10 +92,15 @@ export default function AccountDetail({ title, bank, accountNo }) {
 
     if (response && response.status === 200) {
       setRemainMoney(response.data.remainMoney);
+      getAccountHistory();
     } else {
       console.log('계좌 조회에 실패하였습니다');
     }
   };
+
+  useEffect(() => {
+    getAccountData();
+  }, []);
 
   return (
     <ScrollView style={styles.container}>
@@ -63,8 +128,8 @@ export default function AccountDetail({ title, bank, accountNo }) {
         <SearchInput />
       </View>
       <View>
-        <Text style={styles.date}>2023.09.16</Text>
-        <View style={styles.detaildiv}>
+        {/* <Text style={styles.date}>2023.09.16</Text> */}
+        {/* <View style={styles.detaildiv}>
           <DepositEach
             time='02:58:45'
             description='이자'
@@ -72,9 +137,20 @@ export default function AccountDetail({ title, bank, accountNo }) {
             kind='입금'
             amount='193'
           />
-        </View>
-        <Text style={styles.date}>2023.09.15</Text>
+        </View> */}
+        {/* <Text style={styles.date}>2023.09.15</Text> */}
         <View style={styles.detaildiv}>
+          {accountHistory.map((item) => {
+            return (
+              <DepositEach
+                time={dayFormat(item.date*1000)}
+                description={item.note}
+                name={item.depositorName}
+                kind={item.modifiedAmount>0?"입금":"출금"}
+                amount={Math.abs(item.modifiedAmount)}
+              />
+            );
+          }).reverse()}
           <DepositEach
             time='15:03:22'
             description='타행IB'
