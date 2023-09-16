@@ -5,28 +5,29 @@ import 'react-native-gesture-handler';
 import MyNavBar from './src/components/common/NavBar';
 import FriendCreatePage from './src/pages/Friend/FriendCreatePage';
 
-import store from './store';
-import CalendarCreate from './src/pages/Calendar/CalendarCreate';
-import Login from './src/pages/Login/Login';
-import Signup from './src/pages/Login/Signup';
-import Transfer from './src/pages/Transfer/Transfer';
-import CheckAccount from './src/pages/Transfer/CheckAccount';
-import CheckExpense from './src/pages/Transfer/CheckExpense';
-import CheckTransfer from './src/pages/Transfer/CheckTransfer';
-import WriteLetter from './src/pages/Letter/WriteLetter';
-import Savings from './src/pages/Recommend/Savings';
-import LikeSavings from './src/pages/Recommend/LikeSavings';
-import Gift from './src/pages/Recommend/Gift';
-import AccountList from './src/pages/Account/AccountList';
-import FriendPage from './src/pages/Friend/FriendPage';
-import FriendUpdatePage from './src/pages/Friend/FriendUpdatePage';
-import CalendarPage from './src/pages/Calendar/CalendarPage';
-import AccountDetail from './src/pages/Account/AccountDetail';
-import GiftAll from './src/pages/GiftManage/GiftAll';
-import GiftGive from './src/pages/GiftManage/GiftGive';
-import GiftReceived from './src/pages/GiftManage/GiftReceived';
-import LetterDetail from './src/pages/Letter/LetterDetail';
-import Mature from './src/pages/Letter/Mature';
+import store from "./store";
+import CalendarCreate from "./src/pages/Calendar/CalendarCreate";
+import Login from "./src/pages/Login/Login";
+import Signup from "./src/pages/Login/Signup";
+import Transfer from "./src/pages/Transfer/Transfer";
+import CheckAccount from "./src/pages/Transfer/CheckAccount";
+import CheckExpense from "./src/pages/Transfer/CheckExpense";
+import CheckTransfer from "./src/pages/Transfer/CheckTransfer";
+import WriteLetter from "./src/pages/Letter/WriteLetter";
+import Savings from "./src/pages/Recommend/Savings";
+import LikeSavings from "./src/pages/Recommend/LikeSavings";
+import Gift from "./src/pages/Recommend/Gift";
+import AccountList from "./src/pages/Account/AccountList";
+import FriendPage from "./src/pages/Friend/FriendPage";
+import FriendUpdatePage from "./src/pages/Friend/FriendUpdatePage";
+import CalendarPage from "./src/pages/Calendar/CalendarPage";
+import AccountDetail from "./src/pages/Account/AccountDetail";
+import GiftAll from "./src/pages/GiftManage/GiftAll";
+import GiftGive from "./src/pages/GiftManage/GiftGive";
+import GiftReceived from "./src/pages/GiftManage/GiftReceived";
+import LetterDetail from "./src/pages/Letter/LetterDetail";
+import Mature from "./src/pages/Letter/Mature";
+import GiftCreate from './src/pages/GiftManage/GiftCreate';
 
 const Stack = createStackNavigator();
 
@@ -230,6 +231,17 @@ export default function App() {
               headerStyle: {
                 backgroundColor: 'white',
                 shadowColor: 'white',
+              },
+            }}
+          />
+          <Stack.Screen
+            name="GiftCreate"
+            component={GiftCreate}
+            options={{
+              title: "",
+              headerStyle: {
+                backgroundColor: "white",
+                shadowColor: "white",
               },
             }}
           />
