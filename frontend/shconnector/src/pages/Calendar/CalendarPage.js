@@ -106,6 +106,36 @@ export default function CalendarPage({navigation}) {
     },
   ];
 
+  const getSchedules = async (year, month) => {
+    console.log('getSchedules 실행');
+    const prevMonth = month === 1 ? 12 : month - 1;
+    const prevYear = month === 1 ? year - 1 : year;
+    const nextMonth = month === 12 ? 1 : month + 1;
+    const nextYear = month === 12 ? year + 1 : year;
+    const startDate = makeTimestamp(prevYear, prevMonth);
+    const endDate = makeTimestamp(nextYear, nextMonth);
+    const url = `api/schedule/list?start-date=${startDate}&end-date=${endDate}`;
+    console.log(url);
+    const response = await API.get(url).catch((error) =>
+      console.error('Axios 에러', error)
+    );
+    console.log('response', response);
+    console.log('response'); // 실행 안됨
+
+    //데이터 형식 확인할 것
+    dispatch(updateSchedules(response.data));
+    console.log(schedules);
+    // return response.data; // 응답 반환
+  };
+
+  useEffect(() => {
+    //현재 월의 데이터 받아오는 api 실행
+    // console.log(currYear);
+    // console.log(currMonth);
+    getSchedules(currYear, currMonth);
+    // console.log(schedules);
+  }, [currYear, currMonth]);
+  
   return (
 
     <View style={{ flex: 1, backgroundColor: 'white' }}>
