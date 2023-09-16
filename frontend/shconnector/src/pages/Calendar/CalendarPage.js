@@ -113,7 +113,7 @@ export default function CalendarPage() {
     const nextYear = month === 12 ? year + 1 : year;
     const startDate = makeTimestamp(prevYear, prevMonth);
     const endDate = makeTimestamp(nextYear, nextMonth);
-    const url = `api/schedule/list?start-date=[${startDate}]&end-date=[${endDate}]`;
+    const url = `api/schedule/list?start-date=${startDate}&end-date=${endDate}`;
     console.log(url);
     const response = await API.get(url).catch((error) =>
       console.error('Axios 에러', error)
