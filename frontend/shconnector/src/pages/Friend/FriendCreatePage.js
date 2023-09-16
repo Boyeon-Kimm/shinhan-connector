@@ -8,11 +8,11 @@ import { colors } from '../../config/globalStyles';
 import API from '../../util/api';
 
 export default function FriendCreatePage({ navigation }) {
-  const [name, setName] = useState('기두연');
-  const [contact, setContact] = useState('010-3333-3333');
+  const [name, setName] = useState(null);
+  const [contact, setContact] = useState(null);
 
   const [relationOpen, setRelationOpen] = useState(false);
-  const [relationValue, setRelationValue] = useState('거래처');
+  const [relationValue, setRelationValue] = useState(null);
   const [relationItems, setRelationItems] = useState([
     { label: '친구', value: '친구' },
     { label: '직장', value: '직장' },
@@ -24,7 +24,7 @@ export default function FriendCreatePage({ navigation }) {
   const [belong, setBelong] = useState();
 
   const [codeOpen, setCodeOpen] = useState(false);
-  const [codeValue, setCodeValue] = useState('088');
+  const [codeValue, setCodeValue] = useState(null);
   const [bankCode, setBankCode] = useState([
     { label: '경남은행', value: '039' },
     { label: '광주은행', value: '034' },
