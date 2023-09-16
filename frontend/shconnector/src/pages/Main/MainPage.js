@@ -103,7 +103,6 @@ export default function MainPage({ navigation }) {
           </View>
         )}
         <MyButton
-
           title={!name ? "로그인" : "송금하기"}
           backgroundColor="#2B70CC"
           color="white"
