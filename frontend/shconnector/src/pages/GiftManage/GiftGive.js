@@ -4,7 +4,7 @@ import {
   View,
   TextInput,
   Button,
-  ScrollView,
+  ScrollView
 } from 'react-native';
 import HeaderBar from '../../components/common/HeaderBar';
 
