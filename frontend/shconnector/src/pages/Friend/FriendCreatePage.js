@@ -273,12 +273,12 @@ export default function FriendCreatePage({ navigation }) {
               width: 300,
               borderColor: "#DCDCDC",
             }}
-            open={open}
-            value={value}
-            items={items}
-            setOpen={setOpen}
-            setValue={setValue}
-            setItems={setItems}
+            open={relationOpen}
+            value={relationValue}
+            items={relationItems}
+            setOpen={setRelationOpen}
+            setValue={setRelationValue}
+            setItems={setRelationItems}
             placeholder="— 관계를 선택하세요 —"
             modalProps={{
               animationType: "fade",
