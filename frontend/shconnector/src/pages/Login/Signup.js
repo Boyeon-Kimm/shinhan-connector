@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TextInput, ScrollView } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useState } from 'react';
@@ -192,7 +192,7 @@ export default function SignUp({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <StatusBar style='auto' />
       <HeaderBar
         showBackArrow={true}
@@ -335,7 +335,7 @@ export default function SignUp({ navigation }) {
       {/* <View style={styles.submitButton}>
         <Text style={styles.submitText}>완료</Text>
       </View> */}
-    </View>
+    </ScrollView>
   );
 }
 
