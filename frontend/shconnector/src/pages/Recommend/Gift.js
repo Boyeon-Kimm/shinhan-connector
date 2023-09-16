@@ -51,17 +51,12 @@ export default function Gift({ navigation }) {
       <HeaderBar
         showBackArrow={true}
         onPressArrow={handlePressArrow}
-        title={null}
+        title={"당신을 위한 맞춤 추천"}
         showLogout={false}
         showBell={true}
         showThreeDots={false}
         onPressRight={null}
       />
-      <View>
-        <Text style={styles.title}>
-          당신을 위한 맞춤 추천
-        </Text>
-      </View>
       <View style={styles.blueDiv}>
         <View style={styles.textDiv}>
           <Text style={styles.boldText}>
@@ -91,7 +86,7 @@ export default function Gift({ navigation }) {
       <View style={styles.inputDiv}>
         <View>
           <DropDownPicker
-            style={styles.input}
+            style={{ ...styles.input, zIndex: 1 }}
             dropDownContainerStyle={{
               width: 95,
               zIndex: 1000
@@ -107,6 +102,7 @@ export default function Gift({ navigation }) {
             modalProps={{
               animationType: 'fade',
             }}
+            zIndex={99}
           />
         </View>
         <TextInput
@@ -131,6 +127,7 @@ export default function Gift({ navigation }) {
             modalProps={{
               animationType: 'fade',
             }}
+            zIndex={99}
           />
         </View>
         <View>
@@ -150,6 +147,7 @@ export default function Gift({ navigation }) {
             modalProps={{
               animationType: 'fade',
             }}
+            zIndex={99}
           />
         </View>
       </View>
