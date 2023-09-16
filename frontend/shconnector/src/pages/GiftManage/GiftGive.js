@@ -10,7 +10,7 @@ export default function GiftGive({ navigation }) {
   };
   return (
     <ScrollView>
-      <View>
+      <View style={styles.container}>
         <HeaderBar
           showBackArrow={true}
           onPressArrow={handlePressArrow}

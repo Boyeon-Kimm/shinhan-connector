@@ -58,7 +58,7 @@ export default function FriendPage({ navigation }) {
         showThreeDots={false}
         onPressRight={null}
       />
-      <ScrollView style={styles.horizonCon} horizontal={true}>
+      <ScrollView horizontal={true}>
         {category.map((item) => (
           <HorizonButton
             key={item}
@@ -73,7 +73,8 @@ export default function FriendPage({ navigation }) {
           />
         ))}
       </ScrollView>
-      <ScrollView style={styles.list}>
+      <ScrollView>
+        <View style={styles.list}>
         {allFriendList
           .filter((friend, i) => (
             friend.relation === (currentCategory === category[0] ? friend.relation : currentCategory)
@@ -85,6 +86,7 @@ export default function FriendPage({ navigation }) {
             group={friend.belong}
           />
         ))}
+        </View>
       </ScrollView>
     </View>
   );
@@ -104,6 +106,7 @@ const styles = StyleSheet.create({
     width: 350,
     heigth: 300,
     marginBottom: 10,
+    // alignItems: 'center',
   },
   input: {
     fontSize: font(15),
