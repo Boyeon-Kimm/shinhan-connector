@@ -21,7 +21,7 @@ import { colors } from '../../config/globalStyles';
 import dayjs from 'dayjs';
 import MyButton from '../../components/common/Button';
 
-export default function CalendarCreate({ navigation }) {
+export default function CalendarUpdate({ navigation }) {
   const dispatch = useDispatch();
   const friendList = useSelector((state) => state.friend.friendItems);
   const [message, setMessage] = useState(null);
@@ -331,6 +331,7 @@ export default function CalendarCreate({ navigation }) {
                   modalProps={{
                     animationType: 'fade',
                   }}
+                  zIndex={99}
                 />
                 <DropDownPicker
                   style={styles.dropDown}
